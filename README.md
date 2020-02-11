@@ -7,3 +7,6 @@ cd sr-app
 yarn install
 yarn start
 ```
+# Screenshots
+![Alt text](https://github.com/LarsBergqvist/sr-app/blob/master/srapp_screen1.png?raw=true "Wide screen")
+![Alt text](https://github.com/LarsBergqvist/sr-app/blob/master/srapp_screen2.png?raw=true "Narrow screen")
