@@ -21,14 +21,20 @@ export class ChannelsListComponent {
     constructor(private readonly service: ChannelsService) { }
 
     async loadChannelsLazy(event: LazyLoadEvent) {
+        const filters = event.filters;
+        let filter;
+        let filterValue;
+        if (filters && filters.name) {
+            filter = 'channel.name';
+            filterValue = filters.name.value;
+        }
         const page = event.first / this.pageSize + 1;
-        this.channelsResult = await this.service.getChannels(page, this.pageSize);
+        this.channelsResult = await this.service.getChannels(page, this.pageSize, filter, filterValue);
         this.totalHits = this.channelsResult.pagination.totalhits;
         this.channels = this.channelsResult.channels;
     }
 
     rowClicked(channel: any) {
-        console.log('click');
         this.currentStation = channel.name;
         this.currentUrlToPlay = channel.liveaudio.url;
         const audio = document.getElementById('audio');

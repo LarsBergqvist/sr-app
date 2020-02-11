@@ -1,12 +1,35 @@
 .header {
     overflow: hidden;
     background-color: #333;
-    position: fixed; /* Set the navbar to fixed position */
-    top: 0; /* Position the navbar at the top of the page */
-    width: 100%; /* Full width */
+    position: fixed;
+    top: 10px;
+    width: calc(100% - 16px);
     z-index: 100;
+    margin-left: 0px;
+    border-radius: 10px;
+    border: solid blue 1px;
+}
+
+.toolbar {
+    padding: 0px !important;
+    margin: 0px;
+    width: auto;
 }
 
 .channels-list {
-    margin-top: 80px;
+    margin-top: 120px;
+
+}
+
+.audio-ctl {
+    width: 100%;
+}
+
+.now-playing {
+    margin-bottom: 20px;
+}
+
+.audio-ctl-wrapper {
+    margin: auto;
+    width: 90%;
 }

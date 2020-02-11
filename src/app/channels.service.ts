@@ -9,8 +9,11 @@ export class ChannelsService {
 
   constructor(private readonly http: HttpClient) { }
 
-    async getChannels(page: number, pageSize: number): Promise<ChannelsResult> {
-        const url = `${this.getBaseUrlWithDefaultParams()}&page=${page}&size=${pageSize}`;
+    async getChannels(page: number, pageSize: number, filter?: string, filterValue?: string): Promise<ChannelsResult> {
+        let url = `${this.getBaseUrlWithDefaultParams()}&page=${page}&size=${pageSize}`;
+        if (filter && filterValue) {
+            url = `${url}&filter=${filter}&filtervalue=${filterValue}`;
+        }
         return this.http.get<ChannelsResult>(`${url}`).toPromise();
     }
 

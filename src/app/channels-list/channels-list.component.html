@@ -1,27 +1,37 @@
 <div class="header">
-    <p-toolbar>
-        <div class="ui-toolbar-group-left">
-            <div *ngIf="currentStation">
+    <p-toolbar class="toolbar">
+        <div>
+            <div *ngIf="currentStation" class="now-playing">
                 Now playing: {{currentStation}}
             </div>
-            <audio controls id="audio" preload="none" autoplay="false">
-                <source src="{{currentUrlToPlay}}" type="audio/mpeg">
-                Your browser does not support the audio element.
-            </audio>
-        </div>
-        <div class="ui-toolbar-group-right">
+            <div class="audio-ctl-wrapper">
+                <audio class="audio-ctl" controls id="audio" preload="none" autoplay="false">
+                    <source src="{{currentUrlToPlay}}" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>    
+            </div>
         </div>
     </p-toolbar>
 </div>
 
 <div class="channels-list">
-    <p-table [value]="channels" [paginator]="true" [lazy]="true" [rows]="pageSize" [totalRecords]="totalHits"
+    <p-table #dt [value]="channels" [paginator]="true" [lazy]="true" [rows]="pageSize" [totalRecords]="totalHits"
         (onLazyLoad)="loadChannelsLazy($event)" [responsive]="true">
         <ng-template pTemplate="header">
             <tr>
                 <th>Name</th>
                 <th>Type</th>
                 <th>Description</th>
+            </tr>
+            <tr>
+                <th>
+                    <input pInputText type="text"
+                    (input)="dt.filter($event.target.value, 'name', 'contains')">
+                </th>
+                <th>
+                </th>
+                <th>
+                </th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-channel>
