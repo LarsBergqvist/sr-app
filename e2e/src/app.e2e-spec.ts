@@ -8,9 +8,9 @@ describe('workspace-project App', () => {
     page = new AppPage();
   });
 
-  it('should display welcome message', () => {
+  it('should display first header', () => {
     page.navigateTo();
-    expect(page.getTitleText()).toEqual('sr-app app is running!');
+    expect(page.getNameOfFirstHeader()).toEqual('Name');
   });
 
   afterEach(async () => {

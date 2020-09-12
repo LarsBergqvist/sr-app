@@ -5,7 +5,7 @@ export class AppPage {
     return browser.get(browser.baseUrl) as Promise<any>;
   }
 
-  getTitleText() {
-    return element(by.css('app-root .content span')).getText() as Promise<string>;
+  getNameOfFirstHeader() {
+    return element(by.css('app-root .p-datatable-thead > tr:nth-child(1) > th:nth-child(1)')).getText() as Promise<string>;
   }
 }
