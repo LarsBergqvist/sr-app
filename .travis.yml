@@ -15,6 +15,10 @@ install:
 script:
   - yarn build
 
+before_deploy:
+  - yarn run build -- --prod --base-href /sr-app/
+  - cp dist/sr-app/index.html dist/sr-app/404.html
+
 deploy:
   provider: pages
   skip_cleanup: true
