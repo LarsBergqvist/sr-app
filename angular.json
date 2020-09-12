@@ -44,6 +44,7 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
+              "baseHref": "https://larsbergqvist.github.io/sr-app/",
               "budgets": [
                 {
                   "type": "initial",
