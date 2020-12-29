@@ -6914,10 +6914,10 @@ primeicons@^2.0.0:
   resolved "https://registry.yarnpkg.com/primeicons/-/primeicons-2.0.0.tgz#ec3e5a8d4d04a09309225a5a57deb911e08dc0d3"
   integrity sha512-GJTCeMSQU8UU1GqbsaDrg/IH+b/vSinJQl52NVpdJ7sShYLZA8Eq6jLF48Ye3N/dQloGrE07i7XsZvxQ9pNbqg==
 
-primeng@10.0.0:
-  version "10.0.0"
-  resolved "https://registry.yarnpkg.com/primeng/-/primeng-10.0.0.tgz#5875d1b693a9f41feb905aaded1228b0b61bcc1d"
-  integrity sha512-3W2AN6YvSPC9v78XgGQ/xJ7e4aQR1vECVXQioy5Av5sxM7LBB4aEgqnQt5jCxMXl/NDXTVIsjKVWIVvl/nPsXA==
+primeng-lts@10.0.0:
+  version "10.0.6"
+  resolved "https://registry.yarnpkg.com/primeng-lts/-/primeng-lts-10.0.6.tgz#145954583a922753dcd29da712281a689eac6563"
+  integrity sha512-IHGfhMImV47NZrB0BTQcO3naz9nC28o/FUblowiMupmST4qmUVNVbb9B/R3GO+b/LaPp5lxe8cUh4OPKfjZQtw==
   dependencies:
     tslib "^2.0.0"
 

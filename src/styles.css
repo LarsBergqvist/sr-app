@@ -1,18 +1,18 @@
 @import "../node_modules/primeicons/primeicons.css";
-@import "../node_modules/primeng/resources/themes/nova/theme.css";
-@import "../node_modules/primeng/resources/primeng.min.css";
+@import "../node_modules/primeng-lts/resources/themes/nova/theme.css";
+@import "../node_modules/primeng-lts/resources/primeng.min.css";
 
 .audio-wrapper {
   width: 100%;
 }
 
-ul {
+.tab-bar > ul {
   list-style-type: none;
   margin: 10px;
   padding: 0;
 }
 
-li {
+.tab-bar > ul > li {
   display: inline;
   margin: 10px;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
