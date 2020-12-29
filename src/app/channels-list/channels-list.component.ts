@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ChannelsService } from '../channels.service';
-import { LazyLoadEvent } from 'primeng/api';
+import { LazyLoadEvent } from 'primeng-lts/api';
 import { ChannelsResult } from '../models/channels-result';
 import { Channel } from '../models/channel';
 
