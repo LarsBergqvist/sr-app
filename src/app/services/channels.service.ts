@@ -18,7 +18,7 @@ export class ChannelsService {
     }
 
     private getBaseUrlWithDefaultParams(): string {
-        const base =  'http://api.sr.se/api/v2/channels/';
+        const base =  'https://api.sr.se/api/v2/channels/';
         const params = '?format=json';
         return `${base}${params}`;
     }

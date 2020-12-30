@@ -16,7 +16,7 @@ export class EpisodesService {
     }
 
     private getBaseUrlWithDefaultParams(): string {
-        const base =  'http://api.sr.se/api/v2/episodes/index/';
+        const base =  'https://api.sr.se/api/v2/episodes/index/';
         const params = '?format=json';
         return `${base}${params}`;
     }

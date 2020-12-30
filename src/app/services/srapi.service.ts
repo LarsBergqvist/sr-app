@@ -17,7 +17,7 @@ export class SRApiService  {
     private programCategories: ProgramCategory[];
     programCategories$ = new BehaviorSubject<ProgramCategory[]>(null);
 
-    private readonly baseUrl = 'http://api.sr.se/api/v2/';
+    private readonly baseUrl = 'https://api.sr.se/api/v2/';
 
     constructor(private readonly http: HttpClient) { 
     }
