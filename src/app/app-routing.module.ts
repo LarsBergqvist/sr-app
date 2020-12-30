@@ -6,7 +6,7 @@ import { ProgramsComponent } from './components/programs/programs.component';
 const routes: Routes = [
     { path: 'channels', component: ChannelsComponent },
     { path: 'programs', component: ProgramsComponent },
-    { path: '',   redirectTo: '/channels', pathMatch: 'full' }
+    { path: '**',   redirectTo: '/channels', pathMatch: 'full' }
 ];
 
 @NgModule({

@@ -9,7 +9,7 @@ import { PlayChannelMessage } from '../../messages/play-channel.message';
 @Component({
     selector: 'app-channels-list',
     templateUrl: './channels-list.component.html',
-    styleUrls: ['./channels-list.component.css']
+    styleUrls: ['./channels-list.component.scss']
 })
 export class ChannelsListComponent {
 

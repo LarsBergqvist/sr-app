@@ -6,7 +6,8 @@ import { ProgramsResult } from '../../models/programs-result';
 
 @Component({
     selector: 'app-programs-list',
-    templateUrl: './programs-list.component.html'
+    templateUrl: './programs-list.component.html',
+    styleUrls: ['./programs.component.scss']
 })
 export class ProgramsListComponent {
 

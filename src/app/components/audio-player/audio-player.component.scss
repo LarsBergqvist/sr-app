@@ -2,7 +2,7 @@
   overflow: hidden;
   background-color: #333;
   position: fixed;
-  top: 10px;
+  top: 40px;
   width: calc(100% - 16px);
   z-index: 100;
   margin-left: 0px;
@@ -10,14 +10,14 @@
   border: solid blue 1px;
 }
 
+.audio-wrapper {
+  width: 100%;
+}
+
 .toolbar {
   padding: 0px !important;
   margin: 0px;
   width: auto;
-}
-
-.channels-list {
-  margin-top: 10px;
 }
 
 .audio-ctl {
