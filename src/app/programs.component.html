@@ -1,4 +1,5 @@
 <div>
+    <h5>Categories</h5>
     <p-dropdown [options]="categoryOptions" [(ngModel)]="selectedCategory" (onChange)="onCategoryChanged($event)">
     </p-dropdown>
     <app-programs-list [Category]="selectedCategory"></app-programs-list>

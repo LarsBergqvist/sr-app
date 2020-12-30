@@ -13,6 +13,7 @@ import { ChannelsComponent } from './channels.component';
 import { ProgramsComponent } from './programs.component';
 import { ProgramsListComponent } from './programs-list/programs-list.component';
 import { FormsModule } from '@angular/forms';
+import { AudioPlayerComponent } from './audio-player/audio-player.component';
 
 @NgModule({
     declarations: [
@@ -20,7 +21,8 @@ import { FormsModule } from '@angular/forms';
         ChannelsComponent,
         ChannelsListComponent,
         ProgramsComponent,
-        ProgramsListComponent
+        ProgramsListComponent,
+        AudioPlayerComponent,
     ],
     imports: [
         BrowserModule,
