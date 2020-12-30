@@ -1,0 +1,5 @@
+<label>Free-text search episodes</label>
+<input type="text" pInputText placeholder="Search string" [(ngModel)]="query" />
+<p-button (click)="onSearch($event)" label="Search"></p-button>
+
+<app-episodes-list></app-episodes-list>
