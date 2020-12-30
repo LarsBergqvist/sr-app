@@ -23,6 +23,11 @@ export class AudioPlayerComponent implements OnInit {
                 if (message) {
                     this.currentStation = message.channelName;
                     this.currentUrlToPlay = message.channeUrl;
+                    const audio = document.getElementById('audio');
+                    if (audio) {
+                        (audio as any).load();
+                        (audio as any).play();    
+                    }
                 }
             });
 
