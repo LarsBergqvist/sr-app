@@ -15,21 +15,19 @@ export class EpisodesListComponent {
     episodes: Episode[];
     totalHits = 0;
     pageSize = 5;
-    query = '';
+    programId = null;
 
     constructor(private readonly service: EpisodesService,
                 private readonly broker: MessageBrokerService) { }
 
     async loadLazy(event: LazyLoadEvent) {
-        await this.fetch(this.query, event.first);
+        await this.fetch(this.programId, event.first);
     }
 
-    async fetch(query: string, first: number) {
-        console.log('first: ' + first);
-        this.query = query;
-        if (this.query.length < 3) return;
+    async fetch(programId: string, first: number) {
+        this.programId = programId;
         const page = first / this.pageSize + 1;
-        this.episodesResult = await this.service.searchEpisodes(this.query, page, this.pageSize);
+        this.episodesResult = await this.service.fetchEpisodes(this.programId, page, this.pageSize);
         this.totalHits = this.episodesResult.pagination.totalhits;
         this.episodes = this.episodesResult.episodes;
         this.episodes.forEach(e => {

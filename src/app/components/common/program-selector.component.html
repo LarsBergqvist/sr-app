@@ -1,0 +1,3 @@
+<div>Select a program</div>
+<p-dropdown [options]="programOptions" [(ngModel)]="selectedProgram" (onChange)="onProgramChanged($event)"
+    [filter]="true">

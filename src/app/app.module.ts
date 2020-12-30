@@ -17,6 +17,8 @@ import { FormsModule } from '@angular/forms';
 import { AudioPlayerComponent } from './components/audio-player/audio-player.component';
 import { EpisodesListComponent } from './components/episodes/episodes-list.component';
 import { EpisodesComponent } from './components/episodes/episodes.component';
+import { CategoryComponent } from './components/common/category.component';
+import { ProgramSelectorComponent } from './components/common/program-selector.component';
 
 @NgModule({
     declarations: [
@@ -27,7 +29,9 @@ import { EpisodesComponent } from './components/episodes/episodes.component';
         ProgramsListComponent,
         AudioPlayerComponent,
         EpisodesComponent,
-        EpisodesListComponent
+        EpisodesListComponent,
+        CategoryComponent,
+        ProgramSelectorComponent
     ],
     imports: [
         BrowserModule,

@@ -1,5 +1,5 @@
-<label>Free-text search episodes</label>
-<input type="text" pInputText placeholder="Search string" [(ngModel)]="query" />
-<p-button (click)="onSearch($event)" label="Search"></p-button>
+<app-program-selector (selectedProgramChanged)="onProgramChanged($event)"></app-program-selector>
+
+<p-button (click)="onFetch($event)" label="Fetch episodes"></p-button>
 
 <app-episodes-list></app-episodes-list>

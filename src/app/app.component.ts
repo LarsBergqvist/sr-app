@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { SRApiService } from './services/srapi.service';
 
 @Component({
     selector: 'app-root',
@@ -7,4 +8,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
     title = 'sr-app';
+
+    constructor(private readonly srApiService: SRApiService) {}
+
+    async ngOnInit() {
+        await this.srApiService.fetchBaseData();
+    }
 }

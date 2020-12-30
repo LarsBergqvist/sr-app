@@ -9,13 +9,16 @@ export class EpisodesService {
 
   constructor(private readonly http: HttpClient) { }
 
-  async searchEpisodes(query: string, page: number, pageSize: number, filter?: string, filterValue?: string): Promise<EpisodesResult> {
-    let url = `${this.getBaseUrlWithDefaultParams()}&query=${query}&page=${page}&size=${pageSize}`;
+  async fetchEpisodes(programId: string, page: number, pageSize: number, filter?: string, filterValue?: string): Promise<EpisodesResult> {
+    let url = `${this.getBaseUrlWithDefaultParams()}&page=${page}&size=${pageSize}`;
+    if (programId) {
+        url = `${url}&programid=${programId}`;
+    }
     return this.http.get<EpisodesResult>(`${url}`).toPromise();
     }
 
     private getBaseUrlWithDefaultParams(): string {
-        const base =  'http://api.sr.se/api/v2/episodes/search/';
+        const base =  'http://api.sr.se/api/v2/episodes/index/';
         const params = '?format=json';
         return `${base}${params}`;
     }
