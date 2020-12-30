@@ -10,10 +10,8 @@ export class EpisodesService {
   constructor(private readonly http: HttpClient) { }
 
   async fetchEpisodes(programId: string, page: number, pageSize: number, filter?: string, filterValue?: string): Promise<EpisodesResult> {
-    let url = `${this.getBaseUrlWithDefaultParams()}&page=${page}&size=${pageSize}`;
-    if (programId) {
-        url = `${url}&programid=${programId}`;
-    }
+    if (!programId) return;
+    let url = `${this.getBaseUrlWithDefaultParams()}&programid=${programId}&page=${page}&size=${pageSize}`;
     return this.http.get<EpisodesResult>(`${url}`).toPromise();
     }
 

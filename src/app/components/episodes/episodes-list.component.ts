@@ -25,6 +25,7 @@ export class EpisodesListComponent {
     }
 
     async fetch(programId: string, first: number) {
+        if (!programId) return;
         this.programId = programId;
         const page = first / this.pageSize + 1;
         this.episodesResult = await this.service.fetchEpisodes(this.programId, page, this.pageSize);

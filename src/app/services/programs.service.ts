@@ -22,14 +22,14 @@ export class ProgramsService {
     }
 
     async getProgramCategories(): Promise<ProgramCategoriesResult> {
-        const base =  'https://api.sr.se/api/v2/programcategories/';
+        const base =  'http://api.sr.se/api/v2/programcategories/';
         const params = '?format=json';
         let url = `${base}${params}`;
         return this.http.get<ProgramCategoriesResult>(`${url}`).toPromise();
     }
     
     private getBaseUrlWithDefaultParams(): string {
-        const base =  'https://api.sr.se/api/v2/programs/';
+        const base =  'http://api.sr.se/api/v2/programs/';
         const params = '?format=json';
         return `${base}${params}`;
     }
