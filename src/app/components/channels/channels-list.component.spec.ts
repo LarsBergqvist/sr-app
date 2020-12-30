@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ChannelsListComponent } from './channels-list.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
@@ -9,7 +9,7 @@ describe('ChannelsListComponent', () => {
     let fixture: ComponentFixture<ChannelsListComponent>;
     let service: any;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         service = {
             getChannels: jasmine.createSpy('getChannels')
         };
