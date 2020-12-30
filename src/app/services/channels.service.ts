@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ChannelsResult } from './models/channels-result';
+import { ChannelsResult } from '../models/channels-result';
 
 @Injectable({
   providedIn: 'root'

@@ -1,0 +1,15 @@
+<div>
+    <p-toolbar class="toolbar">
+        <div class="audio-wrapper">
+            <div *ngIf="currentStation" class="now-playing">
+                Now playing: {{currentStation}}
+            </div>
+            <div *ngIf="currentUrlToPlay" class="audio-ctl-wrapper">
+                <audio class="audio-ctl" controls id="audio" preload="none" autoplay="false">
+                    <source src="{{currentUrlToPlay}}" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+        </div>
+    </p-toolbar>
+</div>

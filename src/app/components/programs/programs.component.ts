@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ProgramsService } from './programs.service';
+import { ProgramsService } from '../../services/programs.service';
 import {SelectItem} from 'primeng-lts/api';
 
 @Component({
     selector: 'app-programs',
-    templateUrl: './programs.component.html'
+    templateUrl: './programs.component.html',
+    styleUrls: ['./programs.component.scss']
 })
 export class ProgramsComponent implements OnInit {
 

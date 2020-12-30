@@ -1,12 +1,13 @@
 import { Component, Input } from '@angular/core';
-import { ProgramsService } from '../programs.service';
+import { ProgramsService } from '../../services/programs.service';
 import { LazyLoadEvent } from 'primeng-lts/api';
-import { Program } from '../models/program';
-import { ProgramsResult } from '../models/programs-result';
+import { Program } from '../../models/program';
+import { ProgramsResult } from '../../models/programs-result';
 
 @Component({
     selector: 'app-programs-list',
-    templateUrl: './programs-list.component.html'
+    templateUrl: './programs-list.component.html',
+    styleUrls: ['./programs.component.scss']
 })
 export class ProgramsListComponent {
 

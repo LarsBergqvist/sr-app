@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ChannelsListComponent } from './channels-list.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { ChannelsService } from '../channels.service';
+import { ChannelsService } from '../../services/channels.service';
 
 describe('ChannelsListComponent', () => {
     let component: ChannelsListComponent;

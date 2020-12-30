@@ -1,13 +1,15 @@
 import { Component } from '@angular/core';
-import { ChannelsService } from '../channels.service';
+import { ChannelsService } from '../../services/channels.service';
 import { LazyLoadEvent } from 'primeng-lts/api';
-import { ChannelsResult } from '../models/channels-result';
-import { Channel } from '../models/channel';
+import { ChannelsResult } from '../../models/channels-result';
+import { Channel } from '../../models/channel';
+import { MessageBrokerService } from '../../services/message-broker.service';
+import { PlayChannelMessage } from '../../messages/play-channel.message';
 
 @Component({
     selector: 'app-channels-list',
     templateUrl: './channels-list.component.html',
-    styleUrls: ['./channels-list.component.css']
+    styleUrls: ['./channels-list.component.scss']
 })
 export class ChannelsListComponent {
 
@@ -15,10 +17,9 @@ export class ChannelsListComponent {
     channels: Channel[];
     totalHits = 0;
     pageSize = 5;
-    currentUrlToPlay: '';
-    currentStation =  '';
 
-    constructor(private readonly service: ChannelsService) { }
+    constructor(private readonly service: ChannelsService,
+                private readonly broker: MessageBrokerService) { }
 
     async loadChannelsLazy(event: LazyLoadEvent) {
         const filters = event.filters;
@@ -35,11 +36,7 @@ export class ChannelsListComponent {
     }
 
     rowClicked(channel: any) {
-        this.currentStation = channel.name;
-        this.currentUrlToPlay = channel.liveaudio.url;
-        const audio = document.getElementById('audio');
-        (audio as any).load();
-        (audio as any).play();
+        this.broker.sendMessage(new PlayChannelMessage(channel.name, channel.liveaudio.url));
     }
 
 }
