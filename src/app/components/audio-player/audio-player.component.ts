@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { PlayChannelMessage } from '../messages/play-channel.message';
-import { MessageBrokerService } from '../services/message-broker.service';
+import { PlayChannelMessage } from '../../messages/play-channel.message';
+import { MessageBrokerService } from '../../services/message-broker.service';
 import { filter, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 

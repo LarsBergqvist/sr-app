@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { ChannelsService } from '../channels.service';
+import { ChannelsService } from '../../services/channels.service';
 import { LazyLoadEvent } from 'primeng-lts/api';
-import { ChannelsResult } from '../models/channels-result';
-import { Channel } from '../models/channel';
-import { MessageBrokerService } from '../services/message-broker.service';
-import { PlayChannelMessage } from '../messages/play-channel.message';
+import { ChannelsResult } from '../../models/channels-result';
+import { Channel } from '../../models/channel';
+import { MessageBrokerService } from '../../services/message-broker.service';
+import { PlayChannelMessage } from '../../messages/play-channel.message';
 
 @Component({
     selector: 'app-channels-list',

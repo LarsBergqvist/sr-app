@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ProgramsResult } from './models/programs-result';
-import { ProgramCategoriesResult } from './models/program-categories-result';
+import { ProgramsResult } from '../models/programs-result';
+import { ProgramCategoriesResult } from '../models/program-categories-result';
 
 @Injectable({
   providedIn: 'root'
