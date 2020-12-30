@@ -1,8 +1,12 @@
-<nav class="tab-bar">
-    <ul>
-        <li><a routerLink="/channels" routerLinkActive="active">CHANNELS</a></li>
-        <li><a routerLink="/programs" routerLinkActive="active">PROGRAMS</a></li>
-    </ul>
-</nav>
-<app-audio-player></app-audio-player>
-<router-outlet></router-outlet>
+<div class="header">
+    <nav class="tab-bar">
+        <ul>
+            <li><a routerLink="/channels" routerLinkActive="active">CHANNELS</a></li>
+            <li><a routerLink="/programs" routerLinkActive="active">PROGRAMS</a></li>
+        </ul>
+    </nav>
+    <app-audio-player></app-audio-player>
+</div>
+<div class="content">
+    <router-outlet></router-outlet>
+</div>

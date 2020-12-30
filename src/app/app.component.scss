@@ -8,3 +8,18 @@
   display: inline;
   margin: 10px;
 }
+
+.content {
+  padding-top: 150px;
+}
+
+.header {
+  overflow: hidden;
+  position: fixed;
+  top: -8px;
+  width: calc(100% - 16px);
+  z-index: 1000;
+  margin-left: 0px;
+  background-color: white;
+  opacity: 1;
+}
