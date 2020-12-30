@@ -21,7 +21,7 @@ export class ProgramsListComponent {
 
     @Input('Category') set setCategory(value) {
         this.category = value;
-        this.fetchPrograms(null, 1);
+        this.fetchPrograms(null, 0);
     };
     
     constructor(private readonly service: ProgramsService) { }

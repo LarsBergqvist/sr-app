@@ -1,27 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { ProgramsService } from '../../services/programs.service';
-import {SelectItem} from 'primeng-lts/api';
-
+import { Component, OnDestroy, OnInit } from '@angular/core';
 @Component({
     selector: 'app-programs',
     templateUrl: './programs.component.html',
     styleUrls: ['./programs.component.scss']
 })
-export class ProgramsComponent implements OnInit {
+export class ProgramsComponent {
 
-    categoryOptions: SelectItem[];
     selectedCategory: string;
 
-    constructor(private readonly service: ProgramsService) { }
+    constructor() { }
 
-    async ngOnInit() { 
-        const result = await this.service.getProgramCategories();
-        this.categoryOptions = [];
-        this.categoryOptions.push({ label: 'All', value: null })
-        const categories = result.programcategories.map(c => ({ label: c.name, value: c.id }));
-        this.categoryOptions.push(...categories);
-    }
-
-    onCategoryChanged(event) {
+    onCategoryChanged(categoryId: string) {
+        this.selectedCategory = categoryId;
     }
 }
