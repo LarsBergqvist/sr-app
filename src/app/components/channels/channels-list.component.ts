@@ -4,7 +4,7 @@ import { LazyLoadEvent } from 'primeng/api';
 import { ChannelsResult } from '../../models/channels-result';
 import { Channel } from '../../models/channel';
 import { MessageBrokerService } from '../../services/message-broker.service';
-import { PlayChannelMessage } from '../../messages/play-channel.message';
+import { PlayAudioMessage } from '../../messages/play-audio.message';
 
 @Component({
     selector: 'app-channels-list',
@@ -36,7 +36,7 @@ export class ChannelsListComponent {
     }
 
     rowClicked(channel: any) {
-        this.broker.sendMessage(new PlayChannelMessage(channel.name, channel.liveaudio.url));
+        this.broker.sendMessage(new PlayAudioMessage(channel.name, channel.liveaudio.url));
     }
 
 }

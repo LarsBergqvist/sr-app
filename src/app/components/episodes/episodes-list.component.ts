@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { LazyLoadEvent } from 'primeng/api';
-import { PlayChannelMessage } from 'src/app/messages/play-channel.message';
+import { PlayAudioMessage } from 'src/app/messages/play-audio.message';
 import { Episode } from 'src/app/models/episode';
 import { EpisodesResult } from 'src/app/models/episodes-result';
 import { EpisodesService } from 'src/app/services/episodes.service';
 import { MessageBrokerService } from 'src/app/services/message-broker.service';
+import { SRApiService } from 'src/app/services/srapi.service';
 
 @Component({
     selector: 'app-episodes-list',
@@ -18,6 +19,7 @@ export class EpisodesListComponent {
     programId = null;
 
     constructor(private readonly service: EpisodesService,
+                private readonly srApiService: SRApiService,
                 private readonly broker: MessageBrokerService) { }
 
     async loadLazy(event: LazyLoadEvent) {
@@ -32,16 +34,29 @@ export class EpisodesListComponent {
         this.totalHits = this.episodesResult.pagination.totalhits;
         this.episodes = this.episodesResult.episodes;
         this.episodes.forEach(e => {
-            if (e.broadcasttime && e.broadcasttime.starttimeutc) {
-                e.starttimeutc = new Date(JSON.parse(e.broadcasttime.starttimeutc.match(/\d+/)[0]));
+            if (e.publishdateutc) {
+                e.publishdateutcDate = new Date(JSON.parse(e.publishdateutc.match(/\d+/)[0]));
+            }
+            if (e.channelid) {
+                e.channelName = this.srApiService.getChannelNameFromId(e.channelid);
             }
         });
 
     }
 
+    hasSound(episode: Episode) {
+        if (episode?.listenpodfile || episode?.broadcast?.broadcastfiles?.length > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     rowClicked(episode: Episode) {
-        if (episode.listenpodfile) {
-            this.broker.sendMessage(new PlayChannelMessage(episode.title, episode.listenpodfile.url));
+        if (episode?.listenpodfile) {
+            this.broker.sendMessage(new PlayAudioMessage(episode.title, episode.listenpodfile.url));
+        } else if (episode?.broadcast?.broadcastfiles?.length > 0) {
+            this.broker.sendMessage(new PlayAudioMessage(episode.title, episode.broadcast?.broadcastfiles[0].url));
         }
     }
 }

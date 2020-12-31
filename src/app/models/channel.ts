@@ -1,7 +1,8 @@
 export interface Channel {
+    id: number;
     name: string;
     liveaudio: {
-        id: string;
+        id: number;
         url: string;
     };
     channeltype: string;

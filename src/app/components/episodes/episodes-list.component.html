@@ -4,7 +4,7 @@
         <ng-template pTemplate="header">
             <tr>
                 <th>Title</th>
-                <th>Broadcast time</th>
+                <th>Publish time [UTC]</th>
                 <th>Description</th>
             </tr>
         </ng-template>
@@ -15,12 +15,14 @@
                     <b>
                         {{episode.title}}
                     </b>
-                    <i *ngIf="episode?.listenpodfile?.url" class="pi pi-volume-up"
+                    <i *ngIf="hasSound(episode)" class="pi pi-volume-up"
                         style="font-size: 3em;vertical-align:middle"></i>
-
+                    <div *ngIf="episode.channelName">
+                        Channel: {{episode.channelName}}
+                    </div>
                 </td>
                 <td>
-                    {{episode?.starttimeutc | date:'medium' }}
+                    {{episode?.publishdateutcDate | date:'medium' }}
                 </td>
                 <td>
                     {{episode.description}}

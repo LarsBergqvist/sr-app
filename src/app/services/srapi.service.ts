@@ -26,6 +26,7 @@ export class SRApiService  {
         const channelsRawResult = await this.getAllChannels();
         this.channels = channelsRawResult.channels.map(r => ({
             name: r.name,
+            id: r.id,
             liveaudio: {
                 id: r.liveaudio.id,
                 url: r.liveaudio.url,
@@ -52,7 +53,7 @@ export class SRApiService  {
     }
 
     async getAllChannels(): Promise<any> {
-        const params = '?format=json';
+        const params = '?format=json&page=1&size=10000';
         let url = `${this.baseUrl}channels/${params}`;
         return this.http.get<any>(`${url}`).toPromise();
     }
@@ -67,5 +68,10 @@ export class SRApiService  {
         const params = '?format=json';
         let url = `${this.baseUrl}programcategories/${params}`;
         return this.http.get<any>(`${url}`).toPromise();
+    }
+
+    getChannelNameFromId(id: number): string {
+        const channel = this.channels.find(c => c.id === id);
+        return channel?.name;
     }
 }
