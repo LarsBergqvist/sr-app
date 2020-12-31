@@ -1,39 +1,61 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { LazyLoadEvent } from 'primeng/api';
 import { PlayAudioMessage } from 'src/app/messages/play-audio.message';
 import { Episode } from 'src/app/models/episode';
 import { EpisodesResult } from 'src/app/models/episodes-result';
 import { EpisodesService } from 'src/app/services/episodes.service';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { MessageBrokerService } from 'src/app/services/message-broker.service';
 import { SRApiService } from 'src/app/services/srapi.service';
 
+
+export interface EpisodesListState {
+    episodes: Episode[];
+    totalHits: number;
+    pageSize: number;
+    programId?: number;
+}
 @Component({
     selector: 'app-episodes-list',
     templateUrl: './episodes-list.component.html'
 })
-export class EpisodesListComponent {
-    episodesResult: EpisodesResult;
-    episodes: Episode[];
-    totalHits = 0;
-    pageSize = 5;
-    programId = null;
+export class EpisodesListComponent implements OnInit, OnDestroy {
+    state: EpisodesListState = {
+        episodes: [],
+        totalHits: 0,
+        pageSize: 5,
+        programId: null
+    }
 
     constructor(private readonly service: EpisodesService,
                 private readonly srApiService: SRApiService,
-                private readonly broker: MessageBrokerService) { }
-
-    async loadLazy(event: LazyLoadEvent) {
-        await this.fetch(this.programId, event.first);
+                private readonly broker: MessageBrokerService,
+                private readonly storageService: LocalStorageService) { }
+    ngOnInit(): void {
+        const oldState = this.storageService.get('EpisodesListComponent');
+        if (oldState) {
+            this.state = oldState;
+        } else {
+            console.log('no match')
+        }
     }
 
-    async fetch(programId: string, first: number) {
+    ngOnDestroy(): void {
+        this.storageService.set('EpisodesListComponent', this.state);
+    }
+
+    async loadLazy(event: LazyLoadEvent) {
+        await this.fetch(this.state.programId, event.first);
+    }
+
+    async fetch(programId: number, first: number) {
         if (!programId) return;
-        this.programId = programId;
-        const page = first / this.pageSize + 1;
-        this.episodesResult = await this.service.fetchEpisodes(this.programId, page, this.pageSize);
-        this.totalHits = this.episodesResult.pagination.totalhits;
-        this.episodes = this.episodesResult.episodes;
-        this.episodes.forEach(e => {
+        this.state.programId = programId;
+        const page = first / this.state.pageSize + 1;
+        const episodesResult = await this.service.fetchEpisodes(this.state.programId, page, this.state.pageSize);
+        this.state.totalHits = episodesResult.pagination.totalhits;
+        this.state.episodes = episodesResult.episodes;
+        this.state.episodes.forEach(e => {
             if (e.publishdateutc) {
                 e.publishdateutcDate = new Date(JSON.parse(e.publishdateutc.match(/\d+/)[0]));
             }
@@ -52,7 +74,7 @@ export class EpisodesListComponent {
         }
     }
 
-    rowClicked(episode: Episode) {
+    onPlayEpisode(episode: Episode) {
         if (episode?.listenpodfile) {
             this.broker.sendMessage(new PlayAudioMessage(episode.title, episode.listenpodfile.url));
         } else if (episode?.broadcast?.broadcastfiles?.length > 0) {

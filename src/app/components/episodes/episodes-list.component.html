@@ -1,6 +1,6 @@
 <div class="channels-list">
-    <p-table #dt [value]="episodes" [paginator]="true" [lazy]="true" [rows]="pageSize" [totalRecords]="totalHits"
-        (onLazyLoad)="loadLazy($event)" [responsive]="true">
+    <p-table #dt [value]="state.episodes" [paginator]="true" [lazy]="true" [rows]="state.pageSize"
+        [totalRecords]="state.totalHits" (onLazyLoad)="loadLazy($event)" [responsive]="true">
         <ng-template pTemplate="header">
             <tr>
                 <th>Title</th>
@@ -9,16 +9,19 @@
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-episode>
-            <tr (click)="rowClicked(episode)">
+            <tr>
                 <td>
                     <span class="p-column-title">Title:</span>
                     <b>
                         {{episode.title}}
                     </b>
-                    <i *ngIf="hasSound(episode)" class="pi pi-volume-up"
-                        style="font-size: 3em;vertical-align:middle"></i>
+                    <i *ngIf="hasSound(episode)" (click)="onPlayEpisode(episode)"
+                        class="pi pi-volume-up play-button"></i>
                     <div *ngIf="episode.channelName">
                         Channel: {{episode.channelName}}
+                    </div>
+                    <div *ngIf="episode?.program?.name">
+                        Program: {{episode.program.name}}
                     </div>
                 </td>
                 <td>

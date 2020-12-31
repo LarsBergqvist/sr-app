@@ -1,4 +1,5 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { EpisodesListComponent } from './episodes-list.component';
 
 @Component({
@@ -6,20 +7,31 @@ import { EpisodesListComponent } from './episodes-list.component';
     templateUrl: './episodes.component.html',
     styleUrls: ['./episodes.component.scss']
 })
-export class EpisodesComponent {
-    selectedProgram: string;
+export class EpisodesComponent implements OnInit, OnDestroy {
+    selectedProgramId: number;
 
     @ViewChild(EpisodesListComponent) list: EpisodesListComponent;
 
-    constructor() { }
+    constructor(private readonly storageService: LocalStorageService) { }
 
-    onFetch(event: any) {
-        if (this.list) {
-            this.list.fetch(this.selectedProgram, 0);
+    ngOnInit(): void {
+        const oldState = this.storageService.get('EpisodesComponent');
+        if (oldState) {
+            this.selectedProgramId = oldState;
         }
     }
 
-    onProgramChanged(programId: string) {
-        this.selectedProgram = programId;
+    ngOnDestroy(): void {
+        this.storageService.set('EpisodesComponent', this.selectedProgramId);
+    }
+
+    onFetch(event: any) {
+        if (this.list) {
+            this.list.fetch(this.selectedProgramId, 0);
+        }
+    }
+
+    onProgramChanged(programId: number) {
+        this.selectedProgramId = programId;
     }
 }

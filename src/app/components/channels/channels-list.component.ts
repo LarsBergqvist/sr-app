@@ -35,7 +35,7 @@ export class ChannelsListComponent {
         this.channels = this.channelsResult.channels;
     }
 
-    rowClicked(channel: any) {
+    onPlayChannel(channel: any) {
         this.broker.sendMessage(new PlayAudioMessage(channel.name, channel.liveaudio.url));
     }
 

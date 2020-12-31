@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { SelectItem } from 'primeng/api';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -11,7 +11,7 @@ import { SRApiService } from 'src/app/services/srapi.service';
 })
 export class ProgramSelectorComponent implements OnInit, OnDestroy {
     programOptions: SelectItem[];
-    selectedProgram: string;
+    @Input() selectedProgram: string;
     private unsubscribe$ = new Subject();
 
     @Output() selectedProgramChanged = new EventEmitter<string>();

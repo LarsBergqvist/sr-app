@@ -18,13 +18,13 @@
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-channel>
-            <tr (click)="rowClicked(channel)">
+            <tr>
                 <td>
                     <img src={{channel.image}} width="30" style="vertical-align:middle" />
                     <span>
                         {{channel.name}}
-                        <i *ngIf="channel?.liveaudio?.url" class="pi pi-volume-up"
-                            style="font-size: 3em;vertical-align:middle"></i>
+                        <i (click)="onPlayChannel(channel)" *ngIf="channel?.liveaudio?.url"
+                            class="pi pi-volume-up play-button"></i>
                     </span>
                 </td>
                 <td>
