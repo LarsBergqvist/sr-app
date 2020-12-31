@@ -11,7 +11,13 @@
         <ng-template pTemplate="body" let-episode>
             <tr (click)="rowClicked(episode)">
                 <td>
-                    {{episode.title}}
+                    <span class="p-column-title">Title:</span>
+                    <b>
+                        {{episode.title}}
+                    </b>
+                    <i *ngIf="episode?.listenpodfile?.url" class="pi pi-volume-up"
+                        style="font-size: 3em;vertical-align:middle"></i>
+
                 </td>
                 <td>
                     {{episode?.starttimeutc | date:'medium' }}

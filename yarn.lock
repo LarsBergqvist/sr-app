@@ -6688,15 +6688,20 @@ postcss@^7.0.0, postcss@^7.0.1, postcss@^7.0.14, postcss@^7.0.27, postcss@^7.0.3
     source-map "^0.6.1"
     supports-color "^6.1.0"
 
+primeflex@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/primeflex/-/primeflex-2.0.0.tgz#b4152a97a455bbfad33503b6e10fe73d1f9e2228"
+  integrity sha512-t6AG3iRI1rh04uI+9nC4JSlbKfA8PnpRDFtjyqi3rDSLRgdfOuhIiunJbjVQ4alnnCfuQAAbVyde1AKN9QxT/w==
+
 primeicons@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/primeicons/-/primeicons-2.0.0.tgz#ec3e5a8d4d04a09309225a5a57deb911e08dc0d3"
   integrity sha512-GJTCeMSQU8UU1GqbsaDrg/IH+b/vSinJQl52NVpdJ7sShYLZA8Eq6jLF48Ye3N/dQloGrE07i7XsZvxQ9pNbqg==
 
-primeng-lts@10.0.6:
-  version "10.0.6"
-  resolved "https://registry.yarnpkg.com/primeng-lts/-/primeng-lts-10.0.6.tgz#145954583a922753dcd29da712281a689eac6563"
-  integrity sha512-IHGfhMImV47NZrB0BTQcO3naz9nC28o/FUblowiMupmST4qmUVNVbb9B/R3GO+b/LaPp5lxe8cUh4OPKfjZQtw==
+primeng@^11.0.0:
+  version "11.0.0"
+  resolved "https://registry.yarnpkg.com/primeng/-/primeng-11.0.0.tgz#f6f8019602fa13c14041d4f2d4bba931587e0cbf"
+  integrity sha512-nGpc2muqjJpk//pympFjYtqWbcHNb37cOtL3p0NnxR/9afL5qSCuQ+RiQg8Q/e0RCtZsZoBsWp4VPngpw5DJng==
   dependencies:
     tslib "^2.0.0"
 

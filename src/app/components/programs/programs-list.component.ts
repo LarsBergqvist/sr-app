@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ProgramsService } from '../../services/programs.service';
-import { LazyLoadEvent } from 'primeng-lts/api';
+import { LazyLoadEvent } from 'primeng/api';
 import { Program } from '../../models/program';
 import { ProgramsResult } from '../../models/programs-result';
 

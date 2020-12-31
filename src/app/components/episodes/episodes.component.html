@@ -1,5 +1,12 @@
-<app-program-selector (selectedProgramChanged)="onProgramChanged($event)"></app-program-selector>
+<div class="p-d-flex p-flex-column p-flex-md-row">
+    <div class="p-mb-6 p-mr-6">
+        <app-program-selector (selectedProgramChanged)="onProgramChanged($event)"></app-program-selector>
+    </div>
+    <div class="p-mb-2 p-mr-2">
+        <p-button (click)="onFetch($event)" label="Fetch episodes"></p-button>
+    </div>
+</div>
 
-<p-button (click)="onFetch($event)" label="Fetch episodes"></p-button>
+
 
 <app-episodes-list></app-episodes-list>

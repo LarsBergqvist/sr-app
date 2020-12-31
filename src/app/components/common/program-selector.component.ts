@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
-import { SelectItem } from 'primeng-lts/api';
+import { SelectItem } from 'primeng/api';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { SRApiService } from 'src/app/services/srapi.service';
@@ -22,7 +22,6 @@ export class ProgramSelectorComponent implements OnInit, OnDestroy {
         this.srApiService.programs$.pipe(takeUntil(this.unsubscribe$)).subscribe(values => {
             if (values) {
                 this.programOptions = [];
-                this.programOptions.push({ label: '', value: null })
                 const programs = values.map(c => ({ label: c.name, value: c.id }));
                 this.programOptions.push(...programs);    
             }

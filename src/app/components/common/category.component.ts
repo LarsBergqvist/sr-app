@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import {SelectItem} from 'primeng-lts/api';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import {SelectItem} from 'primeng/api';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { SRApiService } from '../../services/srapi.service';

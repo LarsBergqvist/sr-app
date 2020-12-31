@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { LazyLoadEvent } from 'primeng-lts/api';
+import { LazyLoadEvent } from 'primeng/api';
 import { PlayChannelMessage } from 'src/app/messages/play-channel.message';
 import { Episode } from 'src/app/models/episode';
 import { EpisodesResult } from 'src/app/models/episodes-result';

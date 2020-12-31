@@ -23,6 +23,8 @@
                     <img src={{channel.image}} width="30" style="vertical-align:middle" />
                     <span>
                         {{channel.name}}
+                        <i *ngIf="channel?.liveaudio?.url" class="pi pi-volume-up"
+                            style="font-size: 3em;vertical-align:middle"></i>
                     </span>
                 </td>
                 <td>
