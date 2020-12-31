@@ -26,6 +26,9 @@
 
 .now-playing {
   margin-bottom: 20px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .audio-ctl-wrapper {
