@@ -11,13 +11,10 @@ import { DropdownModule } from 'primeng/dropdown';
 import { ButtonModule } from 'primeng/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ChannelsComponent } from './components/channels/channels.component';
-import { ProgramsComponent } from './components/programs/programs.component';
-import { ProgramsListComponent } from './components/programs/programs-list.component';
 import { FormsModule } from '@angular/forms';
 import { AudioPlayerComponent } from './components/audio-player/audio-player.component';
 import { EpisodesListComponent } from './components/episodes/episodes-list.component';
 import { EpisodesComponent } from './components/episodes/episodes.component';
-import { CategoryComponent } from './components/common/category.component';
 import { ProgramSelectorComponent } from './components/common/program-selector.component';
 
 @NgModule({
@@ -25,12 +22,9 @@ import { ProgramSelectorComponent } from './components/common/program-selector.c
         AppComponent,
         ChannelsComponent,
         ChannelsListComponent,
-        ProgramsComponent,
-        ProgramsListComponent,
         AudioPlayerComponent,
         EpisodesComponent,
         EpisodesListComponent,
-        CategoryComponent,
         ProgramSelectorComponent
     ],
     imports: [

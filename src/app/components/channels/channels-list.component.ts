@@ -9,7 +9,7 @@ import { PlayAudioMessage } from '../../messages/play-audio.message';
 @Component({
     selector: 'app-channels-list',
     templateUrl: './channels-list.component.html',
-    styleUrls: ['./channels-list.component.scss']
+    styles: ['.channels-list { margin-top: 10px; }']
 })
 export class ChannelsListComponent {
 

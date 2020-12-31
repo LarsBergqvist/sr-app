@@ -3,7 +3,6 @@ import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
 import { Channel } from "../models/channel";
 import { Program } from "../models/program";
-import { ProgramCategory } from "../models/program-category";
 
 @Injectable({
     providedIn: 'root'
@@ -14,8 +13,6 @@ export class SRApiService  {
     channels$ = new BehaviorSubject<Channel[]>(null);
     private programs: Program[];
     programs$ = new BehaviorSubject<Program[]>(null);
-    private programCategories: ProgramCategory[];
-    programCategories$ = new BehaviorSubject<ProgramCategory[]>(null);
 
     private readonly baseUrl = 'https://api.sr.se/api/v2/';
 
@@ -43,13 +40,6 @@ export class SRApiService  {
         }));
         this.programs.sort((a,b) => a.name.localeCompare(b.name));
         this.programs$.next(this.programs);
-
-        const categoriesRawResult = await this.getAllProgramCategories();
-        this.programCategories = categoriesRawResult.programcategories.map(r => ({
-            name: r.name,
-            id: r.id,
-        }));
-        this.programCategories$.next(this.programCategories);
     }
 
     async getAllChannels(): Promise<any> {
@@ -61,12 +51,6 @@ export class SRApiService  {
     async getAllPrograms(): Promise<any> {
         const params = '?format=json&page=1&size=10000&isarchived=false';
         let url = `${this.baseUrl}programs/${params}`;
-        return this.http.get<any>(`${url}`).toPromise();
-    }
-
-    async getAllProgramCategories(): Promise<any> {
-        const params = '?format=json';
-        let url = `${this.baseUrl}programcategories/${params}`;
         return this.http.get<any>(`${url}`).toPromise();
     }
 

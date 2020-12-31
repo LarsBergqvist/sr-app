@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'app-channels',
-    templateUrl: './channels.component.html'
+    template:  `<app-channels-list></app-channels-list>`
 })
 export class ChannelsComponent implements OnInit {
     constructor() { }
