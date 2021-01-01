@@ -18,6 +18,7 @@ import { EpisodesListComponent } from './components/episodes/episodes-list.compo
 import { EpisodesComponent } from './components/episodes/episodes.component';
 import { ProgramSelectorComponent } from './components/common/program-selector.component';
 import { SidebarModule } from 'primeng/sidebar';
+import { SongComponent } from './components/common/song.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { SidebarModule } from 'primeng/sidebar';
     ChannelsComponent,
     ChannelsListComponent,
     ChannelDetailsComponent,
+    SongComponent,
     AudioPlayerComponent,
     EpisodesComponent,
     EpisodesListComponent,

@@ -41,6 +41,6 @@ export class ChannelsListComponent {
   }
 
   onOpenDetails(channel: Channel) {
-    this.details.open();
+    this.details.show(channel);
   }
 }

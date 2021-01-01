@@ -1,12 +1,15 @@
-import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { EpisodesResult } from "../models/episodes-result";
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { EpisodesResult } from '../models/episodes-result';
+import { SRBaseService } from './sr-base.service';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
-export class EpisodesService {
-  constructor(private readonly http: HttpClient) {}
+export class EpisodesService extends SRBaseService {
+  constructor(private readonly http: HttpClient) {
+    super();
+  }
 
   async fetchEpisodes(programId: number, page: number, pageSize: number, filter?: string, filterValue?: string): Promise<EpisodesResult> {
     if (!programId) return;
@@ -15,8 +18,6 @@ export class EpisodesService {
   }
 
   private getBaseUrlWithDefaultParams(): string {
-    const base = "https://api.sr.se/api/v2/episodes/index/";
-    const params = "?format=json";
-    return `${base}${params}`;
+    return `${this.BaseUrl}episodes/index/?${this.FormatParam}`;
   }
 }

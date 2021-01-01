@@ -1,5 +1,30 @@
 <p-sidebar [(visible)]="isVisible" position="right" styleClass="ui-sidebar-lg" [blockScroll]="true"
     [showCloseIcon]="false">
 
-    <i (click)="close()" class="pi pi-chevron-left">Close</i>
+    <div (click)="close()" class="close-button">&#60; Close</div>
+    <div *ngIf="channel">
+        <img src={{channel.image}} width="30" style="vertical-align:middle" />
+        <span>
+            {{channel.name}}
+            <i (click)="onPlayChannel(channel)" *ngIf="channel?.liveaudio?.url" class="pi pi-volume-up play-button"></i>
+        </span>
+        <div>
+            {{channel.tagline}}
+        </div>
+    </div>
+    <div>
+        <h2>Current playlist</h2>
+        <div *ngIf="playlist?.previoussong">
+            <h3>Previous song</h3>
+            <app-song [song]="playlist.previoussong"></app-song>
+        </div>
+        <div *ngIf="playlist?.song">
+            <h3>Current song</h3>
+            <app-song [song]="playlist.song"></app-song>
+        </div>
+        <div *ngIf="playlist?.nextsong">
+            <h3>Next song</h3>
+            <app-song [song]="playlist.nextsong"></app-song>
+        </div>
+    </div>
 </p-sidebar>
