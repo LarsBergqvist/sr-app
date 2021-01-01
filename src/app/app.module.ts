@@ -21,6 +21,8 @@ import { SidebarModule } from 'primeng/sidebar';
 import { SongComponent } from './components/common/song.component';
 import { EpisodeDetailsComponent } from './components/episodes/episode-details.component';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -46,7 +48,8 @@ import { ScrollPanelModule } from 'primeng/scrollpanel';
     BrowserAnimationsModule,
     ButtonModule,
     SidebarModule,
-    ScrollPanelModule
+    ScrollPanelModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [],
   bootstrap: [AppComponent]

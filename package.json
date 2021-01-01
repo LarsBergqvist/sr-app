@@ -21,6 +21,7 @@
     "@angular/platform-browser": "~11.0.5",
     "@angular/platform-browser-dynamic": "~11.0.5",
     "@angular/router": "~11.0.5",
+    "@angular/service-worker": "~11.0.5",
     "primeflex": "^2.0.0",
     "primeicons": "^2.0.0",
     "primeng": "^11.0.0",
