@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PlayAudioMessage } from 'src/app/messages/play-audio.message';
 import { Channel } from 'src/app/models/channel';
 import { Playlist } from 'src/app/models/playlist';
@@ -11,12 +11,16 @@ import { convertFromJSONstring } from 'src/app/utils/date-helper';
   selector: 'app-channel-details',
   templateUrl: './channel-details.component.html'
 })
-export class ChannelDetailsComponent {
+export class ChannelDetailsComponent implements OnInit {
   isVisible = false;
   playlist: Playlist;
   channel: Channel;
 
   constructor(private readonly playlistsService: PlaylistsService, private readonly broker: MessageBrokerService) {}
+
+  ngOnInit(): void {
+    this.isVisible = false;
+  }
 
   async show(channel: Channel) {
     this.channel = channel;

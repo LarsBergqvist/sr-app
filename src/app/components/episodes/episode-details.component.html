@@ -1,21 +1,26 @@
 <p-sidebar [(visible)]="isVisible" position="right" styleClass="ui-sidebar-lg" [blockScroll]="true"
     [showCloseIcon]="false">
     <p-scrollPanel [style]="{width: '100%', height: '95vh'}">
-        <div (click)="close()" class="close-button">&#60; Close</div>
+        <i (click)="close()" class="pi pi-chevron-left close-button"></i>
+        <hr>
         <div *ngIf="episode">
-            <span>
-                {{episode.title}}
+            <div>
+                <b>{{episode.title}}</b>
                 <i *ngIf="hasSound(episode)" (click)="onPlayEpisode(episode)" class="pi pi-volume-up play-button"></i>
-            </span>
+            </div>
             <div>
                 {{episode.description}}
             </div>
+            <div>
+                <b>Time: </b>{{episode.publishdateutcDate | date:'medium'}}
+            </div>
         </div>
-        <div *ngIf="songs">
-            <h2>Song list</h2>
+        <hr>
+        <div *ngIf="songs && songs.length > 0">
+            <h2>Song list:</h2>
             <div *ngFor="let song of songs">
-                <hr>
                 <app-song [song]="song"></app-song>
+                <hr>
             </div>
         </div>
     </p-scrollPanel>

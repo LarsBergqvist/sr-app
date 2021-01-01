@@ -10,12 +10,16 @@ import { convertFromJSONstring } from 'src/app/utils/date-helper';
   selector: 'app-episode-details',
   templateUrl: './episode-details.component.html'
 })
-export class EpisodeDetailsComponent {
+export class EpisodeDetailsComponent implements OnInit {
   isVisible = false;
   songs: Song[];
   episode: Episode;
 
   constructor(private readonly playlistsService: PlaylistsService, private readonly broker: MessageBrokerService) {}
+
+  ngOnInit(): void {
+    this.isVisible = false;
+  }
 
   async show(episode: Episode) {
     this.episode = episode;

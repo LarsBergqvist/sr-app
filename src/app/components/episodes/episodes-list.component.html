@@ -5,41 +5,45 @@
         <ng-template pTemplate="header">
             <tr>
                 <th>Title</th>
-                <th>Publish time [UTC]</th>
+                <th>Time</th>
                 <th>Description</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-episode>
             <tr>
                 <td>
-            <tr>
-                <td>
-                    <span class="p-column-title">Title:</span>
-                    <b>
-                        {{episode.title}}
-                    </b>
-                    <i *ngIf="hasSound(episode)" (click)="onPlayEpisode(episode)"
-                        class="pi pi-volume-up play-button"></i>
-                    <div *ngIf="episode.channelName">
-                        Channel: {{episode.channelName}}
-                    </div>
-                    <div *ngIf="episode?.program?.name">
-                        Program: {{episode.program.name}}
-                    </div>
+                    <table>
+                        <tr>
+                            <td>
+                                <b>
+                                    {{episode.title}}
+                                </b>
+                                <div *ngIf="episode.channelName">
+                                    Channel: {{episode.channelName}}
+                                </div>
+                                <div *ngIf="episode?.program?.name">
+                                    Program: {{episode.program.name}}
+                                </div>
+                            </td>
+                            <td>
+                                <div (click)="onOpenDetails(episode)">
+                                    <i class="pi pi-chevron-right details-button"></i>
+                                </div>
+                                <div>
+                                    <i *ngIf="hasSound(episode)" (click)="onPlayEpisode(episode)"
+                                        class="pi pi-volume-up play-button"></i>
+                                </div>
+                            </td>
+                        </tr>
+
+                    </table>
                 </td>
                 <td>
-                    <div (click)="onOpenDetails(episode)" class="details-button">Details<i
-                            class="pi pi-chevron-right"></i>
-                    </div>
+                    {{episode?.publishdateutcDate | date:'medium' }}
                 </td>
-            </tr>
-            </td>
-            <td>
-                {{episode?.publishdateutcDate | date:'medium' }}
-            </td>
-            <td>
-                {{episode.description}}
-            </td>
+                <td>
+                    {{episode.description}}
+                </td>
             </tr>
         </ng-template>
     </p-table>
