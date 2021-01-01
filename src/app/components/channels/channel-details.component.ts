@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PlayAudioMessage } from 'src/app/messages/play-audio.message';
 import { Channel } from 'src/app/models/channel';
 import { Playlist } from 'src/app/models/playlist';
-import { Song } from 'src/app/models/Song';
+import { Song } from 'src/app/models/song';
 import { MessageBrokerService } from 'src/app/services/message-broker.service';
 import { PlaylistsService } from 'src/app/services/playlists.service';
 import { convertFromJSONstring } from 'src/app/utils/date-helper';

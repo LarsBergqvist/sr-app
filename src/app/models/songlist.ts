@@ -1,4 +1,4 @@
-import { Song } from './Song';
+import { Song } from './song';
 
 export interface SonglistResult {
   song: Song[];

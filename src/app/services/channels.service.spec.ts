@@ -1,14 +1,14 @@
-import { TestBed } from "@angular/core/testing";
+import { TestBed } from '@angular/core/testing';
 
-import { ChannelsService } from "./channels.service";
-import { HttpClient } from "@angular/common/http";
+import { ChannelsService } from './channels.service';
+import { HttpClient } from '@angular/common/http';
 
-describe("ChannelsService", () => {
+describe('ChannelsService', () => {
   let httpClient: any;
 
   beforeEach(() => {
     httpClient = {
-      get: jasmine.createSpy("get")
+      get: jasmine.createSpy('get')
     };
 
     TestBed.configureTestingModule({
@@ -16,7 +16,7 @@ describe("ChannelsService", () => {
     });
   });
 
-  it("should be created", () => {
+  it('should be created', () => {
     const service: ChannelsService = TestBed.get(ChannelsService);
     expect(service).toBeTruthy();
   });

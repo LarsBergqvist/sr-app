@@ -1,3 +1,3 @@
 export abstract class Message {
-    abstract get Type(): string;
+  abstract get Type(): string;
 }

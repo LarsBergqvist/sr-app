@@ -1,10 +1,10 @@
-import { Channel } from "./channel";
+import { Channel } from './channel';
 
 export interface Program {
-    name: string;
-    id: number;
-    description: string;
-    programimage: string;
-    channel: Channel;
-    channelName: string;
+  name: string;
+  id: number;
+  description: string;
+  programimage: string;
+  channel: Channel;
+  channelName: string;
 }
