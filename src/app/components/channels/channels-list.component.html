@@ -21,14 +21,16 @@
         <ng-template pTemplate="body" let-channel>
             <tr>
                 <td>
-                    <img src={{channel.image}} width="30" style="vertical-align:middle" />
-                    <span>
-                        {{channel.name}}
-                        <i (click)="onPlayChannel(channel)" *ngIf="channel?.liveaudio?.url"
-                            class="pi pi-volume-up play-button"></i>
-                        <div (click)="onOpenDetails(channel)" class="details-button">Details<i
-                                class="pi pi-chevron-right"></i></div>
-                    </span>
+                    <div>
+                        <img src={{channel.image}} width="30" style="vertical-align:middle" />
+                        <span>
+                            {{channel.name}}
+                            <i (click)="onPlayChannel(channel)" *ngIf="channel?.liveaudio?.url"
+                                class="pi pi-volume-up play-button"></i>
+                        </span>
+                    </div>
+                    <div (click)="onOpenDetails(channel)" class="details-button">Details<i
+                            class="pi pi-chevron-right"></i></div>
                 </td>
                 <td>
                     {{channel.channeltype}}

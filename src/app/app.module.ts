@@ -19,6 +19,8 @@ import { EpisodesComponent } from './components/episodes/episodes.component';
 import { ProgramSelectorComponent } from './components/common/program-selector.component';
 import { SidebarModule } from 'primeng/sidebar';
 import { SongComponent } from './components/common/song.component';
+import { EpisodeDetailsComponent } from './components/episodes/episode-details.component';
+import { ScrollPanelModule } from 'primeng/scrollpanel';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,7 @@ import { SongComponent } from './components/common/song.component';
     AudioPlayerComponent,
     EpisodesComponent,
     EpisodesListComponent,
+    EpisodeDetailsComponent,
     ProgramSelectorComponent
   ],
   imports: [
@@ -42,7 +45,8 @@ import { SongComponent } from './components/common/song.component';
     FormsModule,
     BrowserAnimationsModule,
     ButtonModule,
-    SidebarModule
+    SidebarModule,
+    ScrollPanelModule
   ],
   providers: [],
   bootstrap: [AppComponent]

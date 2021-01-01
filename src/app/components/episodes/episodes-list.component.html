@@ -1,3 +1,4 @@
+<app-episode-details></app-episode-details>
 <div class="channels-list">
     <p-table #dt [value]="state.episodes" [paginator]="true" [lazy]="true" [rows]="state.pageSize"
         [totalRecords]="state.totalHits" (onLazyLoad)="loadLazy($event)" [responsive]="true">
@@ -9,6 +10,8 @@
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-episode>
+            <tr>
+                <td>
             <tr>
                 <td>
                     <span class="p-column-title">Title:</span>
@@ -25,11 +28,18 @@
                     </div>
                 </td>
                 <td>
-                    {{episode?.publishdateutcDate | date:'medium' }}
+                    <div (click)="onOpenDetails(episode)" class="details-button">Details<i
+                            class="pi pi-chevron-right"></i>
+                    </div>
                 </td>
-                <td>
-                    {{episode.description}}
-                </td>
+            </tr>
+            </td>
+            <td>
+                {{episode?.publishdateutcDate | date:'medium' }}
+            </td>
+            <td>
+                {{episode.description}}
+            </td>
             </tr>
         </ng-template>
     </p-table>

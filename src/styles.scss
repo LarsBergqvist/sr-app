@@ -15,10 +15,15 @@
 
 .details-button {
   float: right;
+  vertical-align: middle;
   cursor: pointer;
 }
 
 .close-button {
   font-size: 1.2em;
   font-weight: bold;
+}
+
+.sidebar-content {
+  overflow-y: scroll;
 }

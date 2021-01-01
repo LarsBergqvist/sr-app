@@ -1,13 +1,13 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { LazyLoadEvent } from 'primeng/api';
 import { PlayAudioMessage } from 'src/app/messages/play-audio.message';
 import { Episode } from 'src/app/models/episode';
-import { EpisodesResult } from 'src/app/models/episodes-result';
 import { EpisodesService } from 'src/app/services/episodes.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { MessageBrokerService } from 'src/app/services/message-broker.service';
 import { SRApiService } from 'src/app/services/srapi.service';
 import { convertFromJSONstring } from 'src/app/utils/date-helper';
+import { EpisodeDetailsComponent } from './episode-details.component';
 
 export interface EpisodesListState {
   episodes: Episode[];
@@ -26,6 +26,8 @@ export class EpisodesListComponent implements OnInit, OnDestroy {
     pageSize: 5,
     programId: null
   };
+
+  @ViewChild(EpisodeDetailsComponent) details: EpisodeDetailsComponent;
 
   constructor(
     private readonly service: EpisodesService,
@@ -79,5 +81,9 @@ export class EpisodesListComponent implements OnInit, OnDestroy {
     } else if (episode?.broadcast?.broadcastfiles?.length > 0) {
       this.broker.sendMessage(new PlayAudioMessage(episode.title, episode.broadcast?.broadcastfiles[0].url));
     }
+  }
+
+  onOpenDetails(episode: Episode) {
+    this.details.show(episode);
   }
 }
