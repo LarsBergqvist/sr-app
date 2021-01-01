@@ -11,34 +11,38 @@ import { DropdownModule } from 'primeng/dropdown';
 import { ButtonModule } from 'primeng/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ChannelsComponent } from './components/channels/channels.component';
+import { ChannelDetailsComponent } from './components/channels/channel-details.component';
 import { FormsModule } from '@angular/forms';
 import { AudioPlayerComponent } from './components/audio-player/audio-player.component';
 import { EpisodesListComponent } from './components/episodes/episodes-list.component';
 import { EpisodesComponent } from './components/episodes/episodes.component';
 import { ProgramSelectorComponent } from './components/common/program-selector.component';
+import { SidebarModule } from 'primeng/sidebar';
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        ChannelsComponent,
-        ChannelsListComponent,
-        AudioPlayerComponent,
-        EpisodesComponent,
-        EpisodesListComponent,
-        ProgramSelectorComponent
-    ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        HttpClientModule,
-        TableModule,
-        ToolbarModule,
-        DropdownModule,
-        FormsModule,
-        BrowserAnimationsModule,
-        ButtonModule,
-    ],
-    providers: [],
-    bootstrap: [AppComponent]
+  declarations: [
+    AppComponent,
+    ChannelsComponent,
+    ChannelsListComponent,
+    ChannelDetailsComponent,
+    AudioPlayerComponent,
+    EpisodesComponent,
+    EpisodesListComponent,
+    ProgramSelectorComponent
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    TableModule,
+    ToolbarModule,
+    DropdownModule,
+    FormsModule,
+    BrowserAnimationsModule,
+    ButtonModule,
+    SidebarModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

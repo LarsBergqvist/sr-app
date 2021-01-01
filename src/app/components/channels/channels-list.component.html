@@ -1,4 +1,5 @@
-<div class="channels-list">
+<app-channel-details></app-channel-details>
+<div id="channelslist" class="channels-list">
     <p-table #dt [value]="channels" [paginator]="true" [lazy]="true" [rows]="pageSize" [totalRecords]="totalHits"
         (onLazyLoad)="loadChannelsLazy($event)" [responsive]="true">
         <ng-template pTemplate="header">
@@ -25,6 +26,8 @@
                         {{channel.name}}
                         <i (click)="onPlayChannel(channel)" *ngIf="channel?.liveaudio?.url"
                             class="pi pi-volume-up play-button"></i>
+                        <div (click)="onOpenDetails(channel)" class="details-button">Details<i
+                                class="pi pi-chevron-right"></i></div>
                     </span>
                 </td>
                 <td>

@@ -1,13 +1,19 @@
-@import "../node_modules/primeicons/primeicons.css";
-@import "../node_modules/primeng/resources/themes/rhea/theme.css";
-@import "../node_modules/primeng/resources/primeng.min.css";
-@import "../node_modules/primeflex/primeflex.css";
+@import '../node_modules/primeicons/primeicons.css';
+@import '../node_modules/primeng/resources/themes/rhea/theme.css';
+@import '../node_modules/primeng/resources/primeng.min.css';
+@import '../node_modules/primeflex/primeflex.css';
 
 * {
-  font-family: "Open Sans", "Helvetica Neue", sans-serif;
+  font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 .play-button {
   font-size: 3em;
   vertical-align: middle;
+  cursor: pointer;
+}
+
+.details-button {
+  float: right;
+  cursor: pointer;
 }

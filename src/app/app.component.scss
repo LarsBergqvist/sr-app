@@ -1,12 +1,13 @@
 .tab-bar > ul {
   list-style-type: none;
-  margin: 10px;
   padding: 0;
 }
 
 .tab-bar > ul > li {
   display: inline;
-  margin: 10px;
+  a {
+    padding: 10px;
+  }
 }
 
 .content {
@@ -22,4 +23,9 @@
   margin-left: 0px;
   background-color: white;
   opacity: 1;
+}
+
+.active {
+  background-color: rgb(123, 149, 163);
+  color: white;
 }
