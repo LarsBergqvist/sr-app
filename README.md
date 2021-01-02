@@ -2,7 +2,8 @@
 
 [![Build Status](https://travis-ci.org/LarsBergqvist/sr-app.svg?branch=master)](https://travis-ci.org/LarsBergqvist/sr-app)
 
-<p>
+# Demo
+
 https://larsbergqvist.github.io/sr-app/
 
 An Angular 11 application that uses the Open API of Swedish Public Radio
@@ -13,6 +14,7 @@ An Angular 11 application that uses the Open API of Swedish Public Radio
 cd sr-app
 yarn install
 yarn start
+
 ```
 
 # Main functionality
