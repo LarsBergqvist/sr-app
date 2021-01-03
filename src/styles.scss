@@ -15,14 +15,20 @@
   font-size: 2.5em;
   float: right;
   vertical-align: middle;
+}
+
+.clickable {
   cursor: pointer;
+}
+
+.clickable:hover {
+  display: block;
 }
 
 .details-button {
   font-size: 2.5em;
   float: right;
   vertical-align: middle;
-  cursor: pointer;
 }
 
 .details-button-smaller {
@@ -35,5 +41,9 @@
 }
 
 .sidebar-content {
+  overflow-y: scroll;
+}
+
+.p-sidebar-active {
   overflow-y: scroll;
 }

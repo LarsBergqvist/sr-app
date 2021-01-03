@@ -1,35 +1,33 @@
 <p-sidebar [(visible)]="isVisible" position="right" styleClass="p-sidebar-lg" [blockScroll]="true"
     [showCloseIcon]="false">
-    <p-scrollPanel [style]="{width: '100%', height: '95vh'}">
-        <i (click)="close()" class="pi pi-chevron-left close-button"></i>
-        <hr>
-        <p-table #dt [value]="scheduledEpisodes" [paginator]="true" [lazy]="true" [rows]="pageSize"
-            [totalRecords]="totalHits" (onLazyLoad)="loadLazy($event)" [responsive]="true">
-            <ng-template pTemplate="header">
-                <tr>
-                    <th>Name</th>
-                    <th>Start</th>
-                    <th>Description</th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-episode>
-                <tr>
-                    <td (click)="onOpenDetails(episode.episodeid)">
-                        <div *ngIf="episode.episodeid">
-                            <i class="pi pi-chevron-right details-button details-button-smaller"></i>
-                        </div>
+    <i (click)="close()" class="pi pi-chevron-left close-button clickable"></i>
+    <hr>
+    <p-table #dt [value]="scheduledEpisodes" [paginator]="true" [lazy]="true" [rows]="pageSize"
+        [totalRecords]="totalHits" (onLazyLoad)="loadLazy($event)" [responsive]="true">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Name</th>
+                <th>Start</th>
+                <th>Description</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-episode>
+            <tr>
+                <td class="clickable" (click)="onOpenDetails(episode.episodeid)">
+                    <div *ngIf="episode.episodeid">
+                        <i class="pi pi-chevron-right details-button details-button-smaller"></i>
+                    </div>
 
-                        <b>{{episode.title}}</b>
-                    </td>
-                    <td>
-                        <span class="p-column-title">Start:</span>
-                        {{episode.starttimeDate | date:'medium'}}
-                    </td>
-                    <td>
-                        {{episode.description}}
-                    </td>
-                </tr>
-            </ng-template>
-        </p-table>
-    </p-scrollPanel>
+                    <b>{{episode.title}}</b>
+                </td>
+                <td>
+                    <span class="p-column-title">Start:</span>
+                    {{episode.starttimeDate | date:'medium'}}
+                </td>
+                <td>
+                    {{episode.description}}
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
 </p-sidebar>
