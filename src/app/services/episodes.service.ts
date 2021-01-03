@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { EpisodesResult } from '../models/episodes-result';
 import { SRBaseService } from './sr-base.service';
 import { RightNowEpisodes } from '../models/right-now-episodes';
+import { ScheduleResult } from '../models/schedule-result';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class EpisodesService extends SRBaseService {
     super();
   }
 
-  async fetchEpisodes(programId: number, page: number, pageSize: number, filter?: string, filterValue?: string): Promise<EpisodesResult> {
+  async fetchEpisodes(programId: number, page: number, pageSize: number): Promise<EpisodesResult> {
     if (!programId) return;
     let url = `${this.BaseUrl}episodes/index/?${this.FormatParam}&programid=${programId}&page=${page}&size=${pageSize}`;
     return this.http.get<EpisodesResult>(`${url}`).toPromise();
@@ -22,5 +23,11 @@ export class EpisodesService extends SRBaseService {
     if (!channelId) return;
     let url = `${this.BaseUrl}scheduledepisodes/rightnow?${this.FormatParam}&channelid=${channelId}`;
     return this.http.get<RightNowEpisodes>(`${url}`).toPromise();
+  }
+
+  async fetchChannelSchedule(channelId: number, page: number, pageSize: number): Promise<ScheduleResult> {
+    if (!channelId) return;
+    let url = `${this.BaseUrl}scheduledepisodes/?${this.FormatParam}&channelid=${channelId}&page=${page}&size=${pageSize}`;
+    return this.http.get<ScheduleResult>(`${url}`).toPromise();
   }
 }

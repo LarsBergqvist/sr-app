@@ -6,6 +6,7 @@ import { Channel } from '../../models/channel';
 import { MessageBrokerService } from '../../services/message-broker.service';
 import { PlayAudioMessage } from '../../messages/play-audio.message';
 import { ChannelDetailsComponent } from './channel-details.component';
+import { ChannelScheduleComponent } from './channel-schedule.component';
 
 @Component({
   selector: 'app-channels-list',
@@ -13,12 +14,12 @@ import { ChannelDetailsComponent } from './channel-details.component';
   styles: ['.channels-list { margin-top: 10px; }']
 })
 export class ChannelsListComponent {
-  channelsResult: ChannelsResult;
   channels: Channel[];
   totalHits = 0;
   pageSize = 5;
 
   @ViewChild(ChannelDetailsComponent) details: ChannelDetailsComponent;
+  @ViewChild(ChannelScheduleComponent) schedule: ChannelScheduleComponent;
 
   constructor(private readonly service: ChannelsService, private readonly broker: MessageBrokerService) {}
 
@@ -31,9 +32,9 @@ export class ChannelsListComponent {
       filterValue = filters.name.value;
     }
     const page = event.first / this.pageSize + 1;
-    this.channelsResult = await this.service.getChannels(page, this.pageSize, filter, filterValue);
-    this.totalHits = this.channelsResult.pagination.totalhits;
-    this.channels = this.channelsResult.channels;
+    const channelsResult = await this.service.getChannels(page, this.pageSize, filter, filterValue);
+    this.totalHits = channelsResult.pagination.totalhits;
+    this.channels = channelsResult.channels;
   }
 
   onPlayChannel(channel: Channel) {
@@ -42,5 +43,9 @@ export class ChannelsListComponent {
 
   onOpenDetails(channel: Channel) {
     this.details.show(channel);
+  }
+
+  onOpenSchedule(channel: Channel) {
+    this.schedule.show(channel);
   }
 }

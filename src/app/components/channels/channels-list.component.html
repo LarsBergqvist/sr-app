@@ -1,4 +1,5 @@
 <app-channel-details></app-channel-details>
+<app-channel-schedule></app-channel-schedule>
 <div id="channelslist" class="channels-list">
     <p-table #dt [value]="channels" [paginator]="true" [lazy]="true" [rows]="pageSize" [totalRecords]="totalHits"
         (onLazyLoad)="loadChannelsLazy($event)" [responsive]="true">
@@ -31,6 +32,8 @@
                             </td>
                             <td>
                                 <div (click)="onOpenDetails(channel)"><i class="pi pi-chevron-right details-button"></i>
+                                </div>
+                                <div (click)="onOpenSchedule(channel)"><i class="pi pi-list details-button"></i>
                                 </div>
                                 <div>
                                     <i (click)="onPlayChannel(channel)" *ngIf="channel?.liveaudio?.url"

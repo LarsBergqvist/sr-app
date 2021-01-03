@@ -25,6 +25,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { ScheduledEpisodeComponent } from './components/episodes/scheduled-episode.component';
 import { RightNowEpisodesComponent } from './components/episodes/rightnow-episodes.component';
+import { ChannelScheduleComponent } from './components/channels/channel-schedule.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { RightNowEpisodesComponent } from './components/episodes/rightnow-episod
     ChannelsComponent,
     ChannelsListComponent,
     ChannelDetailsComponent,
+    ChannelScheduleComponent,
     SongComponent,
     AudioPlayerComponent,
     EpisodesComponent,
