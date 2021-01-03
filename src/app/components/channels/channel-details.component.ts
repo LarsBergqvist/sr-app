@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { PlayAudioMessage } from 'src/app/messages/play-audio.message';
 import { Channel } from 'src/app/models/channel';
 import { Playlist } from 'src/app/models/playlist';
+import { RightNowEpisodes } from 'src/app/models/right-now-episodes';
+import { ScheduledEpisode } from 'src/app/models/scheduled-episode';
 import { Song } from 'src/app/models/song';
+import { EpisodesService } from 'src/app/services/episodes.service';
 import { MessageBrokerService } from 'src/app/services/message-broker.service';
 import { PlaylistsService } from 'src/app/services/playlists.service';
 import { convertFromJSONstring } from 'src/app/utils/date-helper';
@@ -15,8 +18,13 @@ export class ChannelDetailsComponent implements OnInit {
   isVisible = false;
   playlist: Playlist;
   channel: Channel;
+  rightNowEpisodes: RightNowEpisodes;
 
-  constructor(private readonly playlistsService: PlaylistsService, private readonly broker: MessageBrokerService) {}
+  constructor(
+    private readonly playlistsService: PlaylistsService,
+    private readonly episodesService: EpisodesService,
+    private readonly broker: MessageBrokerService
+  ) {}
 
   ngOnInit(): void {
     this.isVisible = false;
@@ -26,13 +34,28 @@ export class ChannelDetailsComponent implements OnInit {
     this.channel = channel;
     const res = await this.playlistsService.fetchCurrentPlaylistForChannel(channel.id);
     this.playlist = res.playlist;
-    this.convertDate(this?.playlist?.previoussong);
-    this.convertDate(this?.playlist?.song);
-    this.convertDate(this?.playlist?.nextsong);
+    this.convertSongDates(this?.playlist?.previoussong);
+    this.convertSongDates(this?.playlist?.song);
+    this.convertSongDates(this?.playlist?.nextsong);
+    this.rightNowEpisodes = await this.episodesService.fetchRightNowEpisodes(channel.id);
+    this.convertEpisodeDates(this?.rightNowEpisodes?.channel?.previousscheduledepisode);
+    this.convertEpisodeDates(this?.rightNowEpisodes?.channel?.currentscheduledepisode);
+    this.convertEpisodeDates(this?.rightNowEpisodes?.channel?.nextscheduledepisode);
     this.isVisible = true;
   }
 
-  private convertDate(song: Song) {
+  private convertEpisodeDates(episode: ScheduledEpisode) {
+    if (episode) {
+      if (episode.starttimeutc) {
+        episode.starttimeDate = convertFromJSONstring(episode.starttimeutc);
+      }
+      if (episode.endtimeutc) {
+        episode.endtimeDate = convertFromJSONstring(episode.endtimeutc);
+      }
+    }
+  }
+
+  private convertSongDates(song: Song) {
     if (song) {
       if (song.starttimeutc) {
         song.starttimeutcDate = convertFromJSONstring(song.starttimeutc);

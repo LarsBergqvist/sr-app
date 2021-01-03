@@ -23,6 +23,8 @@ import { EpisodeDetailsComponent } from './components/episodes/episode-details.c
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { ScheduledEpisodeComponent } from './components/episodes/scheduled-episode.component';
+import { RightNowEpisodesComponent } from './components/episodes/rightnow-episodes.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +37,8 @@ import { environment } from '../environments/environment';
     EpisodesComponent,
     EpisodesListComponent,
     EpisodeDetailsComponent,
+    ScheduledEpisodeComponent,
+    RightNowEpisodesComponent,
     ProgramSelectorComponent
   ],
   imports: [
