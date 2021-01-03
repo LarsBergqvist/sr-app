@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -26,6 +26,10 @@ import { environment } from '../environments/environment';
 import { ScheduledEpisodeComponent } from './components/episodes/scheduled-episode.component';
 import { RightNowEpisodesComponent } from './components/episodes/rightnow-episodes.component';
 import { ChannelScheduleComponent } from './components/channels/channel-schedule.component';
+
+import { registerLocaleData } from '@angular/common';
+import locale from '@angular/common/locales/sv';
+registerLocaleData(locale);
 
 @NgModule({
   declarations: [
@@ -57,7 +61,7 @@ import { ChannelScheduleComponent } from './components/channels/channel-schedule
     ScrollPanelModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
-  providers: [],
+  providers: [{ provide: LOCALE_ID, useValue: 'sv' }],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

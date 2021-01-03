@@ -9,7 +9,7 @@
                 <tr>
                     <th>Name</th>
                     <th>Start</th>
-                    <th>End</th>
+                    <th>Description</th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-episode>
@@ -18,10 +18,11 @@
                         <b>{{episode.title}}</b>
                     </td>
                     <td>
+                        <span class="p-column-title">Start:</span>
                         {{episode.starttimeDate | date:'medium'}}
                     </td>
                     <td>
-                        {{episode.endtimeDate | date:'medium'}}
+                        {{episode.description}}
                     </td>
                 </tr>
             </ng-template>
