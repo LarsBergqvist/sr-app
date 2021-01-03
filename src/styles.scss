@@ -21,8 +21,10 @@
   cursor: pointer;
 }
 
-.clickable:hover {
-  display: block;
+@media only screen and (max-width: 600px) {
+  .clickable:hover {
+    display: block;
+  }
 }
 
 .details-button {
@@ -38,10 +40,6 @@
 .close-button {
   font-size: 2.5em;
   font-weight: bold;
-}
-
-.sidebar-content {
-  overflow-y: scroll;
 }
 
 .p-sidebar-active {

@@ -1,5 +1,4 @@
-<p-sidebar [(visible)]="isVisible" position="right" styleClass="p-sidebar-lg" [blockScroll]="true"
-    [showCloseIcon]="false">
+<p-sidebar [(visible)]="isVisible" position="right" [fullScreen]="true" [blockScroll]="true" [showCloseIcon]="false">
     <i (click)="close()" class="pi pi-chevron-left close-button clickable"></i>
     <hr>
     <div *ngIf="channel">
