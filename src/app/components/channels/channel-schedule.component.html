@@ -14,8 +14,8 @@
             </ng-template>
             <ng-template pTemplate="body" let-episode>
                 <tr>
-                    <td>
-                        <div *ngIf="episode.episodeid" (click)="onOpenDetails(episode.episodeid)">
+                    <td (click)="onOpenDetails(episode.episodeid)">
+                        <div *ngIf="episode.episodeid">
                             <i class="pi pi-chevron-right details-button details-button-smaller"></i>
                         </div>
 
