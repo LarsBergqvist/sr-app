@@ -21,9 +21,16 @@
   cursor: pointer;
 }
 
+.my-sidebar {
+  width: 60% !important;
+}
 @media only screen and (max-width: 600px) {
   .clickable:hover {
-    display: block;
+    //    display: block;
+    display: initial;
+  }
+  .my-sidebar {
+    width: 100% !important;
   }
 }
 
@@ -40,8 +47,17 @@
 .close-button {
   font-size: 2.5em;
   font-weight: bold;
+  vertical-align: middle;
+  padding-right: 10px;
 }
 
 .p-sidebar-active {
   overflow-y: scroll;
+}
+
+.details-header-text {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin-right: 20px !important;
 }

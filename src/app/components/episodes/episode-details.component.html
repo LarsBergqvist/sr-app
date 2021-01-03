@@ -1,7 +1,12 @@
-<p-sidebar [(visible)]="isVisible" position="right" [fullScreen]="true" [blockScroll]="true" [showCloseIcon]="false">
-    <i (click)="close()" class="pi pi-chevron-left close-button clickable"></i>
+<p-sidebar *ngIf="episode" [(visible)]="isVisible" position="right" styleClass="my-sidebar" [blockScroll]="true"
+    [showCloseIcon]="false">
+
+    <div class="details-header-text">
+        <i (click)="close()" class="pi pi-chevron-left close-button clickable"></i>
+        {{episode?.program?.name}}: {{episode.title}}
+    </div>
     <hr>
-    <div *ngIf="episode">
+    <div>
         <div>
             <b>{{episode.title}}</b>
             <i *ngIf="hasSound(episode)" (click)="onPlayEpisode(episode)"
@@ -10,7 +15,7 @@
         <div>
             {{episode.description}}
         </div>
-        <div>
+        <div *ngIf="episode.publishdateutcDate">
             <b>Time: </b>{{episode.publishdateutcDate | date:'medium'}}
         </div>
     </div>

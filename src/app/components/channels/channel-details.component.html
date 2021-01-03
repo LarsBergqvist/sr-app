@@ -1,8 +1,12 @@
-<p-sidebar [(visible)]="isVisible" position="right" [fullScreen]="true" [blockScroll]="true" [showCloseIcon]="false">
-    <i (click)="close()" class="pi pi-chevron-left close-button clickable"></i>
+<p-sidebar *ngIf="channel" [(visible)]="isVisible" position="right" styleClass="my-sidebar" [blockScroll]="true"
+    [showCloseIcon]="false">
+
+    <div class="details-header-text">
+        <i (click)="close()" class="pi pi-chevron-left close-button clickable"></i>
+        <img src={{channel.image}} width="30" style="vertical-align:middle" /> Channel details
+    </div>
     <hr>
     <div *ngIf="channel">
-        <img src={{channel.image}} width="30" style="vertical-align:middle" />
         <span>
             {{channel.name}}
             <i (click)="onPlayChannel(channel)" *ngIf="channel?.liveaudio?.url"

@@ -17,6 +17,7 @@ export class ChannelScheduleComponent implements OnInit {
   pageSize = 1000;
   isVisible = false;
   channelId: number;
+  channel: Channel;
 
   constructor(private readonly service: EpisodesService, private readonly broker: MessageBrokerService) {}
 
@@ -24,6 +25,7 @@ export class ChannelScheduleComponent implements OnInit {
 
   async show(channel: Channel) {
     this.channelId = channel.id;
+    this.channel = channel;
     await this.fetch(this.channelId, 0);
     this.isVisible = true;
   }
