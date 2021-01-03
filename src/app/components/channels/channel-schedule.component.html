@@ -15,6 +15,10 @@
             <ng-template pTemplate="body" let-episode>
                 <tr>
                     <td>
+                        <div *ngIf="episode.episodeid" (click)="onOpenDetails(episode.episodeid)">
+                            <i class="pi pi-chevron-right details-button details-button-smaller"></i>
+                        </div>
+
                         <b>{{episode.title}}</b>
                     </td>
                     <td>

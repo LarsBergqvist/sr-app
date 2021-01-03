@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { LazyLoadEvent } from 'primeng/api';
+import { ShowEpisodeDetailsMessage } from 'src/app/messages/show-episodedetails.message';
 import { Channel } from 'src/app/models/channel';
 import { ScheduledEpisode } from 'src/app/models/scheduled-episode';
 import { EpisodesService } from 'src/app/services/episodes.service';
+import { MessageBrokerService } from 'src/app/services/message-broker.service';
 import { convertFromJSONstring } from 'src/app/utils/date-helper';
 
 @Component({
@@ -16,7 +18,7 @@ export class ChannelScheduleComponent implements OnInit {
   isVisible = false;
   channelId: number;
 
-  constructor(private readonly service: EpisodesService) {}
+  constructor(private readonly service: EpisodesService, private readonly broker: MessageBrokerService) {}
 
   ngOnInit(): void {}
 
@@ -49,5 +51,9 @@ export class ChannelScheduleComponent implements OnInit {
 
   close() {
     this.isVisible = false;
+  }
+
+  onOpenDetails(episodeId: number) {
+    this.broker.sendMessage(new ShowEpisodeDetailsMessage(null, episodeId));
   }
 }

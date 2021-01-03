@@ -1,8 +1,8 @@
 <div *ngIf="episode">
     <div>
         <div>
-            <div (click)="onOpenDetails(episode.episodeid)">
-                <i class="pi pi-chevron-right details-button"></i>
+            <div *ngIf="episode.episodeid" (click)="onOpenDetails(episode.episodeid)">
+                <i class="pi pi-chevron-right details-button details-button-smaller"></i>
             </div>
             <b>Title</b>: {{episode?.title}}
         </div>
