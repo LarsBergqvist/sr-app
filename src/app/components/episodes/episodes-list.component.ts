@@ -1,13 +1,13 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { LazyLoadEvent } from 'primeng/api';
 import { PlayAudioMessage } from 'src/app/messages/play-audio.message';
+import { ShowEpisodeDetailsMessage } from 'src/app/messages/show-episodedetails.message';
 import { Episode } from 'src/app/models/episode';
 import { EpisodesService } from 'src/app/services/episodes.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { MessageBrokerService } from 'src/app/services/message-broker.service';
 import { SRApiService } from 'src/app/services/srapi.service';
 import { convertFromJSONstring } from 'src/app/utils/date-helper';
-import { EpisodeDetailsComponent } from './episode-details.component';
 
 export interface EpisodesListState {
   episodes: Episode[];
@@ -26,8 +26,6 @@ export class EpisodesListComponent implements OnInit, OnDestroy {
     pageSize: 5,
     programId: null
   };
-
-  @ViewChild(EpisodeDetailsComponent) details: EpisodeDetailsComponent;
 
   constructor(
     private readonly service: EpisodesService,
@@ -84,6 +82,6 @@ export class EpisodesListComponent implements OnInit, OnDestroy {
   }
 
   onOpenDetails(episode: Episode) {
-    this.details.show(episode);
+    this.broker.sendMessage(new ShowEpisodeDetailsMessage(episode));
   }
 }

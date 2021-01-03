@@ -22,3 +22,7 @@ export interface Episode {
     broadcastfiles: BroadcastFile[];
   };
 }
+
+export interface EpisodeResult {
+  episode: Episode;
+}

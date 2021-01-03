@@ -4,6 +4,7 @@ import { EpisodesResult } from '../models/episodes-result';
 import { SRBaseService } from './sr-base.service';
 import { RightNowEpisodes } from '../models/right-now-episodes';
 import { ScheduleResult } from '../models/schedule-result';
+import { EpisodeResult } from '../models/episode';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,12 @@ export class EpisodesService extends SRBaseService {
     if (!programId) return;
     let url = `${this.BaseUrl}episodes/index/?${this.FormatParam}&programid=${programId}&page=${page}&size=${pageSize}`;
     return this.http.get<EpisodesResult>(`${url}`).toPromise();
+  }
+
+  async fetchEpisode(episodeId: number): Promise<EpisodeResult> {
+    if (!episodeId) return;
+    let url = `${this.BaseUrl}episodes/get?id=${episodeId}&${this.FormatParam}`;
+    return this.http.get<EpisodeResult>(`${url}`).toPromise();
   }
 
   async fetchRightNowEpisodes(channelId: number): Promise<RightNowEpisodes> {

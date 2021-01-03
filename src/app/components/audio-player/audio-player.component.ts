@@ -12,7 +12,7 @@ import { Subject } from 'rxjs';
 export class AudioPlayerComponent implements OnInit {
   currentUrlToPlay = '';
   currentStation = '';
-  private unsubsribe$ = new Subject();
+  private unsubscribe$ = new Subject();
 
   constructor(private readonly broker: MessageBrokerService) {}
 
@@ -20,7 +20,7 @@ export class AudioPlayerComponent implements OnInit {
     const messages = this.broker.getMessage();
     messages
       .pipe(
-        takeUntil(this.unsubsribe$),
+        takeUntil(this.unsubscribe$),
         filter((message) => message instanceof PlayAudioMessage)
       )
       .subscribe(async (message: PlayAudioMessage) => {
@@ -34,5 +34,10 @@ export class AudioPlayerComponent implements OnInit {
           }
         }
       });
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 }

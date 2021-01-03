@@ -38,6 +38,7 @@ export class ChannelScheduleComponent implements OnInit {
     this.totalHits = scheduleResult.pagination.totalhits;
     this.scheduledEpisodes = scheduleResult.schedule.map((s) => ({
       title: s.title,
+      episodeid: s.episodeid,
       description: s.description,
       starttimeDate: convertFromJSONstring(s?.starttimeutc),
       endtimeDate: convertFromJSONstring(s?.endtimeutc),

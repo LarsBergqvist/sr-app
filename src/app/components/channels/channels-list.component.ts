@@ -38,22 +38,6 @@ export class ChannelsListComponent implements OnInit {
     this.unsubscribe$.complete();
   }
 
-  /*
-  async loadChannelsLazy(event: LazyLoadEvent) {
-    const filters = event.filters;
-    let filter;
-    let filterValue;
-    if (filters && filters.name) {
-      filter = 'channel.name';
-      filterValue = filters.name.value;
-    }
-    const page = event.first / this.pageSize + 1;
-    const channelsResult = await this.service.getChannels(page, this.pageSize, filter, filterValue);
-    this.totalHits = channelsResult.pagination.totalhits;
-    this.channels = channelsResult.channels;
-  }
-  */
-
   onPlayChannel(channel: Channel) {
     this.broker.sendMessage(new PlayAudioMessage(channel.name, channel.liveaudio.url));
   }
