@@ -1,22 +1,14 @@
 <app-channel-details></app-channel-details>
 <app-channel-schedule></app-channel-schedule>
+<input pInputText type="text" (input)="dt.filter($event.target.value, 'name', 'contains')">
+
 <div id="channelslist" class="channels-list">
-    <p-table #dt [value]="channels" [paginator]="true" [lazy]="true" [rows]="pageSize" [totalRecords]="totalHits"
-        (onLazyLoad)="loadChannelsLazy($event)" [responsive]="true">
+    <p-table #dt [value]="channels" [lazy]="false" [responsive]="true">
         <ng-template pTemplate="header">
             <tr>
                 <th>Name</th>
                 <th>Type</th>
                 <th>Description</th>
-            </tr>
-            <tr>
-                <th>
-                    <input pInputText type="text" (input)="dt.filter($event.target.value, 'name', 'contains')">
-                </th>
-                <th>
-                </th>
-                <th>
-                </th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-channel>

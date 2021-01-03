@@ -27,6 +27,7 @@ export class SRApiService extends SRBaseService {
         id: r.liveaudio.id,
         url: r.liveaudio.url
       },
+      image: r.image,
       channeltype: r.channeltype,
       tagline: r.tagline
     }));

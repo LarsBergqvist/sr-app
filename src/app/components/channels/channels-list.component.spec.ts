@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ChannelsListComponent } from './channels-list.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { ChannelsService } from '../../services/channels.service';
+import { SRApiService } from '../../services/srapi.service';
 
 describe('ChannelsListComponent', () => {
   let component: ChannelsListComponent;
@@ -17,7 +17,7 @@ describe('ChannelsListComponent', () => {
       TestBed.configureTestingModule({
         declarations: [ChannelsListComponent],
         schemas: [CUSTOM_ELEMENTS_SCHEMA],
-        providers: [{ provide: ChannelsService, useValue: service }]
+        providers: [{ provide: SRApiService, useValue: service }]
       }).compileComponents();
     })
   );

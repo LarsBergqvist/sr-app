@@ -1,28 +1,44 @@
-import { Component, ViewChild } from '@angular/core';
-import { ChannelsService } from '../../services/channels.service';
-import { LazyLoadEvent } from 'primeng/api';
-import { ChannelsResult } from '../../models/channels-result';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Channel } from '../../models/channel';
 import { MessageBrokerService } from '../../services/message-broker.service';
 import { PlayAudioMessage } from '../../messages/play-audio.message';
 import { ChannelDetailsComponent } from './channel-details.component';
 import { ChannelScheduleComponent } from './channel-schedule.component';
+import { SRApiService } from 'src/app/services/srapi.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-channels-list',
   templateUrl: './channels-list.component.html',
   styles: ['.channels-list { margin-top: 10px; }']
 })
-export class ChannelsListComponent {
+export class ChannelsListComponent implements OnInit {
   channels: Channel[];
   totalHits = 0;
   pageSize = 5;
 
+  private unsubscribe$ = new Subject();
+
   @ViewChild(ChannelDetailsComponent) details: ChannelDetailsComponent;
   @ViewChild(ChannelScheduleComponent) schedule: ChannelScheduleComponent;
 
-  constructor(private readonly service: ChannelsService, private readonly broker: MessageBrokerService) {}
+  constructor(private readonly srApiService: SRApiService, private readonly broker: MessageBrokerService) {}
 
+  async ngOnInit() {
+    this.srApiService.channels$.pipe(takeUntil(this.unsubscribe$)).subscribe((values) => {
+      if (values) {
+        this.channels = values;
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
+
+  /*
   async loadChannelsLazy(event: LazyLoadEvent) {
     const filters = event.filters;
     let filter;
@@ -36,6 +52,7 @@ export class ChannelsListComponent {
     this.totalHits = channelsResult.pagination.totalhits;
     this.channels = channelsResult.channels;
   }
+  */
 
   onPlayChannel(channel: Channel) {
     this.broker.sendMessage(new PlayAudioMessage(channel.name, channel.liveaudio.url));
