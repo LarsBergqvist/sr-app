@@ -12,7 +12,7 @@ import { convertFromJSONstring } from 'src/app/utils/date-helper';
 export class ChannelScheduleComponent implements OnInit {
   scheduledEpisodes: ScheduledEpisode[];
   totalHits = 0;
-  pageSize = 10;
+  pageSize = 1000;
   isVisible = false;
   channelId: number;
 
@@ -43,6 +43,7 @@ export class ChannelScheduleComponent implements OnInit {
       endtimeDate: convertFromJSONstring(s?.endtimeutc),
       program: s.program
     }));
+    this.scheduledEpisodes = this.scheduledEpisodes.filter((s) => s.endtimeDate.getTime() >= Date.now());
   }
 
   close() {
