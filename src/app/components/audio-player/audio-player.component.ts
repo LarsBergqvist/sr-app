@@ -25,12 +25,22 @@ export class AudioPlayerComponent implements OnInit {
       )
       .subscribe(async (message: PlayAudioMessage) => {
         if (message) {
-          this.currentStation = message.title;
-          this.currentUrlToPlay = message.url;
-          const audio = document.getElementById('audio');
-          if (audio) {
-            (audio as any).load();
-            (audio as any).play();
+          const audio: any = document.getElementById('audio');
+          if (message.url === this.currentUrlToPlay) {
+            if (audio) {
+              if (audio.paused) {
+                audio.play();
+              } else {
+                audio.pause();
+              }
+            }
+          } else {
+            this.currentStation = message.title;
+            this.currentUrlToPlay = message.url;
+            if (audio) {
+              audio.load();
+              audio.play();
+            }
           }
         }
       });
