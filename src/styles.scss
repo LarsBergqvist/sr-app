@@ -24,6 +24,7 @@
 .my-sidebar {
   width: 60% !important;
 }
+
 @media only screen and (max-width: 600px) {
   .clickable:hover {
     //    display: block;
@@ -31,6 +32,12 @@
   }
   .my-sidebar {
     width: 100% !important;
+  }
+  .channel-tag-line {
+    display: none !important;
+  }
+  .channel-type {
+    display: none !important;
   }
 }
 

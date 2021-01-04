@@ -24,23 +24,25 @@
                                 </span>
                             </td>
                             <td>
-                                <div class="clickable" (click)="onOpenDetails(channel)"><i
-                                        class="pi pi-chevron-right details-button"></i>
-                                </div>
-                                <div class="clickable" (click)="onOpenSchedule(channel)"><i
-                                        class="pi pi-list details-button"></i>
-                                </div>
-                                <div (click)="onPlayChannel(channel)" class="clickable">
-                                    <i *ngIf="channel?.liveaudio?.url" class="pi pi-volume-up play-button"></i>
-                                </div>
+                                <span>
+                                    <span class="clickable" (click)="onOpenDetails(channel)"><i
+                                            class="pi pi-chevron-right details-button"></i>
+                                    </span>
+                                    <span class="clickable" (click)="onOpenSchedule(channel)"><i
+                                            class="pi pi-list details-button"></i>
+                                    </span>
+                                    <span (click)="onPlayChannel(channel)" class="clickable">
+                                        <i *ngIf="channel?.liveaudio?.url" class="pi pi-volume-up play-button"></i>
+                                    </span>
+                                </span>
                             </td>
                         </tr>
                     </table>
                 </td>
-                <td>
+                <td class="channel-type">
                     {{channel.channeltype}}
                 </td>
-                <td>
+                <td class="channel-tag-line">
                     {{channel.tagline}}
                 </td>
             </tr>

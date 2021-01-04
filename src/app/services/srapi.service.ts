@@ -31,6 +31,7 @@ export class SRApiService extends SRBaseService {
       channeltype: r.channeltype,
       tagline: r.tagline
     }));
+    this.channels = this.channels.filter((c) => c.channeltype !== 'Extrakanaler');
     this.channels$.next(this.channels);
 
     const programsRawResult = await this.getAllPrograms();
