@@ -1,8 +1,8 @@
-<div>
-    <label>Select a program for which episodes should be fetched</label>
+<div class="dd-label">
+    <label>{{'SelectAProgramForEpisodes' | translate}}</label>
 </div>
 <p-dropdown [options]="programOptions" [(ngModel)]="selectedProgram" (onChange)="onProgramChanged($event)"
-    [filter]="true" placeholder="Select a program">
+    [filter]="true" placeholder="{{'SelectAProgram' | translate}}">
     <ng-template let-program pTemplate="item">
         <div>
             <span *ngIf="program?.fav">

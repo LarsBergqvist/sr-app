@@ -1,8 +1,8 @@
 <div>
     <p-toolbar class="toolbar">
         <div class="audio-wrapper">
-            <div class="now-playing">
-                Now playing: {{currentStation}}
+            <div *ngIf="currentUrlToPlay" class="now-playing">
+                {{'NowPlaying' | translate}}: {{currentStation}}
             </div>
             <div class="audio-ctl-wrapper">
                 <audio class="audio-ctl" controls id="audio" preload="none" autoplay="false">

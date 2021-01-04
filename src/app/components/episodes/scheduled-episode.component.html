@@ -4,17 +4,17 @@
             <div *ngIf="episode.episodeid">
                 <i class="pi pi-chevron-right details-button details-button-smaller"></i>
             </div>
-            <b>Title</b>: {{episode?.title}}
+            <b>{{'Title' | translate}}</b>: {{episode?.title}}
         </div>
     </div>
     <div>
         <div>
-            <b>Desc</b>: {{episode?.description}}
+            <b>{{'Desc.' | translate}}</b>: {{episode?.description}}
         </div>
     </div>
     <div>
         <div>
-            <b>Start time</b>: {{episode?.starttimeDate | date:'medium'}}
+            <b>{{'Start' | translate}}</b>: {{episode?.starttimeDate | date:'medium'}}
         </div>
     </div>
 </div>

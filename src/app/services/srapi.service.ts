@@ -7,6 +7,7 @@ import { Program } from '../models/program';
 import { LocalStorageService } from './local-storage.service';
 import { MessageBrokerService } from './message-broker.service';
 import { SRBaseService } from './sr-base.service';
+import { TranslationService } from './translation.service';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,8 @@ export class SRApiService extends SRBaseService {
   constructor(
     private readonly http: HttpClient,
     private readonly localStorageService: LocalStorageService,
-    private readonly broker: MessageBrokerService
+    private readonly broker: MessageBrokerService,
+    private readonly translationService: TranslationService
   ) {
     super();
     this.initFavoritesFromLocalStorage();
@@ -84,7 +86,7 @@ export class SRApiService extends SRBaseService {
       this.programFavs.add(programId);
       this.storFavsInLocalStorage();
       this.updateProgramsWithFavs(this.programs);
-      this.broker.sendMessage(new SuccessInfoMessage(`Added '${programName}' to program favorites!`));
+      this.broker.sendMessage(new SuccessInfoMessage(this.translationService.translateWithArgs('AddedToFavorites', programName)));
     }
   }
 
@@ -93,7 +95,7 @@ export class SRApiService extends SRBaseService {
       this.programFavs.delete(programId);
       this.storFavsInLocalStorage();
       this.updateProgramsWithFavs(this.programs);
-      this.broker.sendMessage(new SuccessInfoMessage(`Removed '${programName}' from program favorites!`));
+      this.broker.sendMessage(new SuccessInfoMessage(this.translationService.translateWithArgs('RemovedFromFavorites', programName)));
     }
   }
 

@@ -1,4 +1,4 @@
-<p-sidebar *ngIf="episode" [(visible)]="isVisible" position="right" styleClass="my-sidebar" [blockScroll]="true"
+<p-sidebar *ngIf="episode" [(visible)]="isVisible" position="right" styleClass="sr-sidebar" [blockScroll]="true"
     [showCloseIcon]="false">
 
     <div class="details-header-text">
@@ -21,7 +21,7 @@
     </div>
     <hr>
     <div *ngIf="songs && songs.length > 0">
-        <h2>Song list:</h2>
+        <h2>{{'Songlist' | translate}}:</h2>
         <div *ngFor="let song of songs">
             <app-song [song]="song"></app-song>
             <hr>

@@ -4,9 +4,9 @@
         [totalRecords]="state.totalHits" (onLazyLoad)="loadLazy($event)" [responsive]="true">
         <ng-template pTemplate="header">
             <tr>
-                <th>Title</th>
-                <th>Time</th>
-                <th>Description</th>
+                <th>{{'EpisodeTitle' | translate | uppercase}}</th>
+                <th>{{'Date' | translate | uppercase}}</th>
+                <th>{{'Description' | translate | uppercase}}</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-episode>
@@ -19,10 +19,10 @@
                                     {{episode.title}}
                                 </b>
                                 <div *ngIf="episode.channelName">
-                                    Channel: {{episode.channelName}}
+                                    {{'Channel' | translate}}: {{episode.channelName}}
                                 </div>
                                 <div *ngIf="episode?.program?.name">
-                                    Program: {{episode.program.name}}
+                                    {{'Program' | translate}}: {{episode.program.name}}
                                 </div>
                             </td>
                             <td>

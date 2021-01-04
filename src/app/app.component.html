@@ -1,8 +1,10 @@
 <div class="header">
     <nav class="tab-bar">
         <ul>
-            <li><a routerLink="/channels" routerLinkActive="active">LIVE STREAMS</a></li>
-            <li><a routerLink="/episodes" routerLinkActive="active">EPISODES</a></li>
+            <li><a routerLink="/channels" routerLinkActive="active">{{'LiveStreamsHeader' | translate | uppercase}}</a>
+            </li>
+            <li><a routerLink="/episodes" routerLinkActive="active">{{'EpisodesHeader' | translate | uppercase}}</a>
+            </li>
         </ul>
     </nav>
     <app-audio-player></app-audio-player>

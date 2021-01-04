@@ -4,6 +4,7 @@ import { AppComponent } from './app.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { SRApiService } from './services/srapi.service';
 import { MessageService } from 'primeng/api';
+import { TranslatePipe } from './translations/translate.pipe';
 
 describe('AppComponent', () => {
   let service: any;
@@ -16,7 +17,7 @@ describe('AppComponent', () => {
       };
       TestBed.configureTestingModule({
         imports: [RouterTestingModule],
-        declarations: [AppComponent],
+        declarations: [AppComponent, TranslatePipe],
         schemas: [CUSTOM_ELEMENTS_SCHEMA],
         providers: [
           { provide: SRApiService, useValue: service },

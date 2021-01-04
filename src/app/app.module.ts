@@ -29,6 +29,7 @@ import { ToastModule } from 'primeng/toast';
 import { registerLocaleData } from '@angular/common';
 import locale from '@angular/common/locales/sv';
 import { MessageService } from 'primeng/api';
+import { TranslatePipe } from './translations/translate.pipe';
 registerLocaleData(locale);
 
 @NgModule({
@@ -45,7 +46,8 @@ registerLocaleData(locale);
     EpisodeDetailsComponent,
     ScheduledEpisodeComponent,
     RightNowEpisodesComponent,
-    ProgramSelectorComponent
+    ProgramSelectorComponent,
+    TranslatePipe
   ],
   imports: [
     BrowserModule,

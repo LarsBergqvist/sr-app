@@ -1,17 +1,17 @@
-<p-sidebar [(visible)]="isVisible" position="right" styleClass="my-sidebar" [blockScroll]="true"
+<p-sidebar [(visible)]="isVisible" position="right" styleClass="sr-sidebar" [blockScroll]="true"
     [showCloseIcon]="false">
     <div *ngIf="channel" class="details-header-text">
         <i (click)="close()" class="pi pi-chevron-left close-button clickable"></i>
-        <img src={{channel.image}} width="30" style="vertical-align:middle" /> Program schedule for today
+        <img src={{channel.image}} width="30" style="vertical-align:middle" /> {{'ProgramScheduleForToday' | translate}}
     </div>
     <hr>
     <p-table #dt [value]="scheduledEpisodes" [paginator]="true" [lazy]="true" [rows]="pageSize"
         [totalRecords]="totalHits" (onLazyLoad)="loadLazy($event)" [responsive]="true">
         <ng-template pTemplate="header">
             <tr>
-                <th>Name</th>
-                <th>Start</th>
-                <th>Description</th>
+                <th>{{'Name' | translate | uppercase}}</th>
+                <th>{{'Starts' | translate | uppercase}}</th>
+                <th>{{'Description' | translate | uppercase}}</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-episode>
@@ -24,7 +24,7 @@
                     <b>{{episode.title}}</b>
                 </td>
                 <td>
-                    <span class="p-column-title">Start:</span>
+                    <span class="p-column-title">{{'Starts' | translate}}:</span>
                     {{episode.starttimeDate | date:'medium'}}
                 </td>
                 <td>

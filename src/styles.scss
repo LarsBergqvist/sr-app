@@ -21,7 +21,7 @@
   cursor: pointer;
 }
 
-.my-sidebar {
+.sr-sidebar {
   width: 60% !important;
 }
 
@@ -30,7 +30,7 @@
     //    display: block;
     display: initial;
   }
-  .my-sidebar {
+  .sr-sidebar {
     width: 100% !important;
   }
   .channel-tag-line {
@@ -76,4 +76,8 @@
 .fav-but {
   float: right;
   font-size: 1.5em;
+}
+
+.dd-label {
+  padding-bottom: 10px;
 }

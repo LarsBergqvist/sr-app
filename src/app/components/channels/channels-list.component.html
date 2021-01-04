@@ -7,9 +7,9 @@
     <p-table #dt [value]="channels" [lazy]="false" [responsive]="true">
         <ng-template pTemplate="header">
             <tr>
-                <th>Name</th>
-                <th>Type</th>
-                <th>Description</th>
+                <th>{{'ChannelNameTitle' | translate | uppercase}}</th>
+                <th>{{'ChannelTypeTitle' | translate | uppercase}}</th>
+                <th>{{'ChannelTaglineTitle' | translate | uppercase}}</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-channel>

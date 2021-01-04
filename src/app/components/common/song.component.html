@@ -1,27 +1,27 @@
 <div *ngIf="song">
     <div>
         <div>
-            <b>Title</b>: {{song?.title}}
+            <b>{{'Title' | translate}}</b>: {{song?.title}}
         </div>
     </div>
     <div>
         <div>
-            <b>Artist</b>: {{song?.artist}}
+            <b>{{'Artist' | translate}}</b>: {{song?.artist}}
         </div>
     </div>
     <div>
         <div>
-            <b>Album</b>: {{song?.albumname}}
+            <b>{{'Album' | translate}}</b>: {{song?.albumname}}
         </div>
     </div>
     <div>
         <div>
-            <b>Start time</b>: {{song?.starttimeutcDate | date:'medium'}}
+            <b>{{'StartTime' | translate}}</b>: {{song?.starttimeutcDate | date:'medium'}}
         </div>
     </div>
     <div>
         <div>
-            <b>Stop time</b>: {{song?.stoptimeutcDate | date:'medium'}}
+            <b>{{'StopTime' | translate}}</b>: {{song?.stoptimeutcDate | date:'medium'}}
         </div>
     </div>
 </div>

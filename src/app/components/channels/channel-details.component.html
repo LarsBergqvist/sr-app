@@ -1,9 +1,9 @@
-<p-sidebar *ngIf="channel" [(visible)]="isVisible" position="right" styleClass="my-sidebar" [blockScroll]="true"
+<p-sidebar *ngIf="channel" [(visible)]="isVisible" position="right" styleClass="sr-sidebar" [blockScroll]="true"
     [showCloseIcon]="false">
 
     <div class="details-header-text">
         <i (click)="close()" class="pi pi-chevron-left close-button clickable"></i>
-        <img src={{channel.image}} width="30" style="vertical-align:middle" /> Channel details
+        <img src={{channel.image}} width="30" style="vertical-align:middle" /> {{'ChannelDetails' | translate}}
     </div>
     <hr>
     <div *ngIf="channel">
@@ -25,18 +25,18 @@
     </div>
     <hr>
     <div>
-        <h2>Current playlist:</h2>
-        <div *ngIf="playlist?.previoussong">
-            <h3>Previous song</h3>
-            <app-song [song]="playlist.previoussong"></app-song>
-        </div>
+        <h2>{{'CurrentPlaylist' | translate}}:</h2>
         <div *ngIf="playlist?.song">
-            <h3>Current song</h3>
+            <h3>{{'CurrentSong' | translate}}</h3>
             <app-song [song]="playlist.song"></app-song>
         </div>
         <div *ngIf="playlist?.nextsong">
-            <h3>Next song</h3>
+            <h3>{{'NextSong' | translate}}</h3>
             <app-song [song]="playlist.nextsong"></app-song>
+        </div>
+        <div *ngIf="playlist?.previoussong">
+            <h3>{{'PreviousSong' | translate}}</h3>
+            <app-song [song]="playlist.previoussong"></app-song>
         </div>
     </div>
 </p-sidebar>
