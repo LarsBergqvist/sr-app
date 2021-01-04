@@ -36,11 +36,11 @@ export class ProgramSelectorComponent implements OnInit, OnDestroy {
     this.selectedProgramChanged.emit(this.selectedProgram);
   }
 
-  onAddToFavorites(programId: number) {
-    this.srApiService.addProgramToFavorites(programId);
+  onAddToFavorites(programId: number, programName: string) {
+    this.srApiService.addProgramToFavorites(programId, programName);
   }
 
-  onRemoveFromFavorites(programId: number) {
-    this.srApiService.removeProgramFromFavorites(programId);
+  onRemoveFromFavorites(programId: number, programName: string) {
+    this.srApiService.removeProgramFromFavorites(programId, programName);
   }
 }

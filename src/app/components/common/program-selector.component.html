@@ -8,13 +8,14 @@
             <span *ngIf="program?.fav">
                 {{program.label}}
                 <i class="pi pi-star yellow"></i>
-                <span class="clickable" (click)="onRemoveFromFavorites(program.value)"><i
+                <span class="clickable" (click)="onRemoveFromFavorites(program.value, program.label)"><i
                         class="pi pi-star-o fav-but"></i>
                 </span>
             </span>
             <span *ngIf="!program?.fav">
                 {{program.label}}
-                <span class="clickable" (click)="onAddToFavorites(program.value)"><i class="pi pi-star fav-but"></i>
+                <span class="clickable" (click)="onAddToFavorites(program.value, program.label)"><i
+                        class="pi pi-star fav-but"></i>
                 </span>
             </span>
         </div>

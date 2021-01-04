@@ -1,9 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { SuccessInfoMessage } from '../messages/success-info.message';
 import { Channel } from '../models/channel';
 import { Program } from '../models/program';
 import { LocalStorageService } from './local-storage.service';
+import { MessageBrokerService } from './message-broker.service';
 import { SRBaseService } from './sr-base.service';
 
 @Injectable({
@@ -17,7 +19,11 @@ export class SRApiService extends SRBaseService {
 
   private programFavs = new Set();
 
-  constructor(private readonly http: HttpClient, private readonly localStorageService: LocalStorageService) {
+  constructor(
+    private readonly http: HttpClient,
+    private readonly localStorageService: LocalStorageService,
+    private readonly broker: MessageBrokerService
+  ) {
     super();
     this.initFavoritesFromLocalStorage();
   }
@@ -73,19 +79,21 @@ export class SRApiService extends SRBaseService {
     return channel?.name;
   }
 
-  addProgramToFavorites(programId: number) {
+  addProgramToFavorites(programId: number, programName: string) {
     if (!this.programFavs.has(programId)) {
       this.programFavs.add(programId);
       this.storFavsInLocalStorage();
       this.updateProgramsWithFavs(this.programs);
+      this.broker.sendMessage(new SuccessInfoMessage(`Added '${programName}' to program favorites!`));
     }
   }
 
-  removeProgramFromFavorites(programId: number) {
+  removeProgramFromFavorites(programId: number, programName: string) {
     if (this.programFavs.has(programId)) {
       this.programFavs.delete(programId);
       this.storFavsInLocalStorage();
       this.updateProgramsWithFavs(this.programs);
+      this.broker.sendMessage(new SuccessInfoMessage(`Removed '${programName}' from program favorites!`));
     }
   }
 

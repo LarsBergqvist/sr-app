@@ -3,9 +3,11 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { SRApiService } from './services/srapi.service';
+import { MessageService } from 'primeng/api';
 
 describe('AppComponent', () => {
   let service: any;
+  let messageService: any;
 
   beforeEach(
     waitForAsync(() => {
@@ -16,7 +18,10 @@ describe('AppComponent', () => {
         imports: [RouterTestingModule],
         declarations: [AppComponent],
         schemas: [CUSTOM_ELEMENTS_SCHEMA],
-        providers: [{ provide: SRApiService, useValue: service }]
+        providers: [
+          { provide: SRApiService, useValue: service },
+          { provide: MessageService, useValue: messageService }
+        ]
       }).compileComponents();
     })
   );
