@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Channel } from '../models/channel';
 import { Program } from '../models/program';
+import { LocalStorageService } from './local-storage.service';
 import { SRBaseService } from './sr-base.service';
 
 @Injectable({
@@ -14,49 +15,107 @@ export class SRApiService extends SRBaseService {
   private programs: Program[];
   programs$ = new BehaviorSubject<Program[]>(null);
 
-  constructor(private readonly http: HttpClient) {
+  private programFavs = new Set();
+
+  constructor(private readonly http: HttpClient, private readonly localStorageService: LocalStorageService) {
     super();
+    this.initFavoritesFromLocalStorage();
   }
 
   async fetchBaseData() {
+    await this.fetchChannelsBaseData();
+    await this.fetchBaseProgramsData();
+  }
+
+  private async fetchChannelsBaseData() {
     const channelsRawResult = await this.getAllChannels();
-    this.channels = channelsRawResult.channels.map((r) => ({
-      name: r.name,
-      id: r.id,
+    this.channels = channelsRawResult.channels.map((c: Channel) => ({
+      name: c.name,
+      id: c.id,
       liveaudio: {
-        id: r.liveaudio.id,
-        url: r.liveaudio.url
+        id: c.liveaudio.id,
+        url: c.liveaudio.url
       },
-      image: r.image,
-      channeltype: r.channeltype,
-      tagline: r.tagline
+      image: c.image,
+      channeltype: c.channeltype,
+      tagline: c.tagline
     }));
     this.channels = this.channels.filter((c) => c.channeltype !== 'Extrakanaler');
     this.channels$.next(this.channels);
-
-    const programsRawResult = await this.getAllPrograms();
-    this.programs = programsRawResult.programs.map((r) => ({
-      name: r.name,
-      id: r.id
-    }));
-    this.programs.sort((a, b) => a.name.localeCompare(b.name));
-    this.programs$.next(this.programs);
   }
 
-  async getAllChannels(): Promise<any> {
+  private async fetchBaseProgramsData() {
+    const programsRawResult = await this.getAllPrograms();
+    const progs: Program[] = programsRawResult.programs.map((p: Program) => ({
+      name: p.name,
+      id: p.id,
+      fav: false
+    }));
+
+    this.updateProgramsWithFavs(progs);
+  }
+
+  private async getAllChannels(): Promise<any> {
     const params = `?${this.FormatParam}&page=1&size=10000`;
     let url = `${this.BaseUrl}channels/${params}`;
     return this.http.get<any>(`${url}`).toPromise();
   }
 
-  async getAllPrograms(): Promise<any> {
+  private async getAllPrograms(): Promise<any> {
     const params = `?${this.FormatParam}&page=1&size=10000&isarchived=false`;
     let url = `${this.BaseUrl}programs/${params}`;
     return this.http.get<any>(`${url}`).toPromise();
   }
 
   getChannelNameFromId(id: number): string {
-    const channel = this.channels.find((c) => c.id === id);
+    if (!this.channels) return;
+    const channel = this?.channels.find((c) => c.id === id);
     return channel?.name;
+  }
+
+  addProgramToFavorites(programId: number) {
+    if (!this.programFavs.has(programId)) {
+      this.programFavs.add(programId);
+      this.storFavsInLocalStorage();
+      this.updateProgramsWithFavs(this.programs);
+    }
+  }
+
+  removeProgramFromFavorites(programId: number) {
+    if (this.programFavs.has(programId)) {
+      this.programFavs.delete(programId);
+      this.storFavsInLocalStorage();
+      this.updateProgramsWithFavs(this.programs);
+    }
+  }
+
+  private updateProgramsWithFavs(progs: Program[]) {
+    progs.forEach((p) => (p.fav = this.programFavs.has(p.id)));
+    progs.sort((a: { name: string }, b: { name: any }) => {
+      return a.name.localeCompare(b.name);
+    });
+    const favs = progs.filter((p: Program) => p.fav);
+    const nofavs = progs.filter((p: Program) => !p.fav);
+    this.programs = favs.concat(nofavs);
+    this.programs$.next(this.programs);
+  }
+
+  private initFavoritesFromLocalStorage() {
+    const favsarrayStr = this.localStorageService.get('programfavs');
+    if (favsarrayStr) {
+      try {
+        const favsArray: [] = JSON.parse(favsarrayStr);
+        if (favsArray) {
+          favsArray.forEach((f) => {
+            this.programFavs.add(f);
+          });
+        }
+      } catch {}
+    }
+  }
+
+  private storFavsInLocalStorage() {
+    let serializedSet = JSON.stringify(Array.from(this.programFavs));
+    this.localStorageService.set('programfavs', serializedSet);
   }
 }

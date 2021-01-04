@@ -16,7 +16,7 @@ export class EpisodesComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     const oldState = this.storageService.get('EpisodesComponent');
     if (oldState) {
-      this.selectedProgramId = oldState;
+      //      this.selectedProgramId = oldState;
     }
   }
 

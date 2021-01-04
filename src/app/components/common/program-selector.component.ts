@@ -21,7 +21,7 @@ export class ProgramSelectorComponent implements OnInit, OnDestroy {
     this.srApiService.programs$.pipe(takeUntil(this.unsubscribe$)).subscribe((values) => {
       if (values) {
         this.programOptions = [];
-        const programs = values.map((c) => ({ label: c.name, value: c.id }));
+        const programs = values.map((c) => ({ label: c.name, value: c.id, fav: c.fav }));
         this.programOptions.push(...programs);
       }
     });
@@ -34,5 +34,13 @@ export class ProgramSelectorComponent implements OnInit, OnDestroy {
 
   onProgramChanged(event) {
     this.selectedProgramChanged.emit(this.selectedProgram);
+  }
+
+  onAddToFavorites(programId: number) {
+    this.srApiService.addProgramToFavorites(programId);
+  }
+
+  onRemoveFromFavorites(programId: number) {
+    this.srApiService.removeProgramFromFavorites(programId);
   }
 }
