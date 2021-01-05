@@ -11,15 +11,19 @@ import { ProgramEpisodesComponent } from './program-episodes.component';
 })
 export class ProgramsListComponent implements OnInit, OnDestroy {
   programs: Program[];
+  allPrograms: Program[];
   private unsubscribe$ = new Subject();
+  showOnlyFavs = false;
 
   @ViewChild(ProgramEpisodesComponent) episodesComp: ProgramEpisodesComponent;
   constructor(private readonly srApiService: SRApiService) {}
 
   async ngOnInit() {
-    this.srApiService.programs$.pipe(takeUntil(this.unsubscribe$)).subscribe((values) => {
+    this.srApiService.programs$.pipe(takeUntil(this.unsubscribe$)).subscribe((values: Program[]) => {
       if (values) {
-        this.programs = values;
+        this.allPrograms = [];
+        this.allPrograms.push(...values);
+        this.programs = this.allPrograms;
       }
     });
   }
@@ -31,5 +35,21 @@ export class ProgramsListComponent implements OnInit, OnDestroy {
 
   onShowEpisodes(program: Program) {
     this.episodesComp.show(program);
+  }
+
+  onFilterFavClicked(event) {
+    if (event.checked) {
+      this.programs = this.allPrograms.filter((p) => p.fav);
+    } else {
+      this.programs = this.allPrograms;
+    }
+  }
+
+  onAddToFavorites(programId: number, programName: string) {
+    this.srApiService.addProgramToFavorites(programId, programName);
+  }
+
+  onRemoveFromFavorites(programId: number, programName: string) {
+    this.srApiService.removeProgramFromFavorites(programId, programName);
   }
 }

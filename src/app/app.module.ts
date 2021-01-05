@@ -26,6 +26,7 @@ import { RightNowEpisodesComponent } from './components/episodes/rightnow-episod
 import { ChannelScheduleComponent } from './components/channels/channel-schedule.component';
 import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
+import { CheckboxModule } from 'primeng/checkbox';
 
 import { registerLocaleData } from '@angular/common';
 import locale from '@angular/common/locales/sv';
@@ -71,6 +72,7 @@ registerLocaleData(locale);
     ToastModule,
     ButtonModule,
     InputTextModule,
+    CheckboxModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
