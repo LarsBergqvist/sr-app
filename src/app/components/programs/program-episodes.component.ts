@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LazyLoadEvent } from 'primeng/api';
 import { PlayAudioMessage } from 'src/app/messages/play-audio.message';
+import { ShowEpisodeDetailsMessage } from 'src/app/messages/show-episodedetails.message';
 import { Episode } from 'src/app/models/episode';
 import { Program } from 'src/app/models/program';
 import { EpisodesService } from 'src/app/services/episodes.service';
@@ -70,5 +71,9 @@ export class ProgramEpisodesComponent implements OnInit {
     } else if (episode?.broadcast?.broadcastfiles?.length > 0) {
       this.broker.sendMessage(new PlayAudioMessage(episode.title, episode.broadcast?.broadcastfiles[0].url));
     }
+  }
+
+  onOpenDetails(episode: Episode) {
+    this.broker.sendMessage(new ShowEpisodeDetailsMessage(episode));
   }
 }

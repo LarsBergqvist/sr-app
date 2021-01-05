@@ -34,6 +34,9 @@
                                     </div>
                                 </td>
                                 <td>
+                                    <div class="clickable" (click)="onOpenDetails(episode)">
+                                        <i class="pi pi-chevron-right details-button"></i>
+                                    </div>
                                     <div>
                                         <i *ngIf="hasSound(episode)" (click)="onPlayEpisode(episode)"
                                             class="pi pi-volume-up play-button clickable"></i>

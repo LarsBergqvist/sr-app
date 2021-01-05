@@ -27,7 +27,6 @@
 
 @media only screen and (max-width: 600px) {
   .clickable:hover {
-    //    display: block;
     display: initial;
   }
   .sr-sidebar {
@@ -84,7 +83,7 @@
 
 .refresh-button {
   float: right;
-  margin-right: 1em;
+  margin-right: 2px;
   height: 2em !important;
   width: 2em !important;
 }
