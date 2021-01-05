@@ -6,6 +6,5 @@ export interface Program {
   description: string;
   programimage: string;
   channel: Channel;
-  channelName: string;
   fav: boolean;
 }

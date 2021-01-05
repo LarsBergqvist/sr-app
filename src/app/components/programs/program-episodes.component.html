@@ -1,0 +1,56 @@
+<p-sidebar *ngIf="program" [(visible)]="isVisible" position="right" styleClass="sr-sidebar" [blockScroll]="true"
+    [showCloseIcon]="false">
+
+    <div class="details-header-text">
+        <i (click)="close()" class="pi pi-chevron-left close-button clickable"></i>
+        <img src={{program.programimage}} width="30" style="vertical-align:middle" /> {{program.name}}: {{'Episodes' |
+        translate}}
+    </div>
+    <hr>
+    <div class="channels-list">
+        <p-table #dt [value]="episodes" [paginator]="true" [lazy]="true" [rows]="pageSize" [totalRecords]="totalHits"
+            (onLazyLoad)="loadLazy($event)" [responsive]="true">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>{{'EpisodeTitle' | translate | uppercase}}</th>
+                    <th>{{'Date' | translate | uppercase}}</th>
+                    <th>{{'Description' | translate | uppercase}}</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-episode>
+                <tr>
+                    <td>
+                        <table>
+                            <tr>
+                                <td>
+                                    <b>
+                                        {{episode.title}}
+                                    </b>
+                                    <div *ngIf="episode.channelName">
+                                        {{'Channel' | translate}}: {{episode.channelName}}
+                                    </div>
+                                    <div *ngIf="episode?.program?.name">
+                                        {{'Program' | translate}}: {{episode.program.name}}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <i *ngIf="hasSound(episode)" (click)="onPlayEpisode(episode)"
+                                            class="pi pi-volume-up play-button clickable"></i>
+                                    </div>
+                                </td>
+                            </tr>
+
+                        </table>
+                    </td>
+                    <td>
+                        {{episode?.publishdateutcDate | date:'medium' }}
+                    </td>
+                    <td>
+                        {{episode.description}}
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</p-sidebar>

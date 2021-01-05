@@ -4,10 +4,12 @@
     "Episode": "Avsnitt",
     "LiveStreamsHeader": "Direkt",
     "EpisodesHeader": "Avsnitt",
+    "ProgramsHeader": "Program",
     "NowPlaying": "Spelar nu",
     "ChannelNameTitle": "Kanalnamn",
     "ChannelTypeTitle": "Typ",
     "ChannelTaglineTitle": "Beskrivning",
+    "ProgramNameTitle": "Programnamn",
     "Name": "Namn",
     "Starts": "Börjar",
     "Start": "Start",
@@ -33,5 +35,6 @@
     "Date": "Datum",
     "EpisodeTitle": "Avsnittsnamn",
     "RemovedFromFavorites": "Tog bort '{0}' från programfavoriter!",
-    "AddedToFavorites": "La till '{0}' till programfavoriter!"
+    "AddedToFavorites": "La till '{0}' till programfavoriter!",
+    "SearchKeyword": "Sök nyckelord"
 }

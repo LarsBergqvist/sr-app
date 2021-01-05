@@ -34,7 +34,9 @@ import { TranslatePipe } from './translations/translate.pipe';
 import { HttpInterceptorService } from './services/http-interceptor.service';
 import { LoggingService } from './services/logging.service';
 import { MessageBrokerService } from './services/message-broker.service';
-import { Button } from 'protractor';
+import { ProgramsListComponent } from './components/programs/programs-list.component';
+import { ProgramEpisodesComponent } from './components/programs/program-episodes.component';
+import { InputTextModule } from 'primeng/inputtext';
 registerLocaleData(locale);
 
 @NgModule({
@@ -52,7 +54,9 @@ registerLocaleData(locale);
     ScheduledEpisodeComponent,
     RightNowEpisodesComponent,
     ProgramSelectorComponent,
-    TranslatePipe
+    TranslatePipe,
+    ProgramsListComponent,
+    ProgramEpisodesComponent
   ],
   imports: [
     BrowserModule,
@@ -66,6 +70,7 @@ registerLocaleData(locale);
     SidebarModule,
     ToastModule,
     ButtonModule,
+    InputTextModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [

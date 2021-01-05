@@ -1,14 +1,29 @@
 <app-channel-details></app-channel-details>
 <app-channel-schedule></app-channel-schedule>
 <app-episode-details></app-episode-details>
-<input pInputText type="text" (input)="dt.filter($event.target.value, 'name', 'contains')">
 
 <div id="channelslist" class="channels-list">
-    <p-table #dt [value]="channels" [lazy]="false" [responsive]="true">
+    <p-table #dt [value]="channels" [lazy]="false" [responsive]="true" [globalFilterFields]="['name','tagline']">
+        <ng-template pTemplate="caption">
+            <div class="p-d-flex">
+                <span class="p-input-icon-left p-ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input pInputText class="p-inputtext-sm" type="text"
+                        (input)="dt.filterGlobal($event.target.value, 'contains')"
+                        placeholder="{{'SearchKeyword' | translate | uppercase}}" />
+                </span>
+            </div>
+        </ng-template>
         <ng-template pTemplate="header">
             <tr>
-                <th>{{'ChannelNameTitle' | translate | uppercase}}</th>
-                <th>{{'ChannelTypeTitle' | translate | uppercase}}</th>
+                <th pSortableColumn="name">{{'ChannelNameTitle' | translate | uppercase}}<p-sortIcon field="name">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="channeltype">{{'ChannelTypeTitle' | translate | uppercase}}<p-sortIcon
+                        field="channeltype">
+                    </p-sortIcon>
+                </th>
+
                 <th>{{'ChannelTaglineTitle' | translate | uppercase}}</th>
             </tr>
         </ng-template>

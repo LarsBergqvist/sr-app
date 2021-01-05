@@ -57,7 +57,13 @@ export class SRApiService extends SRBaseService {
     const progs: Program[] = programsRawResult.programs.map((p: Program) => ({
       name: p.name,
       id: p.id,
-      fav: false
+      fav: false,
+      channel: {
+        id: p?.channel.id,
+        name: p?.channel.name
+      },
+      programimage: p.programimage,
+      description: p.description
     }));
 
     this.updateProgramsWithFavs(progs);

@@ -4,10 +4,12 @@
     "Episode": "Episode",
     "LiveStreamsHeader": "Live streams",
     "EpisodesHeader": "Episodes",
+    "ProgramsHeader": "Programs",
     "NowPlaying": "Now playing",
     "ChannelNameTitle": "Channel name",
     "ChannelTypeTitle": "Type",
     "ChannelTaglineTitle": "Tag line",
+    "ProgramNameTitle": "Program name",
     "Name": "Name",
     "Starts": "Starts",
     "Start": "Start",
@@ -33,5 +35,6 @@
     "Date": "Date",
     "EpisodeTitle": "Episode title",
     "RemovedFromFavorites": "Removed '{0}' from program favorites!",
-    "AddedToFavorites": "Added '{0}' to program favorites!"
+    "AddedToFavorites": "Added '{0}' to program favorites!",
+    "SearchKeyword": "Search keyword"
 }
