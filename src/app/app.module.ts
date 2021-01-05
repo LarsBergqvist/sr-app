@@ -4,7 +4,7 @@ import { LOCALE_ID, NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ChannelsListComponent } from './components/channels/channels-list.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TableModule } from 'primeng/table';
 import { ToolbarModule } from 'primeng/toolbar';
 import { DropdownModule } from 'primeng/dropdown';
@@ -25,11 +25,16 @@ import { ScheduledEpisodeComponent } from './components/episodes/scheduled-episo
 import { RightNowEpisodesComponent } from './components/episodes/rightnow-episodes.component';
 import { ChannelScheduleComponent } from './components/channels/channel-schedule.component';
 import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
 
 import { registerLocaleData } from '@angular/common';
 import locale from '@angular/common/locales/sv';
 import { MessageService } from 'primeng/api';
 import { TranslatePipe } from './translations/translate.pipe';
+import { HttpInterceptorService } from './services/http-interceptor.service';
+import { LoggingService } from './services/logging.service';
+import { MessageBrokerService } from './services/message-broker.service';
+import { Button } from 'protractor';
 registerLocaleData(locale);
 
 @NgModule({
@@ -60,9 +65,20 @@ registerLocaleData(locale);
     BrowserAnimationsModule,
     SidebarModule,
     ToastModule,
+    ButtonModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
-  providers: [{ provide: LOCALE_ID, useValue: 'sv' }, MessageService],
+  providers: [
+    { provide: LOCALE_ID, useValue: 'sv' },
+    MessageService,
+    LoggingService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpInterceptorService,
+      multi: true,
+      deps: [MessageBrokerService, LoggingService]
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

@@ -6,6 +6,7 @@ import { filter, takeUntil } from 'rxjs/operators';
 import { SuccessInfoMessage } from './messages/success-info.message';
 import { Subject } from 'rxjs';
 import { TranslationService } from './services/translation.service';
+import { ErrorOccurredMessage } from './messages/error-occurred.message';
 
 @Component({
   selector: 'app-root',
@@ -14,6 +15,7 @@ import { TranslationService } from './services/translation.service';
 })
 export class AppComponent implements OnInit, OnDestroy {
   title = 'sr-app';
+  isLoading = false;
   private unsubscribe$ = new Subject();
 
   constructor(
@@ -36,12 +38,33 @@ export class AppComponent implements OnInit, OnDestroy {
       .subscribe((message: SuccessInfoMessage) => {
         this.primeNGmessageService.add({ severity: 'success', summary: '', detail: message.info });
       });
+    messages
+      .pipe(
+        takeUntil(this.unsubscribe$),
+        filter((message) => message instanceof ErrorOccurredMessage)
+      )
+      .subscribe((message: ErrorOccurredMessage) => {
+        this.primeNGmessageService.add({ severity: 'error', summary: '', detail: message.errorMessage });
+      });
 
-    await this.srApiService.fetchBaseData();
+    await this.fetchBaseData();
+  }
+
+  async fetchBaseData() {
+    try {
+      this.isLoading = true;
+      await this.srApiService.fetchBaseData();
+    } finally {
+      this.isLoading = false;
+    }
   }
 
   ngOnDestroy(): void {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
+  }
+
+  async onRefresh() {
+    await this.fetchBaseData();
   }
 }
