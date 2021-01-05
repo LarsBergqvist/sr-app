@@ -70,7 +70,7 @@ export class SRApiService extends SRBaseService {
   }
 
   private async getAllPrograms(): Promise<any> {
-    const params = `?${this.FormatParam}&page=1&size=10000&isarchived=false`;
+    const params = `?${this.FormatParam}&page=1&size=10000`;
     let url = `${this.BaseUrl}programs/${params}`;
     return this.http.get<any>(`${url}`).toPromise();
   }
