@@ -3,12 +3,13 @@
 <app-episode-details></app-episode-details>
 
 <div id="channelslist" class="channels-list">
-    <p-table #dt [value]="channels" [lazy]="false" [responsive]="true" [globalFilterFields]="['name','tagline']">
+    <p-table #dt [value]="channels" [lazy]="false" [responsive]="true" [globalFilterFields]="['name','tagline']"
+        styleClass="sr-table">
         <ng-template pTemplate="caption">
-            <div class="p-d-flex">
+            <div class="p-d-flex caption-bar">
                 <span class="p-input-icon-left p-ml-auto">
                     <i class="pi pi-search"></i>
-                    <input pInputText class="p-inputtext-sm" type="text"
+                    <input pInputText class="p-inputtext-sm kw-input" type="text"
                         (input)="dt.filterGlobal($event.target.value, 'contains')"
                         placeholder="{{'SearchKeyword' | translate | uppercase}}" />
                 </span>

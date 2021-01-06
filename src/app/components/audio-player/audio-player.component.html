@@ -1,7 +1,7 @@
 <div>
     <p-toolbar class="toolbar">
         <div class="audio-wrapper">
-            <div *ngIf="currentUrlToPlay" class="now-playing">
+            <div *ngIf="currentUrlToPlay; else empty" class="now-playing">
                 {{'NowPlaying' | translate}}: {{currentStation}}
             </div>
             <div class="audio-ctl-wrapper">
@@ -14,3 +14,8 @@
         </div>
     </p-toolbar>
 </div>
+<ng-template #empty>
+    <div class="now-playing">
+        &nbsp;
+    </div>
+</ng-template>

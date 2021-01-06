@@ -25,6 +25,10 @@
   width: 60% !important;
 }
 
+.kw-input {
+  max-width: 300px;
+}
+
 @media only screen and (max-width: 600px) {
   .clickable:hover {
     display: initial;
@@ -37,6 +41,9 @@
   }
   .channel-type {
     display: none !important;
+  }
+  .kw-input {
+    max-width: 150px;
   }
 }
 
@@ -112,4 +119,21 @@
 td {
   padding-top: 2px !important;
   padding-bottom: 2px !important;
+}
+
+.sr-table {
+  margin-bottom: 100px;
+}
+
+html body app-root div.header app-audio-player div p-toolbar.toolbar div.p-toolbar.p-component {
+  padding-bottom: 0px !important;
+}
+
+html body app-root div.header app-audio-player div p-toolbar.toolbar div.p-toolbar.p-component div.audio-wrapper div.audio-ctl-wrapper {
+  margin: 0px;
+  width: auto;
+}
+
+.caption-bar {
+  padding-top: 20px;
 }

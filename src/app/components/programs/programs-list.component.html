@@ -3,16 +3,16 @@
 
 <div class="programs-list">
     <p-table #dt2 [value]="programs" [responsive]="true" [paginator]="true" [rows]="10"
-        [globalFilterFields]="['name','channel.name','description']">
+        [globalFilterFields]="['name','channel.name','description']" styleClass="sr-table">
         <ng-template pTemplate="caption">
-            <div class="p-d-flex">
+            <div class="p-d-flex caption-bar">
                 <span>
                     <p-checkbox (onChange)="onFilterFavClicked($event)" [(ngModel)]="showOnlyFavs" [binary]="true"
                         label="Show only favorites"></p-checkbox>
                 </span>
                 <span class="p-input-icon-left p-ml-auto">
                     <i class="pi pi-search"></i>
-                    <input pInputText class="p-inputtext-sm" type="text"
+                    <input pInputText class="p-inputtext-sm kw-input" type="text"
                         (input)="dt2.filterGlobal($event.target.value, 'contains')"
                         placeholder="{{'SearchKeyword' | translate | uppercase}}" />
                 </span>
@@ -36,7 +36,8 @@
                 <td>
                     <div class="p-grid">
                         <div class="p-col-8">
-                            <img src={{program.programimage}} height="30" width="30" style="vertical-align:middle" />
+                            <img src={{program.programimage}} height="50" width="50"
+                                style="padding: 4px; vertical-align:middle" />
                             <span>
                                 <i *ngIf="program.fav" class="pi pi-star yellow-fav"></i>
                             </span>
