@@ -2,7 +2,7 @@
     <div>
         <div class="clickable" (click)="onOpenDetails(episode.episodeid)">
             <div *ngIf="episode.episodeid">
-                <i class="pi pi-chevron-right details-button details-button-smaller"></i>
+                <i class="pi pi-ellipsis-h details-button details-button-smaller"></i>
             </div>
             <b>{{'Title' | translate}}</b>: {{episode?.title}}
         </div>

@@ -10,7 +10,7 @@
         <div>
             <b>{{episode.title}}</b>
             <i *ngIf="hasSound(episode)" (click)="onPlayEpisode(episode)"
-                class="pi pi-volume-up play-button clickable"></i>
+                class="pi pi-caret-right play-button clickable"></i>
         </div>
         <div>
             <img src={{episode.imageurl}} width="100" class="episodes-img" />
@@ -22,7 +22,7 @@
             <b>Time: </b>{{episode.publishdateutcDate | date:'medium'}}
         </div>
     </div>
-    <hr>
+    <hr class="clear">
     <div *ngIf="songs && songs.length > 0">
         <h2>{{'Songlist' | translate}}:</h2>
         <div *ngFor="let song of songs">

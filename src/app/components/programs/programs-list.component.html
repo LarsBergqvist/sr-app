@@ -47,14 +47,15 @@
 
                         <div class="p-col-4" style="float:right">
                             <div class="clickable" (click)="onShowEpisodes(program)"><i
-                                    class="pi pi-list details-button"></i>
+                                    class="pi pi-ellipsis-h details-button"></i>
                             </div>
                             <div *ngIf="!program.fav" class="clickable"
-                                (click)="onAddToFavorites(program.id, program.name)"><i class="pi pi-star fav-but"></i>
+                                (click)="onAddToFavorites(program.id, program.name)"><i
+                                    class="pi pi-star-o fav-but"></i>
                             </div>
                             <div *ngIf="program.fav" class="clickable"
                                 (click)="onRemoveFromFavorites(program.id, program.name)"><i
-                                    class="pi pi-star-o fav-but"></i>
+                                    class="pi pi-star fav-but"></i>
                             </div>
 
                         </div>

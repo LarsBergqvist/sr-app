@@ -41,13 +41,13 @@
                             <td>
                                 <span>
                                     <span class="clickable" (click)="onOpenDetails(channel)"><i
-                                            class="pi pi-chevron-right details-button"></i>
+                                            class="pi pi-ellipsis-h details-button"></i>
                                     </span>
                                     <span class="clickable" (click)="onOpenSchedule(channel)"><i
                                             class="pi pi-list details-button"></i>
                                     </span>
                                     <span (click)="onPlayChannel(channel)" class="clickable">
-                                        <i *ngIf="channel?.liveaudio?.url" class="pi pi-volume-up play-button"></i>
+                                        <i *ngIf="channel?.liveaudio?.url" class="pi pi-caret-right play-button"></i>
                                     </span>
                                 </span>
                             </td>
