@@ -68,6 +68,12 @@
   margin-right: 20px !important;
 }
 
+.description-td {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 .yellow {
   color: #cccc00;
 }
@@ -101,4 +107,9 @@
 
 .clear {
   clear: both;
+}
+
+td {
+  padding-top: 2px !important;
+  padding-bottom: 2px !important;
 }

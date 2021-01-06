@@ -44,7 +44,6 @@
                                 {{program.name}}
                             </span>
                         </div>
-
                         <div class="p-col-4" style="float:right">
                             <div class="clickable" (click)="onShowEpisodes(program)"><i
                                     class="pi pi-ellipsis-h details-button"></i>
@@ -57,20 +56,15 @@
                                 (click)="onRemoveFromFavorites(program.id, program.name)"><i
                                     class="pi pi-star fav-but"></i>
                             </div>
-
                         </div>
-
-
-
                     </div>
-
                 </td>
                 <td>
                     <div *ngIf="program?.channel">
                         {{program.channel.name}}
                     </div>
                 </td>
-                <td>
+                <td class="description-td">
                     {{program.description}}
                 </td>
             </tr>
