@@ -38,7 +38,12 @@ export class ProgramsListComponent implements OnInit, OnDestroy {
   }
 
   onFilterFavClicked(event) {
-    if (event.checked) {
+    this.showOnlyFavs = event.checked;
+    this.filterFavs();
+  }
+
+  private filterFavs() {
+    if (this.showOnlyFavs) {
       this.programs = this.allPrograms.filter((p) => p.fav);
     } else {
       this.programs = this.allPrograms;
@@ -47,9 +52,11 @@ export class ProgramsListComponent implements OnInit, OnDestroy {
 
   onAddToFavorites(programId: number, programName: string) {
     this.srApiService.addProgramToFavorites(programId, programName);
+    this.filterFavs();
   }
 
   onRemoveFromFavorites(programId: number, programName: string) {
     this.srApiService.removeProgramFromFavorites(programId, programName);
+    this.filterFavs();
   }
 }
