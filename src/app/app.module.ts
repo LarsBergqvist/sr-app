@@ -7,15 +7,11 @@ import { ChannelsListComponent } from './components/channels/channels-list.compo
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TableModule } from 'primeng/table';
 import { ToolbarModule } from 'primeng/toolbar';
-import { DropdownModule } from 'primeng/dropdown';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ChannelsComponent } from './components/channels/channels.component';
 import { ChannelDetailsComponent } from './components/channels/channel-details.component';
 import { FormsModule } from '@angular/forms';
 import { AudioPlayerComponent } from './components/audio-player/audio-player.component';
-// import { EpisodesListComponent } from './components/episodes/episodes-list.component';
-// import { EpisodesComponent } from './components/episodes/episodes.component';
-// import { ProgramSelectorComponent } from './components/common/program-selector.component';
 import { SidebarModule } from 'primeng/sidebar';
 import { SongComponent } from './components/common/song.component';
 import { EpisodeDetailsComponent } from './components/episodes/episode-details.component';
@@ -49,12 +45,9 @@ registerLocaleData(locale);
     ChannelScheduleComponent,
     SongComponent,
     AudioPlayerComponent,
-    //    EpisodesComponent,
-    //    EpisodesListComponent,
     EpisodeDetailsComponent,
     ScheduledEpisodeComponent,
     RightNowEpisodesComponent,
-    //    ProgramSelectorComponent,
     TranslatePipe,
     ProgramsListComponent,
     ProgramEpisodesComponent
@@ -65,7 +58,6 @@ registerLocaleData(locale);
     HttpClientModule,
     TableModule,
     ToolbarModule,
-    DropdownModule,
     FormsModule,
     BrowserAnimationsModule,
     SidebarModule,
