@@ -9,8 +9,10 @@
     <div>
         <div>
             <b>{{episode.title}}</b>
-            <i *ngIf="hasSound(episode)" (click)="onPlayEpisode(episode)"
-                class="pi pi-caret-right play-button clickable"></i>
+            <span *ngIf="hasSound(episode)" (click)="onPlayEpisode(episode)" class="clickable">
+                <i *ngIf="isCurrentlyPlaying" class="pi pi-spin pi-replay play-button"></i>
+                <i *ngIf="!isCurrentlyPlaying" class="pi pi-caret-right play-button"></i>
+            </span>
         </div>
         <div>
             <img src={{episode.imageurl}} width="100" class="episodes-img" />

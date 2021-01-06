@@ -37,9 +37,11 @@
                                     <div class="clickable" (click)="onOpenDetails(episode)">
                                         <i class="pi pi-ellipsis-h details-button"></i>
                                     </div>
-                                    <div>
-                                        <i *ngIf="hasSound(episode)" (click)="onPlayEpisode(episode)"
-                                            class="pi pi-caret-right play-button clickable"></i>
+                                    <div *ngIf="hasSound(episode)" (click)="onPlayEpisode(episode)" class="clickable">
+                                        <i *ngIf="isCurrentlyPlaying(episode)"
+                                            class="pi pi-spin pi-replay play-button"></i>
+                                        <i *ngIf="!isCurrentlyPlaying(episode)"
+                                            class="pi pi-caret-right play-button"></i>
                                     </div>
                                 </td>
                             </tr>

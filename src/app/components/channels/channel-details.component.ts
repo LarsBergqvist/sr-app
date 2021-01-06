@@ -8,6 +8,7 @@ import { Song } from 'src/app/models/song';
 import { EpisodesService } from 'src/app/services/episodes.service';
 import { MessageBrokerService } from 'src/app/services/message-broker.service';
 import { PlaylistsService } from 'src/app/services/playlists.service';
+import { SRApiService } from 'src/app/services/srapi.service';
 import { convertFromJSONstring } from 'src/app/utils/date-helper';
 
 @Component({
@@ -23,6 +24,7 @@ export class ChannelDetailsComponent implements OnInit {
   constructor(
     private readonly playlistsService: PlaylistsService,
     private readonly episodesService: EpisodesService,
+    private readonly srApiService: SRApiService,
     private readonly broker: MessageBrokerService
   ) {}
 
@@ -72,5 +74,9 @@ export class ChannelDetailsComponent implements OnInit {
 
   onPlayChannel(channel: Channel) {
     this.broker.sendMessage(new PlayAudioMessage(channel.name, channel.liveaudio.url));
+  }
+
+  isCurrentlyPlaying(url: string): boolean {
+    return this.srApiService.isCurrentlyPlaying(url);
   }
 }

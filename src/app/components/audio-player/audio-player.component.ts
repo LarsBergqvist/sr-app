@@ -3,6 +3,7 @@ import { PlayAudioMessage } from '../../messages/play-audio.message';
 import { MessageBrokerService } from '../../services/message-broker.service';
 import { filter, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { SRApiService } from 'src/app/services/srapi.service';
 
 @Component({
   selector: 'app-audio-player',
@@ -14,7 +15,7 @@ export class AudioPlayerComponent implements OnInit {
   currentStation = '';
   private unsubscribe$ = new Subject();
 
-  constructor(private readonly broker: MessageBrokerService) {}
+  constructor(private readonly broker: MessageBrokerService, private readonly srApiService: SRApiService) {}
 
   ngOnInit(): void {
     const messages = this.broker.getMessage();
@@ -49,5 +50,13 @@ export class AudioPlayerComponent implements OnInit {
   ngOnDestroy() {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
+  }
+
+  onPlay(event) {
+    this.srApiService.setCurrentlyPlaying(this.currentUrlToPlay);
+  }
+
+  onPause(event) {
+    this.srApiService.setCurrentlyPlaying('');
   }
 }

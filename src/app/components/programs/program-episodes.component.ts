@@ -65,11 +65,21 @@ export class ProgramEpisodesComponent implements OnInit {
     }
   }
 
+  isCurrentlyPlaying(episode: Episode): boolean {
+    let url: string = null;
+    if (episode?.broadcast?.broadcastfiles?.length > 0) {
+      url = episode.broadcast.broadcastfiles[0].url;
+    } else if (episode?.listenpodfile?.url) {
+      url = episode.listenpodfile.url;
+    }
+    return this.srApiService.isCurrentlyPlaying(url);
+  }
+
   onPlayEpisode(episode: Episode) {
-    if (episode?.listenpodfile) {
-      this.broker.sendMessage(new PlayAudioMessage(episode.title, episode.listenpodfile.url));
-    } else if (episode?.broadcast?.broadcastfiles?.length > 0) {
+    if (episode?.broadcast?.broadcastfiles?.length > 0) {
       this.broker.sendMessage(new PlayAudioMessage(episode.title, episode.broadcast?.broadcastfiles[0].url));
+    } else if (episode?.listenpodfile?.url) {
+      this.broker.sendMessage(new PlayAudioMessage(episode.title, episode.listenpodfile.url));
     }
   }
 

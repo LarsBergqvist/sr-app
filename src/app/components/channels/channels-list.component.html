@@ -47,7 +47,10 @@
                                             class="pi pi-list details-button"></i>
                                     </span>
                                     <span (click)="onPlayChannel(channel)" class="clickable">
-                                        <i *ngIf="channel?.liveaudio?.url" class="pi pi-caret-right play-button"></i>
+                                        <i *ngIf="channel?.liveaudio?.url && isCurrentlyPlaying(channel?.liveaudio?.url)"
+                                            class="pi pi-spin pi-replay play-button"></i>
+                                        <i *ngIf="channel?.liveaudio?.url && !isCurrentlyPlaying(channel?.liveaudio?.url)"
+                                            class="pi pi-caret-right play-button"></i>
                                     </span>
                                 </span>
                             </td>

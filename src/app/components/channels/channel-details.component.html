@@ -9,8 +9,12 @@
     <div *ngIf="channel">
         <span>
             {{channel.name}}
-            <i (click)="onPlayChannel(channel)" *ngIf="channel?.liveaudio?.url"
-                class="pi pi-caret-right play-button clickable"></i>
+            <span (click)="onPlayChannel(channel)" class="clickable">
+                <i *ngIf="channel?.liveaudio?.url && isCurrentlyPlaying(channel?.liveaudio?.url)"
+                    class="pi pi-spin pi-replay play-button"></i>
+                <i *ngIf="channel?.liveaudio?.url && !isCurrentlyPlaying(channel?.liveaudio?.url)"
+                    class="pi pi-caret-right play-button"></i>
+            </span>
         </span>
         <div>
             {{channel.tagline}}

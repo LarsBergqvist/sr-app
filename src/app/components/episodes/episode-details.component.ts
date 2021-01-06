@@ -8,6 +8,7 @@ import { Song } from 'src/app/models/song';
 import { EpisodesService } from 'src/app/services/episodes.service';
 import { MessageBrokerService } from 'src/app/services/message-broker.service';
 import { PlaylistsService } from 'src/app/services/playlists.service';
+import { SRApiService } from 'src/app/services/srapi.service';
 import { convertFromJSONstring } from 'src/app/utils/date-helper';
 
 @Component({
@@ -19,10 +20,12 @@ export class EpisodeDetailsComponent implements OnInit, OnDestroy {
   songs: Song[];
   episode: Episode;
   private unsubscribe$ = new Subject();
+  soundUrl: string;
 
   constructor(
     private readonly episodesService: EpisodesService,
     private readonly playlistsService: PlaylistsService,
+    private readonly srApiService: SRApiService,
     private readonly broker: MessageBrokerService
   ) {}
 
@@ -52,7 +55,9 @@ export class EpisodeDetailsComponent implements OnInit, OnDestroy {
   }
 
   async show(episode: Episode) {
+    this.soundUrl = null;
     this.episode = episode;
+    this.setSoundUrl(episode);
     const res = await this.playlistsService.fetchSonglistForEpisode(episode.id);
     this.songs = res.song;
     if (this.songs) this.songs.forEach((s) => this.convertDate(s));
@@ -76,7 +81,7 @@ export class EpisodeDetailsComponent implements OnInit, OnDestroy {
   }
 
   hasSound(episode: Episode) {
-    if (episode?.listenpodfile || episode?.broadcast?.broadcastfiles?.length > 0) {
+    if (episode?.listenpodfile?.url || episode?.broadcast?.broadcastfiles?.length > 0) {
       return true;
     } else {
       return false;
@@ -84,10 +89,21 @@ export class EpisodeDetailsComponent implements OnInit, OnDestroy {
   }
 
   onPlayEpisode(episode: Episode) {
-    if (episode?.listenpodfile) {
-      this.broker.sendMessage(new PlayAudioMessage(episode.title, episode.listenpodfile.url));
-    } else if (episode?.broadcast?.broadcastfiles?.length > 0) {
-      this.broker.sendMessage(new PlayAudioMessage(episode.title, episode.broadcast?.broadcastfiles[0].url));
+    this.setSoundUrl(episode);
+    this.broker.sendMessage(new PlayAudioMessage(episode.title, this.soundUrl));
+  }
+
+  private setSoundUrl(episode: Episode) {
+    if (episode?.broadcast?.broadcastfiles?.length > 0) {
+      this.soundUrl = episode.broadcast.broadcastfiles[0].url;
+    } else if (episode?.listenpodfile?.url) {
+      this.soundUrl = episode.listenpodfile.url;
+    } else {
+      this.soundUrl = null;
     }
+  }
+
+  get isCurrentlyPlaying(): boolean {
+    return this.srApiService.isCurrentlyPlaying(this.soundUrl);
   }
 }

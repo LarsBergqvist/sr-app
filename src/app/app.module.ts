@@ -8,7 +8,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TableModule } from 'primeng/table';
 import { ToolbarModule } from 'primeng/toolbar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ChannelsComponent } from './components/channels/channels.component';
 import { ChannelDetailsComponent } from './components/channels/channel-details.component';
 import { FormsModule } from '@angular/forms';
 import { AudioPlayerComponent } from './components/audio-player/audio-player.component';
@@ -39,7 +38,6 @@ registerLocaleData(locale);
 @NgModule({
   declarations: [
     AppComponent,
-    ChannelsComponent,
     ChannelsListComponent,
     ChannelDetailsComponent,
     ChannelScheduleComponent,

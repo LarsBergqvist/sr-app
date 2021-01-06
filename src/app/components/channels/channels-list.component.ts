@@ -49,4 +49,8 @@ export class ChannelsListComponent implements OnInit {
   onOpenSchedule(channel: Channel) {
     this.schedule.show(channel);
   }
+
+  isCurrentlyPlaying(url: string): boolean {
+    return this.srApiService.isCurrentlyPlaying(url);
+  }
 }

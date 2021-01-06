@@ -18,6 +18,8 @@ export class SRApiService extends SRBaseService {
   private programs: Program[];
   programs$ = new BehaviorSubject<Program[]>(null);
 
+  private currentlyPlaying: string;
+
   private programFavs = new Set();
 
   constructor(
@@ -33,6 +35,14 @@ export class SRApiService extends SRBaseService {
   async fetchBaseData() {
     await this.fetchChannelsBaseData();
     await this.fetchBaseProgramsData();
+  }
+
+  setCurrentlyPlaying(url: string) {
+    this.currentlyPlaying = url;
+  }
+
+  isCurrentlyPlaying(url: string): boolean {
+    return this.currentlyPlaying === url;
   }
 
   private async fetchChannelsBaseData() {
