@@ -34,21 +34,34 @@
         <ng-template pTemplate="body" let-program>
             <tr>
                 <td>
-                    <img src={{program.programimage}} width="30" style="vertical-align:middle" />
-                    <span>
-                        <i *ngIf="program.fav" class="pi pi-star yellow"></i>
-                    </span>
-                    <span>
-                        {{program.name}}
-                    </span>
-                    <span class="clickable" (click)="onShowEpisodes(program)"><i class="pi pi-list details-button"></i>
-                    </span>
-                    <span *ngIf="!program.fav" class="clickable" (click)="onAddToFavorites(program.id, program.name)"><i
-                            class="pi pi-star fav-but"></i>
-                    </span>
-                    <span *ngIf="program.fav" class="clickable"
-                        (click)="onRemoveFromFavorites(program.id, program.name)"><i class="pi pi-star-o fav-but"></i>
-                    </span>
+                    <div class="p-grid">
+                        <div class="p-col-8">
+                            <img src={{program.programimage}} height="30" width="30" style="vertical-align:middle" />
+                            <span>
+                                <i *ngIf="program.fav" class="pi pi-star yellow-fav"></i>
+                            </span>
+                            <span>
+                                {{program.name}}
+                            </span>
+                        </div>
+
+                        <div class="p-col-4" style="float:right">
+                            <div class="clickable" (click)="onShowEpisodes(program)"><i
+                                    class="pi pi-list details-button"></i>
+                            </div>
+                            <div *ngIf="!program.fav" class="clickable"
+                                (click)="onAddToFavorites(program.id, program.name)"><i class="pi pi-star fav-but"></i>
+                            </div>
+                            <div *ngIf="program.fav" class="clickable"
+                                (click)="onRemoveFromFavorites(program.id, program.name)"><i
+                                    class="pi pi-star-o fav-but"></i>
+                            </div>
+
+                        </div>
+
+
+
+                    </div>
 
                 </td>
                 <td>

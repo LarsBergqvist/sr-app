@@ -13,9 +13,9 @@ import { ChannelsComponent } from './components/channels/channels.component';
 import { ChannelDetailsComponent } from './components/channels/channel-details.component';
 import { FormsModule } from '@angular/forms';
 import { AudioPlayerComponent } from './components/audio-player/audio-player.component';
-import { EpisodesListComponent } from './components/episodes/episodes-list.component';
-import { EpisodesComponent } from './components/episodes/episodes.component';
-import { ProgramSelectorComponent } from './components/common/program-selector.component';
+// import { EpisodesListComponent } from './components/episodes/episodes-list.component';
+// import { EpisodesComponent } from './components/episodes/episodes.component';
+// import { ProgramSelectorComponent } from './components/common/program-selector.component';
 import { SidebarModule } from 'primeng/sidebar';
 import { SongComponent } from './components/common/song.component';
 import { EpisodeDetailsComponent } from './components/episodes/episode-details.component';
@@ -49,12 +49,12 @@ registerLocaleData(locale);
     ChannelScheduleComponent,
     SongComponent,
     AudioPlayerComponent,
-    EpisodesComponent,
-    EpisodesListComponent,
+    //    EpisodesComponent,
+    //    EpisodesListComponent,
     EpisodeDetailsComponent,
     ScheduledEpisodeComponent,
     RightNowEpisodesComponent,
-    ProgramSelectorComponent,
+    //    ProgramSelectorComponent,
     TranslatePipe,
     ProgramsListComponent,
     ProgramEpisodesComponent

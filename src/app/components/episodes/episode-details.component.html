@@ -13,12 +13,12 @@
                 class="pi pi-volume-up play-button clickable"></i>
         </div>
         <div>
-            <img src={{episode.imageurl}} width="100" style="vertical-align:middle;float:left;margin: 5px; " />
-            <p style="text-align: justify;">
+            <img src={{episode.imageurl}} width="100" class="episodes-img" />
+            <p>
                 {{episode.description}}
             </p>
         </div>
-        <div *ngIf="episode.publishdateutcDate">
+        <div *ngIf="episode.publishdateutcDate" class="clear">
             <b>Time: </b>{{episode.publishdateutcDate | date:'medium'}}
         </div>
     </div>

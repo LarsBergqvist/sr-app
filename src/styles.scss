@@ -72,9 +72,15 @@
   color: #cccc00;
 }
 
+.yellow-fav {
+  color: #cccc00;
+  font-size: 2em;
+  vertical-align: middle;
+}
+
 .fav-but {
   float: right;
-  font-size: 1.5em;
+  font-size: 2.5em;
 }
 
 .dd-label {
@@ -86,4 +92,13 @@
   margin-right: 2px;
   height: 2em !important;
   width: 2em !important;
+}
+
+.episodes-img {
+  float: left;
+  margin: 5px;
+}
+
+.clear {
+  clear: both;
 }
