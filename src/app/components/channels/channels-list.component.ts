@@ -11,15 +11,7 @@ import { takeUntil } from 'rxjs/operators';
 @Component({
   selector: 'app-channels-list',
   templateUrl: './channels-list.component.html',
-  styles: [
-    `
-      :host ::ng-deep .p-datatable .p-datatable-header {
-        position: -webkit-sticky;
-        position: sticky;
-        top: 120px;
-      }
-    `
-  ]
+  styleUrls: ['../common/datatable-styling.scss']
 })
 export class ChannelsListComponent implements OnInit {
   channels: Channel[];

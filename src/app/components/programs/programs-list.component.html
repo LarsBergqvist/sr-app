@@ -8,7 +8,7 @@
             <div class="p-d-flex caption-bar">
                 <span>
                     <p-checkbox (onChange)="onFilterFavClicked($event)" [(ngModel)]="showOnlyFavs" [binary]="true"
-                        label="Show only favorites"></p-checkbox>
+                        label="{{'OnlyFavs' | translate }}" class="fav-checkbox"></p-checkbox>
                 </span>
                 <span class="p-input-icon-left p-ml-auto">
                     <i class="pi pi-search"></i>

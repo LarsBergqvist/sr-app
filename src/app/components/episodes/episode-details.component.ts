@@ -57,6 +57,7 @@ export class EpisodeDetailsComponent implements OnInit, OnDestroy {
   async show(episode: Episode) {
     this.soundUrl = null;
     this.episode = episode;
+    this.episode.publishdateutcDate = convertFromJSONstring(episode.publishdateutc);
     this.setSoundUrl(episode);
     const res = await this.playlistsService.fetchSonglistForEpisode(episode.id);
     this.songs = res.song;

@@ -1,18 +1,14 @@
-<div>
-    <p-toolbar class="toolbar">
-        <div class="audio-wrapper">
-            <div *ngIf="currentUrlToPlay; else empty" class="now-playing">
-                {{'NowPlaying' | translate}}: {{currentStation}}
-            </div>
-            <div class="audio-ctl-wrapper">
-                <audio class="audio-ctl" controls id="audio" preload="none" autoplay="false" (play)="onPlay($event)"
-                    (pause)="onPause($event)">
-                    <source src="{{currentUrlToPlay}}" type="audio/mpeg">
-                    Your browser does not support the audio element.
-                </audio>
-            </div>
-        </div>
-    </p-toolbar>
+<div class="audio-wrapper">
+    <div *ngIf="currentUrlToPlay; else empty" class="now-playing">
+        {{'NowPlaying' | translate}}: {{currentStation}}
+    </div>
+    <div class="audio-ctl-wrapper">
+        <audio class="audio-ctl" controls id="audio" preload="none" autoplay="false" (play)="onPlay($event)"
+            (pause)="onPause($event)">
+            <source src="{{currentUrlToPlay}}" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+    </div>
 </div>
 <ng-template #empty>
     <div class="now-playing">

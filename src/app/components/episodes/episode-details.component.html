@@ -21,7 +21,7 @@
             </p>
         </div>
         <div *ngIf="episode.publishdateutcDate" class="clear">
-            <b>Time: </b>{{episode.publishdateutcDate | date:'medium'}}
+            <b>{{'PublishDate' | translate }}</b>: {{episode.publishdateutcDate | date:'medium'}}
         </div>
     </div>
     <hr class="clear">

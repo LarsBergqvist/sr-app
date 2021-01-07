@@ -36,5 +36,7 @@
     "EpisodeTitle": "Avsnittsnamn",
     "RemovedFromFavorites": "Tog bort '{0}' från programfavoriter!",
     "AddedToFavorites": "La till '{0}' till programfavoriter!",
-    "SearchKeyword": "Sök nyckelord"
+    "SearchKeyword": "nyckelord",
+    "OnlyFavs": "Bara favoriter",
+    "PublishDate": "Utgivningsdatum"
 }

@@ -29,6 +29,10 @@
   max-width: 300px;
 }
 
+.fav-checkbox {
+  vertical-align: middle;
+}
+
 @media only screen and (max-width: 600px) {
   .clickable:hover {
     display: initial;
@@ -116,9 +120,14 @@
   clear: both;
 }
 
-td {
+/*td {
   padding-top: 2px !important;
   padding-bottom: 2px !important;
+}*/
+
+tr {
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
 }
 
 .sr-table {
@@ -135,5 +144,5 @@ html body app-root div.header app-audio-player div p-toolbar.toolbar div.p-toolb
 }
 
 .caption-bar {
-  padding-top: 20px;
+  //  padding-top: 20px;
 }

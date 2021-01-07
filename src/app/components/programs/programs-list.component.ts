@@ -8,15 +8,7 @@ import { ProgramEpisodesComponent } from './program-episodes.component';
 @Component({
   selector: 'app-programs-list',
   templateUrl: './programs-list.component.html',
-  styles: [
-    `
-      :host ::ng-deep .p-datatable .p-datatable-header {
-        position: -webkit-sticky;
-        position: sticky;
-        top: 120px;
-      }
-    `
-  ]
+  styleUrls: ['../common/datatable-styling.scss']
 })
 export class ProgramsListComponent implements OnInit, OnDestroy {
   programs: Program[];
