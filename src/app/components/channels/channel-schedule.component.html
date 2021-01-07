@@ -5,8 +5,8 @@
         <img src={{channel.image}} width="30" style="vertical-align:middle" /> {{'ProgramScheduleForToday' | translate}}
     </div>
     <hr>
-    <p-table #dt [value]="scheduledEpisodes" [paginator]="true" [lazy]="true" [rows]="pageSize"
-        [totalRecords]="totalHits" (onLazyLoad)="loadLazy($event)" [responsive]="true">
+    <p-table [value]="scheduledEpisodes" [paginator]="true" [lazy]="true" [rows]="pageSize" [totalRecords]="totalHits"
+        (onLazyLoad)="loadLazy($event)" [responsive]="true">
         <ng-template pTemplate="header">
             <tr>
                 <th>{{'Name' | translate | uppercase}}</th>

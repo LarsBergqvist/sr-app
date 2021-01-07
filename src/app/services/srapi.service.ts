@@ -120,9 +120,6 @@ export class SRApiService extends SRBaseService {
     progs.sort((a: { name: string }, b: { name: any }) => {
       return a.name.localeCompare(b.name);
     });
-    //    const favs = progs.filter((p: Program) => p.fav);
-    //    const nofavs = progs.filter((p: Program) => !p.fav);
-    //    this.programs = favs.concat(nofavs);
     this.programs = progs;
     this.programs$.next(this.programs);
   }

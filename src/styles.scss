@@ -7,10 +7,6 @@
   font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-.p-datatable-tbody tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
-
 .play-button {
   font-size: 2.5em;
   float: right;
@@ -27,10 +23,6 @@
 
 .kw-input {
   max-width: 300px;
-}
-
-.fav-checkbox {
-  vertical-align: middle;
 }
 
 @media only screen and (max-width: 600px) {
@@ -79,70 +71,6 @@
   margin-right: 20px !important;
 }
 
-.description-td {
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-
-.yellow {
-  color: #cccc00;
-}
-
-.yellow-fav {
-  color: #cccc00;
-  font-size: 2em;
-  vertical-align: middle;
-}
-
-.fav-but {
-  float: right;
-  font-size: 2.5em;
-}
-
-.dd-label {
-  padding-bottom: 10px;
-}
-
-.refresh-button {
-  float: right;
-  margin-right: 2px;
-  height: 2em !important;
-  width: 2em !important;
-}
-
-.episodes-img {
-  float: left;
-  margin: 5px;
-}
-
 .clear {
   clear: both;
-}
-
-/*td {
-  padding-top: 2px !important;
-  padding-bottom: 2px !important;
-}*/
-
-tr {
-  padding-top: 8px !important;
-  padding-bottom: 8px !important;
-}
-
-.sr-table {
-  margin-bottom: 100px;
-}
-
-html body app-root div.header app-audio-player div p-toolbar.toolbar div.p-toolbar.p-component {
-  padding-bottom: 0px !important;
-}
-
-html body app-root div.header app-audio-player div p-toolbar.toolbar div.p-toolbar.p-component div.audio-wrapper div.audio-ctl-wrapper {
-  margin: 0px;
-  width: auto;
-}
-
-.caption-bar {
-  //  padding-top: 20px;
 }

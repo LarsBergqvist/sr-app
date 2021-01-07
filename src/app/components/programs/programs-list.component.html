@@ -5,7 +5,7 @@
     <p-table #dt2 [value]="programs" [responsive]="true" [paginator]="true" [rows]="10"
         [globalFilterFields]="['name','channel.name','description']" styleClass="sr-table">
         <ng-template pTemplate="caption">
-            <div class="p-d-flex caption-bar">
+            <div class="p-d-flex">
                 <span>
                     <p-checkbox (onChange)="onFilterFavClicked($event)" [(ngModel)]="showOnlyFavs" [binary]="true"
                         label="{{'OnlyFavs' | translate }}" class="fav-checkbox"></p-checkbox>

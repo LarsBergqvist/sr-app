@@ -13,7 +13,15 @@ import { convertFromJSONstring } from 'src/app/utils/date-helper';
 
 @Component({
   selector: 'app-episode-details',
-  templateUrl: './episode-details.component.html'
+  templateUrl: './episode-details.component.html',
+  styles: [
+    `
+      .episodes-img {
+        float: left;
+        margin: 5px;
+      }
+    `
+  ]
 })
 export class EpisodeDetailsComponent implements OnInit, OnDestroy {
   isVisible = false;
@@ -82,11 +90,7 @@ export class EpisodeDetailsComponent implements OnInit, OnDestroy {
   }
 
   hasSound(episode: Episode) {
-    if (episode?.listenpodfile?.url || episode?.broadcast?.broadcastfiles?.length > 0) {
-      return true;
-    } else {
-      return false;
-    }
+    return episode?.listenpodfile?.url || episode?.broadcast?.broadcastfiles?.length > 0;
   }
 
   onPlayEpisode(episode: Episode) {

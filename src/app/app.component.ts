@@ -63,8 +63,4 @@ export class AppComponent implements OnInit, OnDestroy {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
   }
-
-  async onRefresh() {
-    await this.fetchBaseData();
-  }
 }

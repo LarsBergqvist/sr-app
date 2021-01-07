@@ -16,7 +16,6 @@ export class ChannelScheduleComponent implements OnInit {
   totalHits = 0;
   pageSize = 1000;
   isVisible = false;
-  channelId: number;
   channel: Channel;
 
   constructor(private readonly service: EpisodesService, private readonly broker: MessageBrokerService) {}
@@ -24,19 +23,17 @@ export class ChannelScheduleComponent implements OnInit {
   ngOnInit(): void {}
 
   async show(channel: Channel) {
-    this.channelId = channel.id;
     this.channel = channel;
-    await this.fetch(this.channelId, 0);
+    await this.fetch(this.channel.id, 0);
     this.isVisible = true;
   }
 
   async loadLazy(event: LazyLoadEvent) {
-    await this.fetch(this.channelId, event.first);
+    await this.fetch(this.channel.id, event.first);
   }
 
   async fetch(channelId: number, first: number) {
     if (!channelId) return;
-    this.channelId = channelId;
     const page = first / this.pageSize + 1;
     const scheduleResult = await this.service.fetchChannelSchedule(channelId, page, this.pageSize);
     this.totalHits = scheduleResult.pagination.totalhits;
