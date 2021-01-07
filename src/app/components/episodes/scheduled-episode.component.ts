@@ -9,6 +9,7 @@ import { MessageBrokerService } from 'src/app/services/message-broker.service';
 })
 export class ScheduledEpisodeComponent {
   @Input() episode: ScheduledEpisode;
+  @Input() header: string;
 
   constructor(private readonly broker: MessageBrokerService) {}
 

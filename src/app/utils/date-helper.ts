@@ -1,3 +1,7 @@
 export function convertFromJSONstring(dateString: string): Date {
-  return new Date(JSON.parse(dateString.match(/\d+/)[0]));
+  if (dateString === '/Date(-62135596800000)/') {
+    return null;
+  } else {
+    return new Date(JSON.parse(dateString.match(/\d+/)[0]));
+  }
 }

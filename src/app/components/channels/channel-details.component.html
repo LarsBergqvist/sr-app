@@ -17,14 +17,17 @@
     </div>
     <hr>
     <div *ngIf="rightNowEpisodes">
-        <app-rightnow-episodes [previousEpisode]="rightNowEpisodes?.channel?.previousscheduledepisode"
-            [currentEpisode]="rightNowEpisodes?.channel?.currentscheduledepisode"
-            [nextEpisode]="rightNowEpisodes?.channel?.nextscheduledepisode">
-        </app-rightnow-episodes>
+        <app-scheduled-episode [episode]="rightNowEpisodes?.channel?.currentscheduledepisode" header="CurrentEpisode">
+        </app-scheduled-episode>
+        <app-scheduled-episode [episode]="rightNowEpisodes?.channel?.nextscheduledepisode" header="NextEpisode">
+        </app-scheduled-episode>
+        <app-scheduled-episode [episode]="rightNowEpisodes?.channel?.previousscheduledepisode" header="PreviousEpisode">
+        </app-scheduled-episode>
     </div>
     <hr>
     <div>
-        <h2>{{'CurrentPlaylist' | translate}}:</h2>
+        <h2 *ngIf="playlist?.song || playlist?.nextsong || playlist?.previoussong">{{'CurrentPlaylist' | translate}}:
+        </h2>
         <div *ngIf="playlist?.song">
             <h3>{{'CurrentSong' | translate}}</h3>
             <app-song [song]="playlist.song"></app-song>

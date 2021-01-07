@@ -17,7 +17,6 @@ import { EpisodeDetailsComponent } from './components/episodes/episode-details.c
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { ScheduledEpisodeComponent } from './components/episodes/scheduled-episode.component';
-import { RightNowEpisodesComponent } from './components/episodes/rightnow-episodes.component';
 import { ChannelScheduleComponent } from './components/channels/channel-schedule.component';
 import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
@@ -47,7 +46,6 @@ registerLocaleData(locale);
     AudioPlayerComponent,
     EpisodeDetailsComponent,
     ScheduledEpisodeComponent,
-    RightNowEpisodesComponent,
     TranslatePipe,
     ProgramsListComponent,
     ProgramEpisodesComponent

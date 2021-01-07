@@ -5,8 +5,7 @@
         <img src={{channel.image}} width="30" style="vertical-align:middle" /> {{'ProgramScheduleForToday' | translate}}
     </div>
     <hr>
-    <p-table [value]="scheduledEpisodes" [paginator]="true" [rows]="pageSize" [totalRecords]="totalHits"
-        [responsive]="true">
+    <p-table [value]="scheduledEpisodes" [responsive]="true">
         <ng-template pTemplate="header">
             <tr>
                 <th>{{'Name' | translate | uppercase}}</th>

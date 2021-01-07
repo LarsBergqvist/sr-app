@@ -41,7 +41,7 @@ export class ChannelScheduleComponent implements OnInit {
       endtimeDate: convertFromJSONstring(s?.endtimeutc),
       program: s.program
     }));
-    this.scheduledEpisodes = this.scheduledEpisodes.filter((s) => s.endtimeDate.getTime() >= Date.now());
+    this.scheduledEpisodes = this.scheduledEpisodes.filter((s) => s.endtimeDate && s.endtimeDate.getTime() >= Date.now());
   }
 
   close() {

@@ -1,4 +1,5 @@
 <div *ngIf="episode">
+    <h3>{{header | translate }}</h3>
     <div>
         <div class="clickable" (click)="onOpenDetails(episode.episodeid)">
             <div *ngIf="episode.episodeid">
