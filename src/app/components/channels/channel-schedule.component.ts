@@ -28,10 +28,6 @@ export class ChannelScheduleComponent implements OnInit {
     this.isVisible = true;
   }
 
-  async loadLazy(event: LazyLoadEvent) {
-    await this.fetch(this.channel.id, event.first);
-  }
-
   async fetch(channelId: number, first: number) {
     if (!channelId) return;
     const page = first / this.pageSize + 1;
