@@ -8,7 +8,7 @@ import { ProgramEpisodesComponent } from './program-episodes.component';
 @Component({
   selector: 'app-programs-list',
   templateUrl: './programs-list.component.html',
-  styleUrls: ['../common/datatable-styling.scss']
+  styleUrls: ['../common/datatable-styling.scss', './programs-list.component.scss']
 })
 export class ProgramsListComponent implements OnInit, OnDestroy {
   programs: Program[];

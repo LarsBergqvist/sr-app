@@ -1,15 +1,3 @@
-.tab-bar > ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-.tab-bar > ul > li {
-  display: inline;
-  a {
-    padding: 10px;
-  }
-}
-
 .content {
   padding-top: 110px;
 }
@@ -25,9 +13,4 @@
   opacity: 1;
   max-height: 130px;
   min-height: 130px;
-}
-
-.active {
-  background-color: rgb(123, 149, 163);
-  color: white;
 }

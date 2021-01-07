@@ -1,18 +1,5 @@
 <div class="header">
-    <div>
-        <nav class="tab-bar">
-            <ul>
-                <li><a routerLink="/channels" routerLinkActive="active">{{'LiveStreamsHeader' |
-                        translate |
-                        uppercase}}</a>
-                </li>
-                <li><a routerLink="/programs" routerLinkActive="active">{{'ProgramsHeader' | translate | uppercase}}</a>
-                </li>
-                <button (click)="onRefresh()" pButton pRipple type="button" icon="pi pi-refresh"
-                    class="p-button-rounded p-button-outlined refresh-button" [disabled]="isLoading"></button>
-            </ul>
-        </nav>
-    </div>
+    <app-navigation-bar></app-navigation-bar>
     <app-audio-player></app-audio-player>
 </div>
 <div class="content">

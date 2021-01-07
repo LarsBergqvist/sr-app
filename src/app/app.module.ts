@@ -33,11 +33,13 @@ import { MessageBrokerService } from './services/message-broker.service';
 import { ProgramsListComponent } from './components/programs/programs-list.component';
 import { ProgramEpisodesComponent } from './components/programs/program-episodes.component';
 import { InputTextModule } from 'primeng/inputtext';
+import { NavigationBarComponent } from './components/navigation/navigation-bar.component';
 registerLocaleData(locale);
 
 @NgModule({
   declarations: [
     AppComponent,
+    NavigationBarComponent,
     ChannelsListComponent,
     ChannelDetailsComponent,
     ChannelScheduleComponent,

@@ -1,8 +1,18 @@
-:host ::ng-deep .p-datatable .p-datatable-header {
-  position: -webkit-sticky;
-  position: sticky;
-  top: 120px;
-  z-index: 100;
-  padding-top: 10px;
-  padding-bottom: 10px;
+:host ::ng-deep {
+  .p-datatable .p-datatable-header {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 120px;
+    z-index: 100;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .p-datatable-tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+
+  .sr-table {
+    margin-bottom: 100px;
+  }
 }

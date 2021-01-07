@@ -13,7 +13,15 @@ import { convertFromJSONstring } from 'src/app/utils/date-helper';
 
 @Component({
   selector: 'app-episode-details',
-  templateUrl: './episode-details.component.html'
+  templateUrl: './episode-details.component.html',
+  styles: [
+    `
+      .episodes-img {
+        float: left;
+        margin: 5px;
+      }
+    `
+  ]
 })
 export class EpisodeDetailsComponent implements OnInit, OnDestroy {
   isVisible = false;
