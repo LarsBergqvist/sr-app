@@ -34,8 +34,8 @@ export class ChannelDetailsComponent implements OnInit {
 
   async show(channel: Channel) {
     this.channel = channel;
-    const res = await this.playlistsService.fetchCurrentPlaylistForChannel(channel.id);
-    this.playlist = res.playlist;
+    const playlistResult = await this.playlistsService.fetchCurrentPlaylistForChannel(channel.id);
+    this.playlist = playlistResult.playlist;
     this.convertSongDates(this?.playlist?.previoussong);
     this.convertSongDates(this?.playlist?.song);
     this.convertSongDates(this?.playlist?.nextsong);
@@ -47,24 +47,20 @@ export class ChannelDetailsComponent implements OnInit {
   }
 
   private convertEpisodeDates(episode: ScheduledEpisode) {
-    if (episode) {
-      if (episode.starttimeutc) {
-        episode.starttimeDate = convertFromJSONstring(episode.starttimeutc);
-      }
-      if (episode.endtimeutc) {
-        episode.endtimeDate = convertFromJSONstring(episode.endtimeutc);
-      }
+    if (episode?.starttimeutc) {
+      episode.starttimeDate = convertFromJSONstring(episode.starttimeutc);
+    }
+    if (episode?.endtimeutc) {
+      episode.endtimeDate = convertFromJSONstring(episode.endtimeutc);
     }
   }
 
   private convertSongDates(song: Song) {
-    if (song) {
-      if (song.starttimeutc) {
-        song.starttimeutcDate = convertFromJSONstring(song.starttimeutc);
-      }
-      if (song.stoptimeutc) {
-        song.stoptimeutcDate = convertFromJSONstring(song.stoptimeutc);
-      }
+    if (song?.starttimeutc) {
+      song.starttimeutcDate = convertFromJSONstring(song.starttimeutc);
+    }
+    if (song?.stoptimeutc) {
+      song.stoptimeutcDate = convertFromJSONstring(song.stoptimeutc);
     }
   }
 
@@ -77,6 +73,10 @@ export class ChannelDetailsComponent implements OnInit {
   }
 
   isCurrentlyPlaying(url: string): boolean {
-    return this.srApiService.isCurrentlyPlaying(url);
+    if (url) {
+      return this.srApiService.isCurrentlyPlaying(url);
+    } else {
+      return false;
+    }
   }
 }

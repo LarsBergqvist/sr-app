@@ -31,7 +31,6 @@ export class ProgramEpisodesComponent implements OnInit {
   show(program: Program) {
     this.program = program;
     this.isVisible = true;
-    this.fetch(program.id, 0);
   }
 
   close() {
@@ -44,6 +43,7 @@ export class ProgramEpisodesComponent implements OnInit {
   async fetch(programId: number, first: number) {
     if (!programId) return;
     const page = first / this.pageSize + 1;
+    console.log('page: ' + page);
     const episodesResult = await this.service.fetchEpisodes(programId, page, this.pageSize);
     this.totalHits = episodesResult.pagination.totalhits;
     this.episodes = episodesResult.episodes;
@@ -58,11 +58,7 @@ export class ProgramEpisodesComponent implements OnInit {
   }
 
   hasSound(episode: Episode) {
-    if (episode?.listenpodfile || episode?.broadcast?.broadcastfiles?.length > 0) {
-      return true;
-    } else {
-      return false;
-    }
+    return episode?.listenpodfile || episode?.broadcast?.broadcastfiles?.length > 0;
   }
 
   isCurrentlyPlaying(episode: Episode): boolean {

@@ -20,33 +20,31 @@
             <ng-template pTemplate="body" let-episode>
                 <tr>
                     <td>
-                        <table>
-                            <tr>
-                                <td>
-                                    <b>
-                                        {{episode.title}}
-                                    </b>
-                                    <div *ngIf="episode.channelName">
-                                        {{'Channel' | translate}}: {{episode.channelName}}
+                        <div class="p-grid">
+                            <div class="p-col-4">
+                                <b>
+                                    {{episode.title}}
+                                </b>
+                                <div *ngIf="episode.channelName">
+                                    {{'Channel' | translate}}: {{episode.channelName}}
+                                </div>
+                                <div *ngIf="episode?.program?.name">
+                                    {{'Program' | translate}}: {{episode.program.name}}
+                                </div>
+                            </div>
+                            <div class="p-col-8" style="float:right">
+                                <div class="p-grid p-flex-column">
+                                    <div class="p-col clickable" *ngIf="hasSound(episode)"
+                                        (click)="onPlayEpisode(episode)">
+                                        <i
+                                            [ngClass]="isCurrentlyPlaying(episode) ? 'pi pi-spin pi-replay play-button': 'pi pi-caret-right play-button'"></i>
                                     </div>
-                                    <div *ngIf="episode?.program?.name">
-                                        {{'Program' | translate}}: {{episode.program.name}}
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="clickable" (click)="onOpenDetails(episode)">
+                                    <div class="p-col clickable" (click)="onOpenDetails(episode)">
                                         <i class="pi pi-ellipsis-h details-button"></i>
                                     </div>
-                                    <div *ngIf="hasSound(episode)" (click)="onPlayEpisode(episode)" class="clickable">
-                                        <i *ngIf="isCurrentlyPlaying(episode)"
-                                            class="pi pi-spin pi-replay play-button"></i>
-                                        <i *ngIf="!isCurrentlyPlaying(episode)"
-                                            class="pi pi-caret-right play-button"></i>
-                                    </div>
-                                </td>
-                            </tr>
-
-                        </table>
+                                </div>
+                            </div>
+                        </div>
                     </td>
                     <td>
                         {{episode?.publishdateutcDate | date:'medium' }}

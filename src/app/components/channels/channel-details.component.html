@@ -6,19 +6,14 @@
         <img src={{channel.image}} width="30" style="vertical-align:middle" /> {{'ChannelDetails' | translate}}
     </div>
     <hr>
-    <div *ngIf="channel">
-        <span>
-            {{channel.name}}
-            <span (click)="onPlayChannel(channel)" class="clickable">
-                <i *ngIf="channel?.liveaudio?.url && isCurrentlyPlaying(channel?.liveaudio?.url)"
-                    class="pi pi-spin pi-replay play-button"></i>
-                <i *ngIf="channel?.liveaudio?.url && !isCurrentlyPlaying(channel?.liveaudio?.url)"
-                    class="pi pi-caret-right play-button"></i>
-            </span>
-        </span>
-        <div>
-            {{channel.tagline}}
-        </div>
+    {{channel.name}}
+    <span (click)="onPlayChannel(channel)" class="clickable">
+        <i
+            [ngClass]="isCurrentlyPlaying(channel?.liveaudio?.url) ? 'pi pi-spin pi-replay play-button' : 'pi pi-caret-right play-button'">
+        </i>
+    </span>
+    <div>
+        {{channel.tagline}}
     </div>
     <hr>
     <div *ngIf="rightNowEpisodes">

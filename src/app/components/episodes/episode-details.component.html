@@ -10,8 +10,8 @@
         <div>
             <b>{{episode.title}}</b>
             <span *ngIf="hasSound(episode)" (click)="onPlayEpisode(episode)" class="clickable">
-                <i *ngIf="isCurrentlyPlaying" class="pi pi-spin pi-replay play-button"></i>
-                <i *ngIf="!isCurrentlyPlaying" class="pi pi-caret-right play-button"></i>
+                <i
+                    [ngClass]="isCurrentlyPlaying ? 'pi pi-spin pi-replay play-button': 'pi pi-caret-right play-button'"></i>
             </span>
         </div>
         <div>
@@ -20,7 +20,7 @@
                 {{episode.description}}
             </p>
         </div>
-        <div *ngIf="episode.publishdateutcDate" class="clear">
+        <div *ngIf="episode?.publishdateutcDate" class="clear">
             <b>{{'PublishDate' | translate }}</b>: {{episode.publishdateutcDate | date:'medium'}}
         </div>
     </div>

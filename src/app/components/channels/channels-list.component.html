@@ -34,9 +34,7 @@
                     <div class="p-grid">
                         <div class="p-col-4">
                             <img src={{channel.image}} width="30" style="vertical-align:middle" />
-                            <span>
-                                {{channel.name}}
-                            </span>
+                            {{channel.name}}
                         </div>
                         <div class="p-col-8" style="float:right">
                             <div class="clickable" (click)="onOpenDetails(channel)"><i
@@ -46,10 +44,9 @@
                                     class="pi pi-list details-button"></i>
                             </div>
                             <div (click)="onPlayChannel(channel)" class="clickable">
-                                <i *ngIf="channel?.liveaudio?.url && isCurrentlyPlaying(channel?.liveaudio?.url)"
-                                    class="pi pi-spin pi-replay play-button"></i>
-                                <i *ngIf="channel?.liveaudio?.url && !isCurrentlyPlaying(channel?.liveaudio?.url)"
-                                    class="pi pi-caret-right play-button"></i>
+                                <i
+                                    [ngClass]="isCurrentlyPlaying(channel?.liveaudio?.url) ? 'pi pi-spin pi-replay play-button' : 'pi pi-caret-right play-button'">
+                                </i>
                             </div>
                         </div>
                     </div>

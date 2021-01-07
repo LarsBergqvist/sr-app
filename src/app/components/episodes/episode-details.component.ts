@@ -90,11 +90,7 @@ export class EpisodeDetailsComponent implements OnInit, OnDestroy {
   }
 
   hasSound(episode: Episode) {
-    if (episode?.listenpodfile?.url || episode?.broadcast?.broadcastfiles?.length > 0) {
-      return true;
-    } else {
-      return false;
-    }
+    return episode?.listenpodfile?.url || episode?.broadcast?.broadcastfiles?.length > 0;
   }
 
   onPlayEpisode(episode: Episode) {

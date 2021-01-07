@@ -52,11 +52,11 @@ export class AudioPlayerComponent implements OnInit {
     this.unsubscribe$.complete();
   }
 
-  onPlay(event) {
+  onPlay() {
     this.srApiService.setCurrentlyPlaying(this.currentUrlToPlay);
   }
 
-  onPause(event) {
+  onPause() {
     this.srApiService.setCurrentlyPlaying('');
   }
 }

@@ -15,9 +15,6 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class ChannelsListComponent implements OnInit {
   channels: Channel[];
-  totalHits = 0;
-  pageSize = 5;
-
   private unsubscribe$ = new Subject();
 
   @ViewChild(ChannelDetailsComponent) details: ChannelDetailsComponent;
@@ -51,6 +48,10 @@ export class ChannelsListComponent implements OnInit {
   }
 
   isCurrentlyPlaying(url: string): boolean {
-    return this.srApiService.isCurrentlyPlaying(url);
+    if (url) {
+      return this.srApiService.isCurrentlyPlaying(url);
+    } else {
+      return false;
+    }
   }
 }
