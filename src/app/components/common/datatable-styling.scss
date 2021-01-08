@@ -12,6 +12,27 @@
     background-color: #f2f2f2;
   }
 
+  .p-datatable .p-datatable-tbody > tr > td {
+    padding-top: 6px;
+    padding-bottom: 2px;
+  }
+
+  .p-col-1,
+  .p-col-2,
+  .p-col-3,
+  .p-col-4,
+  .p-col-5,
+  .p-col-6,
+  .p-col-7,
+  .p-col-8,
+  .p-col-9,
+  .p-col-10,
+  .p-col-11,
+  .p-col-12 {
+    padding-top: 6px;
+    padding-bottom: 2px;
+  }
+
   .sr-table {
     margin-bottom: 100px;
   }

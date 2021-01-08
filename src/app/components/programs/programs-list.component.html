@@ -41,9 +41,12 @@
                             <span>
                                 <i *ngIf="program.fav" class="pi pi-star yellow-fav"></i>
                             </span>
-                            <span>
-                                {{program.name}}
+                            <span *ngIf="program?.channel" class="prg-chan">
+                                {{program.channel.name}}
                             </span>
+                            <div class="prg-title">
+                                {{program.name}}
+                            </div>
                         </div>
                         <div class="p-col-4" style="float:right">
                             <div class="clickable" (click)="onShowEpisodes(program)"><i
@@ -60,7 +63,7 @@
                         </div>
                     </div>
                 </td>
-                <td>
+                <td class="prg-chan-td">
                     <div *ngIf="program?.channel">
                         {{program.channel.name}}
                     </div>

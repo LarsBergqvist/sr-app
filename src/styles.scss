@@ -25,7 +25,14 @@
   max-width: 300px;
 }
 
-@media only screen and (max-width: 600px) {
+.prg-chan {
+  display: none;
+}
+
+.prg-chan-td {
+}
+
+@media only screen and (max-width: 640px) {
   .clickable:hover {
     display: initial;
   }
@@ -40,6 +47,12 @@
   }
   .kw-input {
     max-width: 150px;
+  }
+  .prg-chan {
+    display: initial;
+  }
+  .prg-chan-td {
+    display: none !important;
   }
 }
 
