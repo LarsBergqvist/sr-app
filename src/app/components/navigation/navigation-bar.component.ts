@@ -14,10 +14,12 @@ import { Component } from '@angular/core';
       }
       a {
         padding: 10px;
+        font-weight: bold;
       }
       .active {
         background-color: rgb(123, 149, 163);
         color: white;
+        border-radius: 5px;
       }
     `
   ]
