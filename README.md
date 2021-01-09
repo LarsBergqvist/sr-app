@@ -16,15 +16,20 @@ yarn install
 yarn start
 
 ```
-
 # Main functionality
 
 Browse and filter channels  
-Play a channel live stream  
+Play a channel's live stream  
 View current playlist for a live stream  
+View today's schedule for a channel  
+Browse and filter programs  
 Browse episodes per program  
 Play an episode  
-View the songlist for the episode
+View the songlist for the episode  
+
+# Blog
+
+https://thingsmatic.com/2021/01/09/audio-streaming-with-angular-and-primeng/
 
 # Screenshots
 
