@@ -4,6 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 import { SuccessInfoMessage } from '../messages/success-info.message';
 import { Channel } from '../models/channel';
 import { Program } from '../models/program';
+import { ProgramCategory } from '../models/program-category';
 import { LocalStorageService } from './local-storage.service';
 import { MessageBrokerService } from './message-broker.service';
 import { SRBaseService } from './sr-base.service';
@@ -17,6 +18,8 @@ export class SRApiService extends SRBaseService {
   channels$ = new BehaviorSubject<Channel[]>(null);
   private programs: Program[];
   programs$ = new BehaviorSubject<Program[]>(null);
+  private programCategories: ProgramCategory[];
+  programCategories$ = new BehaviorSubject<ProgramCategory[]>(null);
 
   private currentlyPlaying: string;
 
@@ -35,6 +38,7 @@ export class SRApiService extends SRBaseService {
   async fetchBaseData() {
     await this.fetchChannelsBaseData();
     await this.fetchBaseProgramsData();
+    await this.fetchBaseProgramCategoriesData();
   }
 
   setCurrentlyPlaying(url: string) {
@@ -73,10 +77,20 @@ export class SRApiService extends SRBaseService {
         name: p?.channel.name
       },
       programimage: p.programimage,
-      description: p.description
+      description: p.description,
+      programcategory: p.programcategory
     }));
 
     this.updateProgramsWithFavs(progs);
+  }
+
+  private async fetchBaseProgramCategoriesData() {
+    const categoriesRawResult = await this.getAllProgramCategories();
+    this.programCategories = categoriesRawResult.programcategories.map((r) => ({
+      name: r.name,
+      id: r.id
+    }));
+    this.programCategories$.next(this.programCategories);
   }
 
   private async getAllChannels(): Promise<any> {
@@ -88,6 +102,11 @@ export class SRApiService extends SRBaseService {
   private async getAllPrograms(): Promise<any> {
     const params = `?${this.FormatParam}&page=1&size=10000`;
     let url = `${this.BaseUrl}programs/${params}`;
+    return this.http.get<any>(`${url}`).toPromise();
+  }
+  private async getAllProgramCategories(): Promise<any> {
+    const params = `?${this.FormatParam}&page=1&size=10000`;
+    let url = `${this.BaseUrl}programcategories/${params}`;
     return this.http.get<any>(`${url}`).toPromise();
   }
 

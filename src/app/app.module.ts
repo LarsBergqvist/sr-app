@@ -33,6 +33,7 @@ import { ProgramsListComponent } from './components/programs/programs-list.compo
 import { ProgramEpisodesComponent } from './components/programs/program-episodes.component';
 import { InputTextModule } from 'primeng/inputtext';
 import { NavigationBarComponent } from './components/navigation/navigation-bar.component';
+import { DropdownModule } from 'primeng/dropdown';
 registerLocaleData(locale);
 
 @NgModule({
@@ -63,6 +64,7 @@ registerLocaleData(locale);
     ButtonModule,
     InputTextModule,
     CheckboxModule,
+    DropdownModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [

@@ -3,8 +3,25 @@
 
     <div class="details-header-text">
         <i (click)="close()" class="pi pi-chevron-left close-button clickable"></i>
-        <img src={{program.programimage}} width="50" style="vertical-align:middle" /> {{program.name}}: {{'Episodes' |
+        <img src={{program.programimage}} width="50" style="vertical-align:middle" />
+        <i *ngIf="program.fav" class="pi pi-star yellow-fav"></i>
+        {{program.name}}: {{'Episodes' |
         translate}}
+    </div>
+    <div>
+        {{program.description}}
+    </div>
+    <div class="p-grid">
+        <div class="p-col-8">
+        </div>
+        <div class="p-col-4" style="float:right">
+            <div *ngIf="!program.fav" class="clickable" (click)="onAddToFavorites(program.id, program.name)"><i
+                    class="pi pi-star-o fav-but"></i>
+            </div>
+            <div *ngIf="program.fav" class="clickable" (click)="onRemoveFromFavorites(program.id, program.name)"><i
+                    class="pi pi-star fav-but"></i>
+            </div>
+        </div>
     </div>
     <hr>
     <div class="channels-list">

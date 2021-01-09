@@ -7,4 +7,7 @@ export interface Program {
   programimage: string;
   channel: Channel;
   fav: boolean;
+  programcategory: {
+    id: number;
+  };
 }

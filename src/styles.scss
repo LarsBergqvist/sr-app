@@ -21,6 +21,17 @@
   width: 60% !important;
 }
 
+.yellow-fav {
+  color: #cccc00;
+  font-size: 2em;
+  vertical-align: middle;
+}
+
+.fav-but {
+  float: right;
+  font-size: 2.5em;
+}
+
 .kw-input {
   max-width: 300px;
 }
@@ -30,6 +41,26 @@
 }
 
 .prg-chan-td {
+}
+
+.kw-input {
+  max-width: 300px;
+}
+
+.cat-dd {
+  margin-left: 100px;
+  max-width: 150px;
+}
+@media only screen and (max-width: 800px) {
+  .kw-input {
+    max-width: 180px;
+  }
+  .cat-dd {
+    margin-left: 30px;
+    .p-dropdown.p-component {
+      max-width: 200px;
+    }
+  }
 }
 
 @media only screen and (max-width: 640px) {
@@ -45,14 +76,47 @@
   .channel-type {
     display: none !important;
   }
-  .kw-input {
-    max-width: 150px;
-  }
   .prg-chan {
     display: initial;
   }
   .prg-chan-td {
     display: none !important;
+  }
+  .fav-chk {
+    max-width: 100px;
+  }
+  .kw-input {
+    max-width: 150px;
+  }
+  .cat-dd {
+    margin-left: 10px;
+    .p-dropdown.p-component {
+      max-width: 200px;
+    }
+  }
+}
+
+@media only screen and (max-width: 540px) {
+  .kw-input {
+    max-width: 100px;
+  }
+  .cat-dd {
+    margin-left: 10px;
+    .p-dropdown.p-component {
+      max-width: 100px;
+    }
+  }
+}
+@media only screen and (max-width: 320px) {
+  .kw-input {
+    max-width: 80px;
+  }
+
+  .cat-dd {
+    margin-left: 2px;
+    .p-dropdown.p-component {
+      max-width: 80px;
+    }
   }
 }
 

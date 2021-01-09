@@ -14,3 +14,9 @@
   max-height: 130px;
   min-height: 130px;
 }
+
+:host ::ng-deep {
+  .p-toast.p-component.p-toast-top-center {
+    max-width: 300px;
+  }
+}

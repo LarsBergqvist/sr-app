@@ -82,4 +82,12 @@ export class ProgramEpisodesComponent implements OnInit {
   onOpenDetails(episode: Episode) {
     this.broker.sendMessage(new ShowEpisodeDetailsMessage(episode));
   }
+
+  onAddToFavorites(programId: number, programName: string) {
+    this.srApiService.addProgramToFavorites(programId, programName);
+  }
+
+  onRemoveFromFavorites(programId: number, programName: string) {
+    this.srApiService.removeProgramFromFavorites(programId, programName);
+  }
 }
