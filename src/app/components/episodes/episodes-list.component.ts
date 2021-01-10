@@ -1,52 +1,26 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { LazyLoadEvent } from 'primeng/api';
-import { fromEvent } from 'rxjs';
-import { debounceTime, distinctUntilChanged, filter, tap } from 'rxjs/operators';
-import { PlayAudioMessage } from 'src/app/messages/play-audio.message';
-import { ShowEpisodeDetailsMessage } from 'src/app/messages/show-episodedetails.message';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Episode } from 'src/app/models/episode';
 import { EpisodesService } from 'src/app/services/episodes.service';
-import { MessageBrokerService } from 'src/app/services/message-broker.service';
 import { SRApiService } from 'src/app/services/srapi.service';
 import { convertFromJSONstring } from 'src/app/utils/date-helper';
+import { EpisodesLoadLazyArgs } from './episodes-table.component';
 
 @Component({
   selector: 'app-episodes-list',
-  templateUrl: './episodes-list.component.html'
+  templateUrl: './episodes-list.component.html',
+  styleUrls: ['../common/datatable-styling.scss']
 })
-export class EpisodesListComponent implements OnInit, AfterViewInit {
+export class EpisodesListComponent {
   episodes: Episode[];
   totalHits = 0;
   pageSize = 5;
   query = '';
 
   @ViewChild('search') search: ElementRef;
-  constructor(
-    private readonly service: EpisodesService,
-    private readonly srApiService: SRApiService,
-    private readonly broker: MessageBrokerService
-  ) {}
+  constructor(private readonly service: EpisodesService, private readonly srApiService: SRApiService) {}
 
-  async ngOnInit() {}
-
-  async ngAfterViewInit() {
-    fromEvent(this.search.nativeElement, 'keyup')
-      .pipe(
-        filter(Boolean),
-        debounceTime(800),
-        distinctUntilChanged(),
-        tap((text) => {
-          this.query = this.search.nativeElement.value;
-          if (this.query.length > 3) {
-            this.fetch(this.query, 0);
-          }
-        })
-      )
-      .subscribe();
-  }
-
-  async loadLazy(event: LazyLoadEvent) {
-    await this.fetch(this.query, event.first);
+  async loadLazy(event: EpisodesLoadLazyArgs) {
+    await this.fetch(event.query, event.first);
   }
 
   async fetch(query: string, first: number) {
@@ -63,31 +37,5 @@ export class EpisodesListComponent implements OnInit, AfterViewInit {
         e.channelName = this.srApiService.getChannelNameFromId(e.channelid);
       }
     });
-  }
-
-  hasSound(episode: Episode) {
-    return episode?.listenpodfile || episode?.broadcast?.broadcastfiles?.length > 0;
-  }
-
-  isCurrentlyPlaying(episode: Episode): boolean {
-    let url: string = null;
-    if (episode?.broadcast?.broadcastfiles?.length > 0) {
-      url = episode.broadcast.broadcastfiles[0].url;
-    } else if (episode?.listenpodfile?.url) {
-      url = episode.listenpodfile.url;
-    }
-    return this.srApiService.isCurrentlyPlaying(url);
-  }
-
-  onPlayEpisode(episode: Episode) {
-    if (episode?.broadcast?.broadcastfiles?.length > 0) {
-      this.broker.sendMessage(new PlayAudioMessage(episode.title, episode.broadcast?.broadcastfiles[0].url));
-    } else if (episode?.listenpodfile?.url) {
-      this.broker.sendMessage(new PlayAudioMessage(episode.title, episode.listenpodfile.url));
-    }
-  }
-
-  onShowEpisodeDetails(episode: Episode) {
-    this.broker.sendMessage(new ShowEpisodeDetailsMessage(episode));
   }
 }

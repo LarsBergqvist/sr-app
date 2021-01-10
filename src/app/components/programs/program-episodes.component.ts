@@ -1,24 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { LazyLoadEvent } from 'primeng/api';
-import { PlayAudioMessage } from 'src/app/messages/play-audio.message';
-import { ShowEpisodeDetailsMessage } from 'src/app/messages/show-episodedetails.message';
 import { Episode } from 'src/app/models/episode';
 import { Program } from 'src/app/models/program';
 import { EpisodesService } from 'src/app/services/episodes.service';
-import { MessageBrokerService } from 'src/app/services/message-broker.service';
 import { SRApiService } from 'src/app/services/srapi.service';
 import { convertFromJSONstring } from 'src/app/utils/date-helper';
+import { EpisodesLoadLazyArgs } from '../episodes/episodes-table.component';
 
 @Component({
   selector: 'app-program-episodes',
   templateUrl: './program-episodes.component.html',
-  styles: [
-    `
-      .category {
-        margin-top: 10px;
-      }
-    `
-  ]
+  styleUrls: ['./program-episodes.component.scss']
 })
 export class ProgramEpisodesComponent implements OnInit {
   program: Program;
@@ -27,11 +18,7 @@ export class ProgramEpisodesComponent implements OnInit {
   totalHits = 0;
   pageSize = 5;
 
-  constructor(
-    private readonly service: EpisodesService,
-    private readonly srApiService: SRApiService,
-    private readonly broker: MessageBrokerService
-  ) {}
+  constructor(private readonly service: EpisodesService, private readonly srApiService: SRApiService) {}
 
   ngOnInit(): void {}
 
@@ -44,7 +31,8 @@ export class ProgramEpisodesComponent implements OnInit {
   close() {
     this.isVisible = false;
   }
-  async loadLazy(event: LazyLoadEvent) {
+
+  async loadLazy(event: EpisodesLoadLazyArgs) {
     await this.fetch(this.program.id, event.first);
   }
 
@@ -64,34 +52,8 @@ export class ProgramEpisodesComponent implements OnInit {
     });
   }
 
-  hasSound(episode: Episode) {
-    return episode?.listenpodfile || episode?.broadcast?.broadcastfiles?.length > 0;
-  }
-
-  isCurrentlyPlaying(episode: Episode): boolean {
-    let url: string = null;
-    if (episode?.broadcast?.broadcastfiles?.length > 0) {
-      url = episode.broadcast.broadcastfiles[0].url;
-    } else if (episode?.listenpodfile?.url) {
-      url = episode.listenpodfile.url;
-    }
-    return this.srApiService.isCurrentlyPlaying(url);
-  }
-
   getCategoryNameFromId(id: number) {
     return this.srApiService.getCategoryNameFromId(id);
-  }
-
-  onPlayEpisode(episode: Episode) {
-    if (episode?.broadcast?.broadcastfiles?.length > 0) {
-      this.broker.sendMessage(new PlayAudioMessage(episode.title, episode.broadcast?.broadcastfiles[0].url));
-    } else if (episode?.listenpodfile?.url) {
-      this.broker.sendMessage(new PlayAudioMessage(episode.title, episode.listenpodfile.url));
-    }
-  }
-
-  onOpenDetails(episode: Episode) {
-    this.broker.sendMessage(new ShowEpisodeDetailsMessage(episode));
   }
 
   onAddToFavorites(programId: number, programName: string) {

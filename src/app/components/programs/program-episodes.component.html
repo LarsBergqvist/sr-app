@@ -27,53 +27,6 @@
         </div>
     </div>
     <hr>
-    <div class="channels-list">
-        <p-table #dt [value]="episodes" [paginator]="true" [lazy]="true" [rows]="pageSize" [totalRecords]="totalHits"
-            (onLazyLoad)="loadLazy($event)" [responsive]="true">
-            <ng-template pTemplate="header">
-                <tr>
-                    <th>{{'EpisodeTitle' | translate | uppercase}}</th>
-                    <th>{{'Date' | translate | uppercase}}</th>
-                    <th>{{'Description' | translate | uppercase}}</th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-episode>
-                <tr>
-                    <td>
-                        <div class="p-grid">
-                            <div class="p-col-4">
-                                <b>
-                                    {{episode.title}}
-                                </b>
-                                <div *ngIf="episode.channelName">
-                                    {{'Channel' | translate}}: {{episode.channelName}}
-                                </div>
-                                <div *ngIf="episode?.program?.name">
-                                    {{'Program' | translate}}: {{episode.program.name}}
-                                </div>
-                            </div>
-                            <div class="p-col-8" style="float:right">
-                                <div class="p-grid p-flex-column">
-                                    <div class="p-col clickable" *ngIf="hasSound(episode)"
-                                        (click)="onPlayEpisode(episode)">
-                                        <i
-                                            [ngClass]="isCurrentlyPlaying(episode) ? 'pi pi-spin pi-replay play-button': 'pi pi-caret-right play-button'"></i>
-                                    </div>
-                                    <div class="p-col clickable" (click)="onOpenDetails(episode)">
-                                        <i class="pi pi-ellipsis-h details-button"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        {{episode?.publishdateutcDate | date:'medium' }}
-                    </td>
-                    <td>
-                        {{episode.description}}
-                    </td>
-                </tr>
-            </ng-template>
-        </p-table>
-    </div>
+    <app-episodes-table [episodes]="episodes" (onLoadLazy)="loadLazy($event)" [totalHits]="totalHits"
+        [pageSize]="pageSize"></app-episodes-table>
 </p-sidebar>

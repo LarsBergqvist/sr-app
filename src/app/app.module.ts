@@ -35,6 +35,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { NavigationBarComponent } from './components/navigation/navigation-bar.component';
 import { DropdownModule } from 'primeng/dropdown';
 import { EpisodesListComponent } from './components/episodes/episodes-list.component';
+import { EpisodesTableComponent } from './components/episodes/episodes-table.component';
 registerLocaleData(locale);
 
 @NgModule({
@@ -51,7 +52,8 @@ registerLocaleData(locale);
     TranslatePipe,
     ProgramsListComponent,
     ProgramEpisodesComponent,
-    EpisodesListComponent
+    EpisodesListComponent,
+    EpisodesTableComponent
   ],
   imports: [
     BrowserModule,
