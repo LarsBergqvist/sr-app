@@ -37,4 +37,10 @@ export class EpisodesService extends SRBaseService {
     let url = `${this.BaseUrl}scheduledepisodes/?${this.FormatParam}&channelid=${channelId}&page=${page}&size=${pageSize}`;
     return this.http.get<ScheduleResult>(`${url}`).toPromise();
   }
+
+  async searchEpisodes(query: string, page: number, pageSize: number): Promise<EpisodesResult> {
+    if (!query) return;
+    let url = `${this.BaseUrl}/episodes/search/?${this.FormatParam}&query=${query}&page=${page}&size=${pageSize}`;
+    return this.http.get<EpisodesResult>(`${url}`).toPromise();
+  }
 }

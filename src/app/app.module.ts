@@ -34,6 +34,7 @@ import { ProgramEpisodesComponent } from './components/programs/program-episodes
 import { InputTextModule } from 'primeng/inputtext';
 import { NavigationBarComponent } from './components/navigation/navigation-bar.component';
 import { DropdownModule } from 'primeng/dropdown';
+import { EpisodesListComponent } from './components/episodes/episodes-list.component';
 registerLocaleData(locale);
 
 @NgModule({
@@ -49,7 +50,8 @@ registerLocaleData(locale);
     ScheduledEpisodeComponent,
     TranslatePipe,
     ProgramsListComponent,
-    ProgramEpisodesComponent
+    ProgramEpisodesComponent,
+    EpisodesListComponent
   ],
   imports: [
     BrowserModule,
