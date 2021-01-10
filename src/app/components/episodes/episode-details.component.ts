@@ -9,7 +9,7 @@ import { EpisodesService } from 'src/app/services/episodes.service';
 import { MessageBrokerService } from 'src/app/services/message-broker.service';
 import { PlaylistsService } from 'src/app/services/playlists.service';
 import { SRApiService } from 'src/app/services/srapi.service';
-import { convertFromJSONstring } from 'src/app/utils/date-helper';
+import { convertFromJSONstring, durationToTime } from 'src/app/utils/date-helper';
 
 @Component({
   selector: 'app-episode-details',
@@ -91,6 +91,16 @@ export class EpisodeDetailsComponent implements OnInit, OnDestroy {
 
   hasSound(episode: Episode) {
     return episode?.listenpodfile?.url || episode?.broadcast?.broadcastfiles?.length > 0;
+  }
+
+  getDurationTime(episode: Episode): Date {
+    let d = 0;
+    if (episode?.broadcast?.broadcastfiles?.length > 0) {
+      d = episode.broadcast.broadcastfiles[0].duration;
+    } else if (episode?.listenpodfile?.duration) {
+      d = episode.listenpodfile.duration;
+    }
+    return durationToTime(d);
   }
 
   onPlayEpisode(episode: Episode) {

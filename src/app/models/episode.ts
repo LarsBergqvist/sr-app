@@ -1,6 +1,7 @@
 export interface BroadcastFile {
   id: number;
   url: string;
+  duration: number;
 }
 
 export interface Episode {
@@ -18,6 +19,7 @@ export interface Episode {
   };
   listenpodfile: {
     url: string;
+    duration: number;
   };
   broadcast: {
     broadcastfiles: BroadcastFile[];

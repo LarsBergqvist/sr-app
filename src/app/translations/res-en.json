@@ -37,9 +37,10 @@
   "EpisodeTitle": "Episode title",
   "RemovedFromFavorites": "Removed '{0}' from program favorites!",
   "AddedToFavorites": "Added '{0}' to program favorites!",
-  "SearchKeyword": "keyword",
+  "SearchKeyword": "search",
   "OnlyFavs": "Only favorites",
   "PublishDate": "Publish date",
   "AnyCategories": "Any categories",
-  "Category": "Category"
+  "Category": "Category",
+  "Duration": "Duration"
 }

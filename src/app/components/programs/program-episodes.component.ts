@@ -23,6 +23,7 @@ export class ProgramEpisodesComponent implements OnInit {
   ngOnInit(): void {}
 
   async show(program: Program) {
+    this.episodes = [];
     this.program = program;
     await this.fetch(program.id, 0);
     this.isVisible = true;

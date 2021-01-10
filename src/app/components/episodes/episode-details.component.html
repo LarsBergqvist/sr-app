@@ -23,6 +23,9 @@
         <div *ngIf="episode?.publishdateutcDate" class="clear">
             <b>{{'PublishDate' | translate }}</b>: {{episode.publishdateutcDate | date:'medium'}}
         </div>
+        <div>
+            <b>{{'Duration' | translate}}</b>: {{getDurationTime(episode) | date:'HH:mm:ss'}}
+        </div>
     </div>
     <hr class="clear">
     <div *ngIf="songs && songs.length > 0">
