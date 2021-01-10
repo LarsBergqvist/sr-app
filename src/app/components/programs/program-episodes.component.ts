@@ -11,7 +11,14 @@ import { convertFromJSONstring } from 'src/app/utils/date-helper';
 
 @Component({
   selector: 'app-program-episodes',
-  templateUrl: './program-episodes.component.html'
+  templateUrl: './program-episodes.component.html',
+  styles: [
+    `
+      .category {
+        margin-top: 10px;
+      }
+    `
+  ]
 })
 export class ProgramEpisodesComponent implements OnInit {
   program: Program;
@@ -69,6 +76,10 @@ export class ProgramEpisodesComponent implements OnInit {
       url = episode.listenpodfile.url;
     }
     return this.srApiService.isCurrentlyPlaying(url);
+  }
+
+  getCategoryNameFromId(id: number) {
+    return this.srApiService.getCategoryNameFromId(id);
   }
 
   onPlayEpisode(episode: Episode) {

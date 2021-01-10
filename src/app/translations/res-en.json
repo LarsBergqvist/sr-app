@@ -39,5 +39,6 @@
   "SearchKeyword": "keyword",
   "OnlyFavs": "Only favorites",
   "PublishDate": "Publish date",
-  "AnyCategories": "Any categories"
+  "AnyCategories": "Any categories",
+  "Category": "Category"
 }

@@ -13,6 +13,9 @@
     </div>
     <div class="p-grid">
         <div class="p-col-8">
+            <div *ngIf="program.programcategory" class="category">
+                <b>{{'Category' | translate}}</b>: {{getCategoryNameFromId(program.programcategory.id)}}
+            </div>
         </div>
         <div class="p-col-4" style="float:right">
             <div *ngIf="!program.fav" class="clickable" (click)="onAddToFavorites(program.id, program.name)"><i

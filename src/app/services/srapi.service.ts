@@ -116,6 +116,12 @@ export class SRApiService extends SRBaseService {
     return channel?.name;
   }
 
+  getCategoryNameFromId(id: number): string {
+    if (!this.programCategories) return;
+    const category = this?.programCategories.find((c) => c.id === id);
+    return category?.name;
+  }
+
   addProgramToFavorites(programId: number, programName: string) {
     if (!this.programFavs.has(programId)) {
       this.programFavs.add(programId);
