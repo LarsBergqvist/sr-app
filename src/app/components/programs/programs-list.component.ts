@@ -50,7 +50,11 @@ export class ProgramsListComponent implements OnInit, OnDestroy {
 
   onFilterFavClicked(event, dt) {
     this.showOnlyFavs = event.checked;
-    dt.filter(this.showOnlyFavs, 'fav', 'equals');
+    if (this.showOnlyFavs) {
+      dt.filter(true, 'fav', 'equals');
+    } else {
+      dt.filter([true, false], 'fav', 'in');
+    }
   }
 
   onAddToFavorites(programId: number, programName: string) {
