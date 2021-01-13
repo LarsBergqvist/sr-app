@@ -30,7 +30,7 @@ import { HttpInterceptorService } from './services/http-interceptor.service';
 import { LoggingService } from './services/logging.service';
 import { MessageBrokerService } from './services/message-broker.service';
 import { ProgramsListComponent } from './components/programs/programs-list.component';
-import { ProgramEpisodesComponent } from './components/programs/program-episodes.component';
+import { ProgramDetailsComponent } from './components/programs/program-details.component';
 import { InputTextModule } from 'primeng/inputtext';
 import { NavigationBarComponent } from './components/navigation/navigation-bar.component';
 import { DropdownModule } from 'primeng/dropdown';
@@ -51,7 +51,7 @@ registerLocaleData(locale);
     ScheduledEpisodeComponent,
     TranslatePipe,
     ProgramsListComponent,
-    ProgramEpisodesComponent,
+    ProgramDetailsComponent,
     EpisodesListComponent,
     EpisodesTableComponent
   ],

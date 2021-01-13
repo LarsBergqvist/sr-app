@@ -7,11 +7,11 @@ import { convertFromJSONstring } from 'src/app/utils/date-helper';
 import { EpisodesLoadLazyArgs } from '../episodes/episodes-table.component';
 
 @Component({
-  selector: 'app-program-episodes',
-  templateUrl: './program-episodes.component.html',
-  styleUrls: ['./program-episodes.component.scss']
+  selector: 'app-program-details',
+  templateUrl: './program-details.component.html',
+  styleUrls: ['./program-details.component.scss']
 })
-export class ProgramEpisodesComponent implements OnInit {
+export class ProgramDetailsComponent implements OnInit {
   program: Program;
   isVisible = false;
   episodes: Episode[];

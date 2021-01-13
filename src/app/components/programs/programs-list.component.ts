@@ -3,7 +3,7 @@ import { Program } from '../../models/program';
 import { SRApiService } from 'src/app/services/srapi.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { ProgramEpisodesComponent } from './program-episodes.component';
+import { ProgramDetailsComponent } from './program-details.component';
 import { ProgramCategory } from 'src/app/models/program-category';
 import { SelectItem } from 'primeng/api';
 import { TranslationService } from 'src/app/services/translation.service';
@@ -19,7 +19,7 @@ export class ProgramsListComponent implements OnInit, OnDestroy {
   private unsubscribe$ = new Subject();
   showOnlyFavs = false;
 
-  @ViewChild(ProgramEpisodesComponent) episodesComp: ProgramEpisodesComponent;
+  @ViewChild(ProgramDetailsComponent) episodesComp: ProgramDetailsComponent;
   constructor(private readonly srApiService: SRApiService, private readonly translationService: TranslationService) {}
 
   async ngOnInit() {
