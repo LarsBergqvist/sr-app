@@ -3,13 +3,13 @@
 
     <div class="details-header-text">
         <i (click)="close()" class="pi pi-chevron-left close-button clickable"></i>
-        {{episode?.program?.name}}: {{episode.title}}
+        {{episode.programName}}: {{episode.title}}
     </div>
     <hr>
     <div>
         <div>
             <b>{{episode.title}}</b>
-            <span *ngIf="hasSound(episode)" (click)="onPlayEpisode(episode)" class="clickable">
+            <span *ngIf="episode.hasSound()" (click)="onPlayEpisode(episode)" class="clickable">
                 <i
                     [ngClass]="isCurrentlyPlaying ? 'pi pi-spin pi-replay play-button': 'pi pi-caret-right play-button'"></i>
             </span>
@@ -20,11 +20,11 @@
                 {{episode.description}}
             </p>
         </div>
-        <div *ngIf="episode?.publishdateutcDate" class="clear">
-            <b>{{'PublishDate' | translate }}</b>: {{episode.publishdateutcDate | date:'medium'}}
+        <div *ngIf="episode.publishDate" class="clear">
+            <b>{{'PublishDate' | translate }}</b>: {{episode.publishDate | date:'medium'}}
         </div>
-        <div>
-            <b>{{'Duration' | translate}}</b>: {{getDurationTime(episode) | date:'HH:mm:ss'}}
+        <div *ngIf="episode.durationTime">
+            <b>{{'Duration' | translate}}</b>: {{episode.durationTime | date:'HH:mm:ss'}}
         </div>
     </div>
     <hr class="clear">

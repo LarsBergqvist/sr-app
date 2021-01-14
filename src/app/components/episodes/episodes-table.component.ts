@@ -4,10 +4,10 @@ import { fromEvent } from 'rxjs/internal/observable/fromEvent';
 import { debounceTime, distinctUntilChanged, filter, tap } from 'rxjs/operators';
 import { PlayAudioMessage } from 'src/app/messages/play-audio.message';
 import { ShowEpisodeDetailsMessage } from 'src/app/messages/show-episodedetails.message';
-import { Episode } from 'src/app/models/episode';
 import { EpisodesService } from 'src/app/services/episodes.service';
 import { MessageBrokerService } from 'src/app/services/message-broker.service';
 import { SRApiService } from 'src/app/services/srapi.service';
+import { EpisodeViewModel } from './episode-viewmodel';
 
 export interface EpisodesLoadLazyArgs {
   query?: string;
@@ -19,7 +19,7 @@ export interface EpisodesLoadLazyArgs {
   styleUrls: ['./episodes-table.component.scss']
 })
 export class EpisodesTableComponent implements OnInit, AfterViewInit {
-  @Input('episodes') episodes: Episode[];
+  @Input('episodes') episodes: EpisodeViewModel[];
   @Input('totalHits') totalHits: number;
   @Input('pageSize') pageSize: number;
   @Input('showSearch') showSearch: boolean;
@@ -56,29 +56,15 @@ export class EpisodesTableComponent implements OnInit, AfterViewInit {
     this.onLoadLazy.emit({ query: this.query, first: event.first });
   }
 
-  hasSound(episode: Episode) {
-    return episode?.listenpodfile || episode?.broadcast?.broadcastfiles?.length > 0;
+  isCurrentlyPlaying(episode: EpisodeViewModel): boolean {
+    return this.srApiService.isCurrentlyPlaying(episode.url);
   }
 
-  isCurrentlyPlaying(episode: Episode): boolean {
-    let url: string = null;
-    if (episode?.broadcast?.broadcastfiles?.length > 0) {
-      url = episode.broadcast.broadcastfiles[0].url;
-    } else if (episode?.listenpodfile?.url) {
-      url = episode.listenpodfile.url;
-    }
-    return this.srApiService.isCurrentlyPlaying(url);
+  onPlayEpisode(episode: EpisodeViewModel) {
+    this.broker.sendMessage(new PlayAudioMessage(episode.title, episode.url));
   }
 
-  onPlayEpisode(episode: Episode) {
-    if (episode?.broadcast?.broadcastfiles?.length > 0) {
-      this.broker.sendMessage(new PlayAudioMessage(episode.title, episode.broadcast?.broadcastfiles[0].url));
-    } else if (episode?.listenpodfile?.url) {
-      this.broker.sendMessage(new PlayAudioMessage(episode.title, episode.listenpodfile.url));
-    }
-  }
-
-  onOpenDetails(episode: Episode) {
+  onOpenDetails(episode: EpisodeViewModel) {
     this.broker.sendMessage(new ShowEpisodeDetailsMessage(episode));
   }
 }

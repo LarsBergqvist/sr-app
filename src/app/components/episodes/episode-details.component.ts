@@ -3,13 +3,13 @@ import { Subject } from 'rxjs';
 import { takeUntil, filter } from 'rxjs/operators';
 import { PlayAudioMessage } from 'src/app/messages/play-audio.message';
 import { ShowEpisodeDetailsMessage } from 'src/app/messages/show-episodedetails.message';
-import { Episode } from 'src/app/models/episode';
 import { Song } from 'src/app/models/song';
 import { EpisodesService } from 'src/app/services/episodes.service';
 import { MessageBrokerService } from 'src/app/services/message-broker.service';
 import { PlaylistsService } from 'src/app/services/playlists.service';
 import { SRApiService } from 'src/app/services/srapi.service';
-import { convertFromJSONstring, durationToTime } from 'src/app/utils/date-helper';
+import { convertFromJSONstring } from 'src/app/utils/date-helper';
+import { EpisodeViewModel } from './episode-viewmodel';
 
 @Component({
   selector: 'app-episode-details',
@@ -26,7 +26,7 @@ import { convertFromJSONstring, durationToTime } from 'src/app/utils/date-helper
 export class EpisodeDetailsComponent implements OnInit, OnDestroy {
   isVisible = false;
   songs: Song[];
-  episode: Episode;
+  episode: EpisodeViewModel;
   private unsubscribe$ = new Subject();
   soundUrl: string;
 
@@ -48,10 +48,11 @@ export class EpisodeDetailsComponent implements OnInit, OnDestroy {
       .subscribe(async (message: ShowEpisodeDetailsMessage) => {
         if (message?.episode) {
           this.show(message.episode);
-        } else if (message?.episodeId) {
+        } else if (message.episodeId) {
           const res = await this.episodesService.fetchEpisode(message.episodeId);
           if (res?.episode) {
-            this.show(res.episode);
+            const episodeVM = new EpisodeViewModel(res.episode);
+            this.show(episodeVM);
           }
         }
       });
@@ -62,11 +63,10 @@ export class EpisodeDetailsComponent implements OnInit, OnDestroy {
     this.unsubscribe$.complete();
   }
 
-  async show(episode: Episode) {
+  private async show(episode: EpisodeViewModel) {
     this.soundUrl = null;
     this.episode = episode;
-    this.episode.publishdateutcDate = convertFromJSONstring(episode.publishdateutc);
-    this.setSoundUrl(episode);
+    this.setSoundUrl(this.episode);
     const res = await this.playlistsService.fetchSonglistForEpisode(episode.id);
     this.songs = res.song;
     if (this.songs) this.songs.forEach((s) => this.convertDate(s));
@@ -89,33 +89,13 @@ export class EpisodeDetailsComponent implements OnInit, OnDestroy {
     this.isVisible = false;
   }
 
-  hasSound(episode: Episode) {
-    return episode?.listenpodfile?.url || episode?.broadcast?.broadcastfiles?.length > 0;
-  }
-
-  getDurationTime(episode: Episode): Date {
-    let d = 0;
-    if (episode?.broadcast?.broadcastfiles?.length > 0) {
-      d = episode.broadcast.broadcastfiles[0].duration;
-    } else if (episode?.listenpodfile?.duration) {
-      d = episode.listenpodfile.duration;
-    }
-    return durationToTime(d);
-  }
-
-  onPlayEpisode(episode: Episode) {
+  onPlayEpisode(episode: EpisodeViewModel) {
     this.setSoundUrl(episode);
     this.broker.sendMessage(new PlayAudioMessage(episode.title, this.soundUrl));
   }
 
-  private setSoundUrl(episode: Episode) {
-    if (episode?.broadcast?.broadcastfiles?.length > 0) {
-      this.soundUrl = episode.broadcast.broadcastfiles[0].url;
-    } else if (episode?.listenpodfile?.url) {
-      this.soundUrl = episode.listenpodfile.url;
-    } else {
-      this.soundUrl = null;
-    }
+  private setSoundUrl(episode: EpisodeViewModel) {
+    this.soundUrl = episode.url;
   }
 
   get isCurrentlyPlaying(): boolean {

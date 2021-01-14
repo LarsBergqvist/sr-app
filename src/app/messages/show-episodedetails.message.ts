@@ -1,10 +1,10 @@
-import { Episode } from '../models/episode';
+import { EpisodeViewModel } from '../components/episodes/episode-viewmodel';
 import { Message } from './message';
 
 export class ShowEpisodeDetailsMessage extends Message {
-  episode: Episode;
+  episode: EpisodeViewModel;
   episodeId: number;
-  constructor(episode?: Episode, episodeId?: number) {
+  constructor(episode?: EpisodeViewModel, episodeId?: number) {
     super();
     this.episode = episode;
     this.episodeId = episodeId;

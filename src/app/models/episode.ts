@@ -9,7 +9,6 @@ export interface Episode {
   id: number;
   description: string;
   publishdateutc: string;
-  publishdateutcDate: Date;
   channelid: number;
   channelName: string;
   imageurl: string;

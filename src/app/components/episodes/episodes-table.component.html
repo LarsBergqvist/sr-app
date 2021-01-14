@@ -37,7 +37,8 @@
                         </div>
                         <div class="p-col-4" style="float:right">
                             <div class="p-grid p-flex-column">
-                                <div class="p-col clickable" *ngIf="hasSound(episode)" (click)="onPlayEpisode(episode)">
+                                <div class="p-col clickable" *ngIf="episode.hasSound()"
+                                    (click)="onPlayEpisode(episode)">
                                     <i
                                         [ngClass]="isCurrentlyPlaying(episode) ? 'pi pi-spin pi-replay play-button': 'pi pi-caret-right play-button'"></i>
                                 </div>
@@ -49,7 +50,7 @@
                     </div>
                 </td>
                 <td>
-                    {{episode?.publishdateutcDate | date:'medium' }}
+                    {{episode?.publishDate | date:'medium' }}
                 </td>
                 <td>
                     <div class="ep-desc">

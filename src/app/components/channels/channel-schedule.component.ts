@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { LazyLoadEvent } from 'primeng/api';
 import { ShowEpisodeDetailsMessage } from 'src/app/messages/show-episodedetails.message';
 import { Channel } from 'src/app/models/channel';
 import { ScheduledEpisode } from 'src/app/models/scheduled-episode';

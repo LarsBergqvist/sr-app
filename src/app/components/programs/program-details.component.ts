@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Episode } from 'src/app/models/episode';
 import { Program } from 'src/app/models/program';
 import { EpisodesService } from 'src/app/services/episodes.service';
 import { SRApiService } from 'src/app/services/srapi.service';
-import { convertFromJSONstring } from 'src/app/utils/date-helper';
+import { EpisodeViewModel } from '../episodes/episode-viewmodel';
 import { EpisodesLoadLazyArgs } from '../episodes/episodes-table.component';
 
 @Component({
@@ -14,7 +13,7 @@ import { EpisodesLoadLazyArgs } from '../episodes/episodes-table.component';
 export class ProgramDetailsComponent implements OnInit {
   program: Program;
   isVisible = false;
-  episodes: Episode[];
+  episodes: EpisodeViewModel[];
   totalHits = 0;
   pageSize = 5;
 
@@ -42,14 +41,10 @@ export class ProgramDetailsComponent implements OnInit {
     const page = first / this.pageSize + 1;
     const episodesResult = await this.service.fetchEpisodes(programId, page, this.pageSize);
     this.totalHits = episodesResult.pagination.totalhits;
-    this.episodes = episodesResult.episodes;
-    this.episodes.forEach((e) => {
-      if (e.publishdateutc) {
-        e.publishdateutcDate = convertFromJSONstring(e.publishdateutc);
-      }
-      if (e.channelid) {
-        e.channelName = this.srApiService.getChannelNameFromId(e.channelid);
-      }
+    this.episodes = [];
+    episodesResult.episodes.forEach((e) => {
+      const viewModel = new EpisodeViewModel(e);
+      this.episodes.push(viewModel);
     });
   }
 
