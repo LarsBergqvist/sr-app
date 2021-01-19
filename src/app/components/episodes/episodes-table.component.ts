@@ -23,6 +23,7 @@ export class EpisodesTableComponent implements OnInit, AfterViewInit {
   @Input('totalHits') totalHits: number;
   @Input('pageSize') pageSize: number;
   @Input('showSearch') showSearch: boolean;
+  @Input('showProgramName') showProgramName: boolean;
   @Output() onLoadLazy = new EventEmitter<EpisodesLoadLazyArgs>();
   @ViewChild('search') search: ElementRef;
 

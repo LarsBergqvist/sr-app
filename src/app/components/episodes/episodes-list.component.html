@@ -1,3 +1,4 @@
 <app-episode-details></app-episode-details>
-<app-episodes-table [episodes]="episodes" (onLoadLazy)="loadLazy($event)" [totalHits]="totalHits" [pageSize]="pageSize">
+<app-episodes-table [showProgramName]="true" [episodes]="episodes" (onLoadLazy)="loadLazy($event)"
+    [totalHits]="totalHits" [pageSize]="pageSize">
 </app-episodes-table>

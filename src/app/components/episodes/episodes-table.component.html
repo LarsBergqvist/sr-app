@@ -31,8 +31,8 @@
                             <div *ngIf="episode.channelName">
                                 {{'Channel' | translate}}: {{episode.channelName}}
                             </div>
-                            <div *ngIf="episode?.program?.name">
-                                {{'Program' | translate}}: {{episode.program.name}}
+                            <div *ngIf="showProgramName && episode.programName">
+                                {{'Program' | translate}}: {{episode.programName}}
                             </div>
                         </div>
                         <div class="p-col-4" style="float:right">
