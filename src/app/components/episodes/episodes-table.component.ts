@@ -1,10 +1,9 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { LazyLoadEvent } from 'primeng/api';
-import { fromEvent } from 'rxjs/internal/observable/fromEvent';
+import { fromEvent } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, tap } from 'rxjs/operators';
 import { PlayAudioMessage } from 'src/app/messages/play-audio.message';
 import { ShowEpisodeDetailsMessage } from 'src/app/messages/show-episodedetails.message';
-import { EpisodesService } from 'src/app/services/episodes.service';
 import { MessageBrokerService } from 'src/app/services/message-broker.service';
 import { SRApiService } from 'src/app/services/srapi.service';
 import { EpisodeViewModel } from './episode-viewmodel';
@@ -29,11 +28,7 @@ export class EpisodesTableComponent implements OnInit, AfterViewInit {
 
   query = '';
 
-  constructor(
-    private readonly service: EpisodesService,
-    private readonly srApiService: SRApiService,
-    private readonly broker: MessageBrokerService
-  ) {}
+  constructor(private readonly srApiService: SRApiService, private readonly broker: MessageBrokerService) {}
 
   ngOnInit(): void {}
 
@@ -43,7 +38,7 @@ export class EpisodesTableComponent implements OnInit, AfterViewInit {
         filter(Boolean),
         debounceTime(800),
         distinctUntilChanged(),
-        tap((text) => {
+        tap(() => {
           this.query = this.search.nativeElement.value;
           if (this.query.length > 3) {
             this.onLoadLazy.emit({ query: this.query, first: 0 });
