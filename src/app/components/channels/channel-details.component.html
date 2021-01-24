@@ -9,7 +9,7 @@
     {{channel.name}}
     <span (click)="onPlayChannel(channel)" class="clickable">
         <i
-            [ngClass]="isCurrentlyPlaying(channel?.liveaudio?.url) ? 'pi pi-spin pi-replay play-button' : 'pi pi-caret-right play-button'">
+            [ngClass]="isCurrentlyPlaying(channel?.liveaudio?.url) ? 'pi pi-pause play-button' : 'pi pi-play play-button'">
         </i>
     </span>
     <div>
