@@ -14,7 +14,8 @@
             </span>
         </div>
         <div>
-            <img src={{episode.imageurl}} width="100" class="episodes-img" />
+            <img src={{episode.imageurl}} [ngStyle]="{'width': largeImage ? '100%' : '100px' }" class="episodes-img"
+                (click)="onToggleImageSize()" />
             <p>
                 {{episode.description}}
             </p>

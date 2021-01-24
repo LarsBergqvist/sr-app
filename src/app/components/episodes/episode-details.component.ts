@@ -29,6 +29,7 @@ export class EpisodeDetailsComponent implements OnInit, OnDestroy {
   episode: EpisodeViewModel;
   private unsubscribe$ = new Subject();
   soundUrl: string;
+  largeImage = false;
 
   constructor(
     private readonly episodesService: EpisodesService,
@@ -63,7 +64,12 @@ export class EpisodeDetailsComponent implements OnInit, OnDestroy {
     this.unsubscribe$.complete();
   }
 
+  onToggleImageSize() {
+    this.largeImage = !this.largeImage;
+  }
+
   private async show(episode: EpisodeViewModel) {
+    this.largeImage = false;
     this.soundUrl = null;
     this.episode = episode;
     this.setSoundUrl(this.episode);
