@@ -26,6 +26,10 @@
         <div *ngIf="episode.durationTime">
             <b>{{'Duration' | translate}}</b>: {{episode.durationTime | date:'HH:mm:ss'}}
         </div>
+        <div *ngIf="episode.linkUrl">
+            <a href={{episode.linkUrl}} target="_blank" rel="noopener noreferrer"><i
+                    class="pi pi-external-link link-icon"></i>{{episode.linkUrl}}</a>
+        </div>
     </div>
     <hr class="clear">
     <div *ngIf="songs && songs.length > 0">

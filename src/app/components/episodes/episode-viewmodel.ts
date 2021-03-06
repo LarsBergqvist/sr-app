@@ -12,6 +12,7 @@ export class EpisodeViewModel {
   readonly durationTime: Date;
   readonly url: string;
   readonly isBroadcast: boolean;
+  readonly linkUrl: string;
 
   constructor(episode: Episode) {
     this.title = episode.title;
@@ -21,6 +22,7 @@ export class EpisodeViewModel {
     this.channelName = episode.channelName;
     this.imageurl = episode.imageurl;
     this.programName = episode.program?.name;
+    this.linkUrl = episode.url;
 
     if (episode.broadcast?.broadcastfiles?.length > 0) {
       this.isBroadcast = true;
