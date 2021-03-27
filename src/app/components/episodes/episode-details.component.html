@@ -23,6 +23,12 @@
         <div *ngIf="episode.publishDate" class="clear">
             <b>{{'PublishDate' | translate }}</b>: {{episode.publishDate | date:'medium'}}
         </div>
+        <div *ngIf="episode.availableTo">
+            <b>{{'AvailableTo' | translate }}</b>: {{episode.availableTo | date:'medium'}}
+        </div>
+        <div>
+            <b>{{'Soundtype' | translate }}</b>: {{getSoundType(episode)}}
+        </div>
         <div *ngIf="episode.durationTime">
             <b>{{'Duration' | translate}}</b>: {{episode.durationTime | date:'HH:mm:ss'}}
         </div>

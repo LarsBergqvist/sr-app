@@ -42,5 +42,10 @@
   "PublishDate": "Publish date",
   "AnyCategories": "Any categories",
   "Category": "Category",
-  "Duration": "Duration"
+  "Duration": "Duration",
+  "AvailableTo": "Available to",
+  "Soundtype": "Sound type",
+  "SoundTypeNone": "None",
+  "SoundTypeBroadcast": "Broadcast",
+  "SoundTypePodfile": "Podfile"
 }

@@ -42,5 +42,10 @@
   "PublishDate": "Utgivningsdatum",
   "AnyCategories": "Alla kategorier",
   "Category": "Kategori",
-  "Duration": "Längd"
+  "Duration": "Längd",
+  "AvailableTo": "Tillgänglig till",
+  "Soundtype": "Ljudtyp",
+  "SoundTypeNone": "Ingen",
+  "SoundTypeBroadcast": "Sändning (broadcast)",
+  "SoundTypePodfile": "Podfil"
 }

@@ -22,6 +22,7 @@ export interface Episode {
     duration: number;
   };
   broadcast: {
+    availablestoputc: string;
     broadcastfiles: BroadcastFile[];
   };
 }

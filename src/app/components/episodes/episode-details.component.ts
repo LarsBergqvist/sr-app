@@ -8,8 +8,9 @@ import { EpisodesService } from 'src/app/services/episodes.service';
 import { MessageBrokerService } from 'src/app/services/message-broker.service';
 import { PlaylistsService } from 'src/app/services/playlists.service';
 import { SRApiService } from 'src/app/services/srapi.service';
+import { TranslationService } from 'src/app/services/translation.service';
 import { convertFromJSONstring } from 'src/app/utils/date-helper';
-import { EpisodeViewModel } from './episode-viewmodel';
+import { EpisodeViewModel, SoundType } from './episode-viewmodel';
 
 @Component({
   selector: 'app-episode-details',
@@ -35,7 +36,8 @@ export class EpisodeDetailsComponent implements OnInit, OnDestroy {
     private readonly episodesService: EpisodesService,
     private readonly playlistsService: PlaylistsService,
     private readonly srApiService: SRApiService,
-    private readonly broker: MessageBrokerService
+    private readonly broker: MessageBrokerService,
+    private readonly translate: TranslationService
   ) {}
 
   ngOnInit(): void {
@@ -66,6 +68,20 @@ export class EpisodeDetailsComponent implements OnInit, OnDestroy {
 
   onToggleImageSize() {
     this.largeImage = !this.largeImage;
+  }
+
+  getSoundType(episode: EpisodeViewModel): string {
+    let resourceId = 'SoundTypeNone';
+    switch (episode.soundType) {
+      case SoundType.Broadcast:
+        resourceId = 'SoundTypeBroadcast';
+        break;
+      case SoundType.Podfile:
+        resourceId = 'SoundTypePodfile';
+        break;
+    }
+
+    return this.translate.translateWithArgs(resourceId);
   }
 
   private async show(episode: EpisodeViewModel) {
