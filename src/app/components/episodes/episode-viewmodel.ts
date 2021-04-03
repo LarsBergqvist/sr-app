@@ -1,3 +1,4 @@
+import { getLocaleDateTimeFormat } from '@angular/common';
 import { Episode } from 'src/app/models/episode';
 import { convertFromJSONstring, durationToTime } from 'src/app/utils/date-helper';
 
@@ -43,7 +44,6 @@ export class EpisodeViewModel {
     } else if (episode.broadcast?.broadcastfiles?.length > 0) {
       this.soundType = SoundType.Broadcast;
       this.durationTime = durationToTime(episode.broadcast.broadcastfiles[0].duration);
-      this.url = episode.broadcast.broadcastfiles[0].url;
     }
   }
 
