@@ -1,6 +1,6 @@
 # sr-app
 
-[![Build Status](https://travis-ci.org/LarsBergqvist/sr-app.svg?branch=master)](https://travis-ci.org/LarsBergqvist/sr-app)
+[![Build Status](https://travis-ci.com/LarsBergqvist/sr-app.svg?branch=master)](https://travis-ci.com/LarsBergqvist/sr-app)
 
 # Demo
 
