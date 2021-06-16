@@ -14,8 +14,6 @@ import { AudioPlayerComponent } from './components/audio-player/audio-player.com
 import { SidebarModule } from 'primeng/sidebar';
 import { SongComponent } from './components/common/song.component';
 import { EpisodeDetailsComponent } from './components/episodes/episode-details.component';
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { environment } from '../environments/environment';
 import { ScheduledEpisodeComponent } from './components/episodes/scheduled-episode.component';
 import { ChannelScheduleComponent } from './components/channels/channel-schedule.component';
 import { ToastModule } from 'primeng/toast';
@@ -68,8 +66,7 @@ registerLocaleData(locale);
     ButtonModule,
     InputTextModule,
     CheckboxModule,
-    DropdownModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+    DropdownModule
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'sv' },
