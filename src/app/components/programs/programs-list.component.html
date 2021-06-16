@@ -40,8 +40,8 @@
                 <td>
                     <div class="p-grid">
                         <div class="p-col-8">
-                            <img src={{program.programimage}} height="50" width="50"
-                                style="padding: 4px; vertical-align:middle" />
+                            <img class="clickable" (click)="onShowEpisodes(program)" src={{program.programimage}}
+                                height="50" width="50" style="padding: 4px; vertical-align:middle" />
                             <span>
                                 <i *ngIf="program.fav" class="pi pi-star yellow-fav"></i>
                             </span>

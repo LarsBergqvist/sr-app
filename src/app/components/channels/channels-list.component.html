@@ -32,7 +32,7 @@
             <tr>
                 <td>
                     <div class="p-grid">
-                        <div class="p-col-5">
+                        <div (click)="onPlayChannel(channel)" class="clickable" class="p-col-5">
                             <img src={{channel.image}} width="30" style="vertical-align:middle" />
                             {{channel.name}}
                         </div>
