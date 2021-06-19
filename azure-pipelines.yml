@@ -15,6 +15,9 @@ steps:
       versionSpec: '14.15'
     displayName: 'Install Node.js'
 
+  - name: Checkout 🛎️
+      uses: actions/checkout@v2.3.1
+
   - script: yarn install
     displayName: 'yarn install'
 
@@ -43,12 +46,8 @@ steps:
       PathtoPublish: '$(build.artifactstagingdirectory)/sr-app'
       ArtifactName: dist
 
-  - task: GitHubPagesPublish@1
-    inputs:
-      docPath: '$(System.DefaultWorkingDirectory)/dist/**'
-      githubusername: $(github_username)
-      githubemail: $(github_email)
-      githubaccesstoken: $(github_pat)
-      repositoryname: 'sr-app'
-      branchname: 'gh-pages'
-      commitmessage: 'Automated Release $(Release.ReleaseId)'
+  - name: Deploy 🚀
+    uses: JamesIves/github-pages-deploy-action@4.1.4
+    with:
+      branch: gh-pages
+      folder: dist/sr-app
