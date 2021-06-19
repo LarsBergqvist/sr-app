@@ -41,6 +41,10 @@
             <a href={{episode.linkUrl}} target="_blank" rel="noopener noreferrer"><i
                     class="pi pi-external-link link-icon"></i>{{episode.linkUrl}}</a>
         </div>
+        <div class="clickable" (click)="showProgramDetails(episode.programId)">
+            Visa detaljer och alla avsnitt för <b>{{episode.programName}} </b>
+            <i class="pi pi-ellipsis-h"></i>
+        </div>
     </div>
     <hr class="clear">
     <div *ngIf="songs && songs.length > 0">
@@ -51,3 +55,4 @@
         </div>
     </div>
 </p-sidebar>
+<app-program-details></app-program-details>

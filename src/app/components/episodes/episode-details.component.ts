@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil, filter } from 'rxjs/operators';
 import { PlayAudioMessage } from 'src/app/messages/play-audio.message';
@@ -10,6 +10,7 @@ import { PlaylistsService } from 'src/app/services/playlists.service';
 import { SRApiService } from 'src/app/services/srapi.service';
 import { TranslationService } from 'src/app/services/translation.service';
 import { convertFromJSONstring } from 'src/app/utils/date-helper';
+import { ProgramDetailsComponent } from '../programs/program-details.component';
 import { EpisodeViewModel, SoundType } from './episode-viewmodel';
 
 @Component({
@@ -32,6 +33,7 @@ export class EpisodeDetailsComponent implements OnInit, OnDestroy {
   soundUrl: string;
   largeImage = false;
 
+  @ViewChild(ProgramDetailsComponent) programDetailsComp: ProgramDetailsComponent;
   constructor(
     private readonly episodesService: EpisodesService,
     private readonly playlistsService: PlaylistsService,
@@ -134,5 +136,10 @@ export class EpisodeDetailsComponent implements OnInit, OnDestroy {
 
   get isBookmarked(): boolean {
     return this.srApiService.isEpisodeBookmarked(this.episode.id);
+  }
+
+  showProgramDetails(programId: number) {
+    const program = this.srApiService.getProgramFromId(programId);
+    this.programDetailsComp.show(program);
   }
 }
