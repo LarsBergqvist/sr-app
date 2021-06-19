@@ -6,7 +6,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: yarn instakk
+      - name: yarn install
         uses: borales/actions-yarn@v2.3.0
         with:
           cmd: install
@@ -14,11 +14,11 @@ jobs:
         uses: borales/actions-yarn@v2.3.0
         with:
           cmd: build-gh-pages
-
-      - name: Create 404.html
-        run: |
-          cp dist/sr-app/index.html dist/sr-app/404.html
-
+      - name: Copy file
+        uses: canastro/copy-file-action@master
+        with:
+          source: 'dist/sr-app/index.html'
+          target: 'dist/sr-app/404.html'
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@4.1.4
         with:
