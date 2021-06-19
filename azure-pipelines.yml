@@ -45,7 +45,7 @@ steps:
 
   - task: GitHubPagesPublish@1
     inputs:
-      docPath: '$(System.DefaultWorkingDirectory)\Documentation\site\*'
+      docPath: '$(System.DefaultWorkingDirectory)/dist'
       githubusername: $(github_username)
       githubemail: $(github_email)
       githubaccesstoken: $(github_pat)
