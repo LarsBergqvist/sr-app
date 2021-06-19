@@ -16,7 +16,7 @@ steps:
     displayName: 'Install Node.js'
 
   - name: Checkout 🛎️
-      uses: actions/checkout@v2.3.1
+    uses: actions/checkout@v2.3.1
 
   - script: yarn install
     displayName: 'yarn install'
