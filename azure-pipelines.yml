@@ -7,7 +7,7 @@ trigger:
   - master
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: 'windows-latest'
 
 steps:
   - task: NodeTool@0
@@ -52,4 +52,3 @@ steps:
       repositoryname: 'https://github.com/LarsBergqvist/sr-app'
       branchname: 'gh-pages'
       commitmessage: 'Automated Release $(Release.ReleaseId)'
-
