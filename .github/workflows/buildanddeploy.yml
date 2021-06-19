@@ -10,7 +10,7 @@ jobs:
       - name: Install and Build
         run: |
           npm install
-          npm run build
+          npm run build-gh-pages
           cp dist/sr-app/index.html dist/sr-app/404.html
 
       - name: Deploy
