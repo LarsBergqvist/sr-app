@@ -42,3 +42,14 @@ steps:
     inputs:
       PathtoPublish: '$(build.artifactstagingdirectory)/sr-app'
       ArtifactName: dist
+
+  - task: GitHubPagesPublish@1
+    inputs:
+      docPath: '$(System.DefaultWorkingDirectory)\Documentation\site\*'
+      githubusername: $(github_username)
+      githubemail: $(github_email)
+      githubaccesstoken: $(github_pat)
+      repositoryname: 'https://github.com/LarsBergqvist/sr-app'
+      branchname: 'gh-pages'
+      commitmessage: 'Automated Release $(Release.ReleaseId)'
+
