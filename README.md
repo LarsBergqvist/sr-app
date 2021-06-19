@@ -4,7 +4,7 @@
 
 https://larsbergqvist.github.io/sr-app/
  
-An Angular 11 application that uses the Open API of Swedish Public Radio
+An Angular application that uses the Open API of Swedish Public Radio
 
 # Setup
 
@@ -24,6 +24,7 @@ Browse and filter programs
 Browse episodes per program  
 Play an episode  
 View the songlist for the episode  
+Bookmark episodes and view the bookmarked set  
 
 # Blog
 
