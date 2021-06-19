@@ -47,5 +47,8 @@
   "Soundtype": "Ljudtyp",
   "SoundTypeNone": "Ingen",
   "SoundTypeBroadcast": "Sändning (broadcast)",
-  "SoundTypePodfile": "Podfil"
+  "SoundTypePodfile": "Podfil",
+  "Bookmarks": "Bokmärken",
+  "BookmarkAdded": "Ett bokmärke har lagts till",
+  "BookmarkRemoved": "Ett bokmärke har tagits bort"
 }

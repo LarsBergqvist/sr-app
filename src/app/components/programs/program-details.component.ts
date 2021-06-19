@@ -39,7 +39,7 @@ export class ProgramDetailsComponent implements OnInit {
   async fetch(programId: number, first: number) {
     if (!programId) return;
     const page = first / this.pageSize + 1;
-    const episodesResult = await this.service.fetchEpisodes(programId, page, this.pageSize);
+    const episodesResult = await this.service.fetchEpisodesForProgram(programId, page, this.pageSize);
     this.totalHits = episodesResult.pagination.totalhits;
     this.episodes = [];
     episodesResult.episodes.forEach((e) => {

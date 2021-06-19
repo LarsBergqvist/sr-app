@@ -63,4 +63,16 @@ export class EpisodesTableComponent implements OnInit, AfterViewInit {
   onOpenDetails(episode: EpisodeViewModel) {
     this.broker.sendMessage(new ShowEpisodeDetailsMessage(episode));
   }
+
+  onAddToBookmarks(episodeId: number) {
+    this.srApiService.addBookmarkForEpisode(episodeId);
+  }
+
+  onRemoveFromBookmarks(episodeId: number) {
+    this.srApiService.removeBookmarkForEpisode(episodeId);
+  }
+
+  isBookmarked(episodeId: number): boolean {
+    return this.srApiService.isEpisodeBookmarked(episodeId);
+  }
 }

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { BookmarkChangedMessage } from '../messages/bookmark-changed.message';
 import { SuccessInfoMessage } from '../messages/success-info.message';
 import { Channel } from '../models/channel';
 import { Program } from '../models/program';
@@ -23,7 +24,8 @@ export class SRApiService extends SRBaseService {
 
   private currentlyPlaying: string;
 
-  private programFavs = new Set();
+  private programFavs = new Set<number>();
+  private episodeBookmarks = new Set<number>();
 
   constructor(
     private readonly http: HttpClient,
@@ -33,6 +35,7 @@ export class SRApiService extends SRBaseService {
   ) {
     super();
     this.initFavoritesFromLocalStorage();
+    this.initBookmarksFromLocalStorage();
   }
 
   async fetchBaseData() {
@@ -125,7 +128,7 @@ export class SRApiService extends SRBaseService {
   addProgramToFavorites(programId: number, programName: string) {
     if (!this.programFavs.has(programId)) {
       this.programFavs.add(programId);
-      this.storFavsInLocalStorage();
+      this.storeFavsInLocalStorage();
       this.updateProgramsWithFavs(this.programs);
       this.broker.sendMessage(new SuccessInfoMessage(this.translationService.translateWithArgs('AddedToFavorites', programName)));
     }
@@ -134,10 +137,34 @@ export class SRApiService extends SRBaseService {
   removeProgramFromFavorites(programId: number, programName: string) {
     if (this.programFavs.has(programId)) {
       this.programFavs.delete(programId);
-      this.storFavsInLocalStorage();
+      this.storeFavsInLocalStorage();
       this.updateProgramsWithFavs(this.programs);
       this.broker.sendMessage(new SuccessInfoMessage(this.translationService.translateWithArgs('RemovedFromFavorites', programName)));
     }
+  }
+
+  addBookmarkForEpisode(episodeId: number) {
+    if (!this.episodeBookmarks.has(episodeId)) {
+      this.episodeBookmarks.add(episodeId);
+      this.storeBookmarksInLocalStorage();
+      this.broker.sendMessage(new BookmarkChangedMessage(episodeId, true));
+    }
+  }
+
+  removeBookmarkForEpisode(episodeId: number) {
+    if (this.episodeBookmarks.has(episodeId)) {
+      this.episodeBookmarks.delete(episodeId);
+      this.storeBookmarksInLocalStorage();
+      this.broker.sendMessage(new BookmarkChangedMessage(episodeId, false));
+    }
+  }
+
+  getBookmarkedEpisodes(): number[] {
+    return Array.from(this.episodeBookmarks);
+  }
+
+  isEpisodeBookmarked(episodeId: number): boolean {
+    return this.episodeBookmarks.has(episodeId);
   }
 
   private updateProgramsWithFavs(progs: Program[]) {
@@ -163,8 +190,27 @@ export class SRApiService extends SRBaseService {
     }
   }
 
-  private storFavsInLocalStorage() {
+  private storeFavsInLocalStorage() {
     let serializedSet = JSON.stringify(Array.from(this.programFavs));
     this.localStorageService.set('programfavs', serializedSet);
+  }
+
+  private initBookmarksFromLocalStorage() {
+    const bookmarksArrayStr = this.localStorageService.get('episodeBookmarks');
+    if (bookmarksArrayStr) {
+      try {
+        const bookmarksArray: [] = JSON.parse(bookmarksArrayStr);
+        if (bookmarksArray) {
+          bookmarksArray.forEach((f) => {
+            this.episodeBookmarks.add(f);
+          });
+        }
+      } catch {}
+    }
+  }
+
+  private storeBookmarksInLocalStorage() {
+    let serializedSet = JSON.stringify(Array.from(this.episodeBookmarks));
+    this.localStorageService.set('episodeBookmarks', serializedSet);
   }
 }

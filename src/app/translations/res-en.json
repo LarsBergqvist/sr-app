@@ -47,5 +47,8 @@
   "Soundtype": "Sound type",
   "SoundTypeNone": "None",
   "SoundTypeBroadcast": "Broadcast",
-  "SoundTypePodfile": "Podfile"
+  "SoundTypePodfile": "Podfile",
+  "Bookmarks": "Bookmarks",
+  "BookmarkAdded": "Bookmark added",
+  "BookmarkRemoved": "Bookmark removed"
 }

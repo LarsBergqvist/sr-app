@@ -123,4 +123,16 @@ export class EpisodeDetailsComponent implements OnInit, OnDestroy {
   get isCurrentlyPlaying(): boolean {
     return this.srApiService.isCurrentlyPlaying(this.soundUrl);
   }
+
+  onAddToBookmarks() {
+    this.srApiService.addBookmarkForEpisode(this.episode.id);
+  }
+
+  onRemoveFromBookmarks() {
+    this.srApiService.removeBookmarkForEpisode(this.episode.id);
+  }
+
+  get isBookmarked(): boolean {
+    return this.srApiService.isEpisodeBookmarked(this.episode.id);
+  }
 }

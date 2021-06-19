@@ -5,9 +5,9 @@ export interface EpisodesResult {
   pagination: {
     page: number;
     size: number;
-    totalhits: number;
+    totalhits?: number;
     totalpages: number;
-    nextpage: string;
-    previouspage: string;
+    nextpage?: string;
+    previouspage?: string;
   };
 }

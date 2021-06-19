@@ -7,6 +7,7 @@ import { SuccessInfoMessage } from './messages/success-info.message';
 import { Subject } from 'rxjs';
 import { TranslationService } from './services/translation.service';
 import { ErrorOccurredMessage } from './messages/error-occurred.message';
+import { BookmarkChangedMessage } from './messages/bookmark-changed.message';
 
 @Component({
   selector: 'app-root',
@@ -45,6 +46,20 @@ export class AppComponent implements OnInit, OnDestroy {
       )
       .subscribe((message: ErrorOccurredMessage) => {
         this.primeNGmessageService.add({ severity: 'error', summary: '', detail: message.errorMessage });
+      });
+    messages
+      .pipe(
+        takeUntil(this.unsubscribe$),
+        filter((message) => message instanceof BookmarkChangedMessage)
+      )
+      .subscribe((message: BookmarkChangedMessage) => {
+        this.primeNGmessageService.add({
+          severity: 'success',
+          summary: '',
+          detail: message.isBookmarked
+            ? this.translationService.translateWithArgs('BookmarkAdded')
+            : this.translationService.translateWithArgs('BookmarkRemoved')
+        });
       });
 
     await this.fetchBaseData();
