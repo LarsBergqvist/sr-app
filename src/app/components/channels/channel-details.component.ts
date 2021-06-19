@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { PlayAudioMessage } from 'src/app/messages/play-audio.message';
 import { Channel } from 'src/app/models/channel';
 import { Playlist } from 'src/app/models/playlist';
@@ -25,7 +26,9 @@ export class ChannelDetailsComponent implements OnInit {
     private readonly playlistsService: PlaylistsService,
     private readonly episodesService: EpisodesService,
     private readonly srApiService: SRApiService,
-    private readonly broker: MessageBrokerService
+    private readonly broker: MessageBrokerService,
+    private readonly activatedRoute: ActivatedRoute,
+    private readonly location: Location
   ) {}
 
   ngOnInit(): void {

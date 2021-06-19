@@ -1,6 +1,4 @@
-<p-sidebar *ngIf="episode" [(visible)]="isVisible" position="right" styleClass="sr-sidebar" [blockScroll]="true"
-    [showCloseIcon]="false">
-
+<div *ngIf="episode">
     <div class="details-header-text">
         <i (click)="close()" class="pi pi-chevron-left close-button clickable"></i>
         {{episode.programName}}: {{episode.title}}
@@ -54,5 +52,4 @@
             <hr>
         </div>
     </div>
-</p-sidebar>
-<app-program-details></app-program-details>
+</div>

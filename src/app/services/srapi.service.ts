@@ -113,11 +113,6 @@ export class SRApiService extends SRBaseService {
     return this.http.get<any>(`${url}`).toPromise();
   }
 
-  getProgramFromId(id: number): Program {
-    const program = this?.programs.find((c) => c.id === id);
-    return program;
-  }
-
   getChannelNameFromId(id: number): string {
     if (!this.channels) return;
     const channel = this?.channels.find((c) => c.id === id);

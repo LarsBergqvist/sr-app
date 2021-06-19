@@ -1,8 +1,10 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { Subject } from 'rxjs';
-import { takeUntil, filter } from 'rxjs/operators';
+import { Location } from '@angular/common';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
+import { Observable, Subject } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { PlayAudioMessage } from 'src/app/messages/play-audio.message';
-import { ShowEpisodeDetailsMessage } from 'src/app/messages/show-episodedetails.message';
+import { ShowProgramDetailsMessage } from 'src/app/messages/show-programdetails.message';
 import { Song } from 'src/app/models/song';
 import { EpisodesService } from 'src/app/services/episodes.service';
 import { MessageBrokerService } from 'src/app/services/message-broker.service';
@@ -10,7 +12,6 @@ import { PlaylistsService } from 'src/app/services/playlists.service';
 import { SRApiService } from 'src/app/services/srapi.service';
 import { TranslationService } from 'src/app/services/translation.service';
 import { convertFromJSONstring } from 'src/app/utils/date-helper';
-import { ProgramDetailsComponent } from '../programs/program-details.component';
 import { EpisodeViewModel, SoundType } from './episode-viewmodel';
 
 @Component({
@@ -33,34 +34,25 @@ export class EpisodeDetailsComponent implements OnInit, OnDestroy {
   soundUrl: string;
   largeImage = false;
 
-  @ViewChild(ProgramDetailsComponent) programDetailsComp: ProgramDetailsComponent;
   constructor(
     private readonly episodesService: EpisodesService,
     private readonly playlistsService: PlaylistsService,
     private readonly srApiService: SRApiService,
     private readonly broker: MessageBrokerService,
-    private readonly translate: TranslationService
+    private readonly translate: TranslationService,
+    private readonly activatedRoute: ActivatedRoute,
+    private readonly location: Location
   ) {}
 
   ngOnInit(): void {
-    this.isVisible = false;
-    const messages = this.broker.getMessage();
-    messages
-      .pipe(
-        takeUntil(this.unsubscribe$),
-        filter((message) => message instanceof ShowEpisodeDetailsMessage)
-      )
-      .subscribe(async (message: ShowEpisodeDetailsMessage) => {
-        if (message?.episode) {
-          this.show(message.episode);
-        } else if (message.episodeId) {
-          const res = await this.episodesService.fetchEpisode(message.episodeId);
-          if (res?.episode) {
-            const episodeVM = new EpisodeViewModel(res.episode);
-            this.show(episodeVM);
-          }
-        }
+    this.activatedRoute.paramMap.subscribe((params: Params) => {
+      const idobs: Observable<number> = this.activatedRoute.params.pipe(map((route) => route.id));
+      idobs.subscribe(async (id) => {
+        const res = await this.episodesService.fetchEpisode(id);
+        const episodeVM = new EpisodeViewModel(res.episode);
+        this.show(episodeVM);
       });
+    });
   }
 
   ngOnDestroy() {
@@ -110,7 +102,7 @@ export class EpisodeDetailsComponent implements OnInit, OnDestroy {
   }
 
   close() {
-    this.isVisible = false;
+    this.location.back();
   }
 
   onPlayEpisode(episode: EpisodeViewModel) {
@@ -139,7 +131,6 @@ export class EpisodeDetailsComponent implements OnInit, OnDestroy {
   }
 
   showProgramDetails(programId: number) {
-    const program = this.srApiService.getProgramFromId(programId);
-    this.programDetailsComp.show(program);
+    this.broker.sendMessage(new ShowProgramDetailsMessage(programId));
   }
 }

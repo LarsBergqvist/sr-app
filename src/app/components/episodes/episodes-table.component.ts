@@ -61,7 +61,7 @@ export class EpisodesTableComponent implements OnInit, AfterViewInit {
   }
 
   onOpenDetails(episode: EpisodeViewModel) {
-    this.broker.sendMessage(new ShowEpisodeDetailsMessage(episode));
+    this.broker.sendMessage(new ShowEpisodeDetailsMessage(episode.id));
   }
 
   onAddToBookmarks(episodeId: number) {

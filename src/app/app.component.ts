@@ -8,6 +8,9 @@ import { Subject } from 'rxjs';
 import { TranslationService } from './services/translation.service';
 import { ErrorOccurredMessage } from './messages/error-occurred.message';
 import { BookmarkChangedMessage } from './messages/bookmark-changed.message';
+import { ShowEpisodeDetailsMessage } from './messages/show-episodedetails.message';
+import { Router } from '@angular/router';
+import { ShowProgramDetailsMessage } from './messages/show-programdetails.message';
 
 @Component({
   selector: 'app-root',
@@ -23,7 +26,8 @@ export class AppComponent implements OnInit, OnDestroy {
     private readonly srApiService: SRApiService,
     private readonly broker: MessageBrokerService,
     private readonly primeNGmessageService: MessageService,
-    private readonly translationService: TranslationService
+    private readonly translationService: TranslationService,
+    private readonly router: Router
   ) {}
 
   async ngOnInit() {
@@ -60,6 +64,28 @@ export class AppComponent implements OnInit, OnDestroy {
             ? this.translationService.translateWithArgs('BookmarkAdded')
             : this.translationService.translateWithArgs('BookmarkRemoved')
         });
+      });
+
+    messages
+      .pipe(
+        takeUntil(this.unsubscribe$),
+        filter((message) => message instanceof ShowEpisodeDetailsMessage)
+      )
+      .subscribe((message: ShowEpisodeDetailsMessage) => {
+        if (message.episodeId) {
+          this.router.navigate(['episodes/' + message.episodeId]);
+        }
+      });
+
+    messages
+      .pipe(
+        takeUntil(this.unsubscribe$),
+        filter((message) => message instanceof ShowProgramDetailsMessage)
+      )
+      .subscribe((message: ShowProgramDetailsMessage) => {
+        if (message.programId) {
+          this.router.navigate(['programs/' + message.programId]);
+        }
       });
 
     await this.fetchBaseData();

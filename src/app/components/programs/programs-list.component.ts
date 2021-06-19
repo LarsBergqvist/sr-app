@@ -1,12 +1,14 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { Program } from '../../models/program';
-import { SRApiService } from 'src/app/services/srapi.service';
+import { SelectItem } from 'primeng/api';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { ProgramDetailsComponent } from './program-details.component';
+import { ShowProgramDetailsMessage } from 'src/app/messages/show-programdetails.message';
 import { ProgramCategory } from 'src/app/models/program-category';
-import { SelectItem } from 'primeng/api';
+import { MessageBrokerService } from 'src/app/services/message-broker.service';
+import { SRApiService } from 'src/app/services/srapi.service';
 import { TranslationService } from 'src/app/services/translation.service';
+import { Program } from '../../models/program';
+import { ProgramDetailsComponent } from './program-details.component';
 
 @Component({
   selector: 'app-programs-list',
@@ -20,7 +22,11 @@ export class ProgramsListComponent implements OnInit, OnDestroy {
   showOnlyFavs = false;
 
   @ViewChild(ProgramDetailsComponent) episodesComp: ProgramDetailsComponent;
-  constructor(private readonly srApiService: SRApiService, private readonly translationService: TranslationService) {}
+  constructor(
+    private readonly srApiService: SRApiService,
+    private readonly translationService: TranslationService,
+    private readonly broker: MessageBrokerService
+  ) {}
 
   async ngOnInit() {
     this.srApiService.programs$.pipe(takeUntil(this.unsubscribe$)).subscribe((values: Program[]) => {
@@ -45,7 +51,7 @@ export class ProgramsListComponent implements OnInit, OnDestroy {
   }
 
   onShowEpisodes(program: Program) {
-    this.episodesComp.show(program);
+    this.broker.sendMessage(new ShowProgramDetailsMessage(program.id));
   }
 
   onFilterFavClicked(event, dt) {

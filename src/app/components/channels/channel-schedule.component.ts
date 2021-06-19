@@ -48,6 +48,6 @@ export class ChannelScheduleComponent implements OnInit {
   }
 
   onOpenDetails(episodeId: number) {
-    this.broker.sendMessage(new ShowEpisodeDetailsMessage(null, episodeId));
+    this.broker.sendMessage(new ShowEpisodeDetailsMessage(episodeId));
   }
 }

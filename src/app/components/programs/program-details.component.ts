@@ -1,6 +1,11 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
+import { Observable, Subject } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Program } from 'src/app/models/program';
 import { EpisodesService } from 'src/app/services/episodes.service';
+import { ProgramsService } from 'src/app/services/programs.service';
 import { SRApiService } from 'src/app/services/srapi.service';
 import { EpisodeViewModel } from '../episodes/episode-viewmodel';
 import { EpisodesLoadLazyArgs } from '../episodes/episodes-table.component';
@@ -12,24 +17,44 @@ import { EpisodesLoadLazyArgs } from '../episodes/episodes-table.component';
 })
 export class ProgramDetailsComponent implements OnInit {
   program: Program;
-  isVisible = false;
   episodes: EpisodeViewModel[];
   totalHits = 0;
   pageSize = 5;
+  private unsubscribe$ = new Subject();
 
-  constructor(private readonly service: EpisodesService, private readonly srApiService: SRApiService) {}
+  constructor(
+    private readonly service: EpisodesService,
+    private readonly srApiService: SRApiService,
+    private readonly activatedRoute: ActivatedRoute,
+    private readonly programsService: ProgramsService,
+    private readonly location: Location
+  ) {}
 
-  ngOnInit(): void {}
+  async ngOnInit() {
+    this.activatedRoute.paramMap.subscribe((params: Params) => {
+      const idobs: Observable<number> = this.activatedRoute.params.pipe(map((route) => route.id));
+      idobs.subscribe(async (id) => {
+        const program = await this.programsService.fetchProgram(id);
+        if (program) {
+          await this.show(program);
+        }
+      });
+    });
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
 
   async show(program: Program) {
     this.episodes = [];
     this.program = program;
     await this.fetch(program.id, 0);
-    this.isVisible = true;
   }
 
   close() {
-    this.isVisible = false;
+    this.location.back();
   }
 
   async loadLazy(event: EpisodesLoadLazyArgs) {

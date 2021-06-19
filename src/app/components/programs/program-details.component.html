@@ -1,7 +1,6 @@
-<p-sidebar *ngIf="program" [(visible)]="isVisible" position="right" styleClass="sr-sidebar" [blockScroll]="true"
-    [showCloseIcon]="false">
+<div *ngIf="program">
 
-    <div class="details-header-text">
+    <div class=" details-header-text">
         <i (click)="close()" class="pi pi-chevron-left close-button clickable"></i>
         <img src={{program.programimage}} width="50" style="vertical-align:middle" />
         <i *ngIf="program.fav" class="pi pi-star yellow-fav"></i>
@@ -28,5 +27,6 @@
     </div>
     <hr>
     <app-episodes-table [episodes]="episodes" (onLoadLazy)="loadLazy($event)" [totalHits]="totalHits"
-        [pageSize]="pageSize"></app-episodes-table>
-</p-sidebar>
+        [pageSize]="pageSize">
+    </app-episodes-table>
+</div>
