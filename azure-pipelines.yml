@@ -20,3 +20,26 @@ steps:
 
   - script: yarn build
     displayName: 'Build app'
+
+  - script: yarn test
+    displayName: 'Test app'
+    workingDirectory: App
+
+  - task: PublishTestResults@2
+    displayName: 'Publish unit test results'
+    condition: succeededOrFailed()
+    inputs:
+      testResultsFormat: 'JUnit'
+      testResultsFiles: '**/TESTS-*.xml'
+
+  - task: CopyFiles@2
+    displayName: 'Copy app files'
+    inputs:
+      SourceFolder: '$(System.DefaultWorkingDirectory)/dist'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish app artifacts'
+    inputs:
+      PathtoPublish: '$(build.artifactstagingdirectory)/sr-app'
+      ArtifactName: dist
