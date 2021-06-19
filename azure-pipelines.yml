@@ -23,7 +23,6 @@ steps:
 
   - script: yarn test
     displayName: 'Test app'
-    workingDirectory: App
 
   - task: PublishTestResults@2
     displayName: 'Publish unit test results'

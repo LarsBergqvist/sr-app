@@ -1,7 +1,5 @@
 # sr-app
 
-[![Build Status](https://larsbq.visualstudio.com/SrApp/_apis/build/status/LarsBergqvist.sr-app?branchName=master)](https://larsbq.visualstudio.com/SrApp/_build/latest?definitionId=5&branchName=master)
-
 # Demo
 
 https://larsbergqvist.github.io/sr-app/
