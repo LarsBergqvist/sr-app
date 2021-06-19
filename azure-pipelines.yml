@@ -49,6 +49,6 @@ steps:
       githubusername: $(github_username)
       githubemail: $(github_email)
       githubaccesstoken: $(github_pat)
-      repositoryname: 'https://github.com/LarsBergqvist/sr-app'
+      repositoryname: 'sr-app'
       branchname: 'gh-pages'
       commitmessage: 'Automated Release $(Release.ReleaseId)'
