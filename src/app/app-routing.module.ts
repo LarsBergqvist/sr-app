@@ -9,13 +9,13 @@ import { ProgramDetailsComponent } from './components/programs/program-details.c
 import { ProgramsListComponent } from './components/programs/programs-list.component';
 
 const routes: Routes = [
-  { path: 'channels', component: ChannelsListComponent, data: { animation: 'Channels' } },
-  { path: 'channels/:id', component: ChannelDetailsComponent, data: { animation: 'ChannelDetails' } },
-  { path: 'channels/schedule/:id', component: ChannelScheduleComponent, data: { animation: 'ChannelSchedule' } },
-  { path: 'programs/:id', component: ProgramDetailsComponent, data: { animation: 'ProgramDetails' } },
-  { path: 'programs', component: ProgramsListComponent, data: { animation: 'Programs' } },
-  { path: 'episodes/:id', component: EpisodeDetailsComponent, data: { animation: 'EpisodeDetails' } },
-  { path: 'episodes', component: EpisodesListComponent, data: { animation: 'Episodes' } },
+  { path: 'channels', component: ChannelsListComponent, data: { animation: 'channels' } },
+  { path: 'channels/:id', component: ChannelDetailsComponent, data: { animation: 'details' } },
+  { path: 'channels/schedule/:id', component: ChannelScheduleComponent, data: { animation: 'details' } },
+  { path: 'programs/:id', component: ProgramDetailsComponent, data: { animation: 'details' } },
+  { path: 'programs', component: ProgramsListComponent, data: { animation: 'programs' } },
+  { path: 'episodes/:id', component: EpisodeDetailsComponent, data: { animation: 'details' } },
+  { path: 'episodes', component: EpisodesListComponent, data: { animation: 'episodes' } },
   { path: '**', redirectTo: '/channels', pathMatch: 'full' }
 ];
 
