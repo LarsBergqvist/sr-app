@@ -1,22 +1,19 @@
-<!-- app-program-details></app-program-details -->
-<!-- app-episode-details></app-episode-details -->
-
 <div class="programs-list">
     <p-table #dt2 [value]="programs" [responsive]="true" [paginator]="true" [rows]="10"
         [globalFilterFields]="['name','channel.name','description']" styleClass="sr-table">
         <ng-template pTemplate="caption">
             <div class="p-d-flex">
                 <div class="fav-chk">
-                    <p-checkbox (onChange)="onFilterFavClicked($event, dt2)" [(ngModel)]="showOnlyFavs" [binary]="true"
-                        label="{{'OnlyFavs' | translate }}" class="fav-checkbox"></p-checkbox>
+                    <p-checkbox (onChange)="onFilterFavClicked($event, dt2)" [(ngModel)]="localState.showOnlyFavs"
+                        [binary]="true" label="{{'OnlyFavs' | translate }}" class="fav-checkbox"></p-checkbox>
                 </div>
                 <div class="cat-dd">
                     <p-dropdown [options]="categoryOptions" (onChange)="onCategoryChanged($event, dt2)"
-                        placeholder="Category"></p-dropdown>
+                        placeholder="Category" [(ngModel)]="localState.selectedCategory"></p-dropdown>
                 </div>
                 <span class="p-input-icon-left p-ml-auto">
                     <i class="pi pi-search"></i>
-                    <input pInputText class="p-inputtext-sm kw-input" type="text"
+                    <input pInputText class="p-inputtext-sm kw-input" type="text" [(ngModel)]="localState.searchString"
                         (input)="dt2.filterGlobal($event.target.value, 'contains')"
                         placeholder="{{'SearchKeyword' | translate | uppercase}}" />
                 </span>
