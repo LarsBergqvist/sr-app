@@ -1,8 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
-import { Observable, Subject } from 'rxjs';
-import { filter, map, takeUntil } from 'rxjs/operators';
-import { NavigateBackMessage } from 'src/app/messages/navigate-back.message';
+import { Subject } from 'rxjs';
+import { filter, takeUntil } from 'rxjs/operators';
 import { PlayAudioMessage } from 'src/app/messages/play-audio.message';
 import { ShowEpisodeDetailsMessage } from 'src/app/messages/show-episodedetails.message';
 import { ShowProgramDetailsMessage } from 'src/app/messages/show-programdetails.message';
@@ -40,8 +38,7 @@ export class EpisodeDetailsComponent implements OnInit, OnDestroy {
     private readonly playlistsService: PlaylistsService,
     private readonly srApiService: SRApiService,
     private readonly broker: MessageBrokerService,
-    private readonly translate: TranslationService,
-    private readonly activatedRoute: ActivatedRoute
+    private readonly translate: TranslationService
   ) {}
 
   ngOnInit(): void {
@@ -111,7 +108,6 @@ export class EpisodeDetailsComponent implements OnInit, OnDestroy {
 
   close() {
     this.isVisible = false;
-    //    this.broker.sendMessage(new NavigateBackMessage());
   }
 
   onPlayEpisode(episode: EpisodeViewModel) {

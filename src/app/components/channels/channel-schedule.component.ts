@@ -1,39 +1,51 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { map } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { map, takeUntil } from 'rxjs/operators';
 import { NavigateBackMessage } from 'src/app/messages/navigate-back.message';
 import { ShowEpisodeDetailsMessage } from 'src/app/messages/show-episodedetails.message';
 import { Channel } from 'src/app/models/channel';
 import { ScheduledEpisode } from 'src/app/models/scheduled-episode';
-import { ChannelsService } from 'src/app/services/channels.service';
 import { EpisodesService } from 'src/app/services/episodes.service';
 import { MessageBrokerService } from 'src/app/services/message-broker.service';
+import { SRApiService } from 'src/app/services/srapi.service';
 import { convertFromJSONstring } from 'src/app/utils/date-helper';
 
 @Component({
   selector: 'app-channel-schedule',
   templateUrl: './channel-schedule.component.html'
 })
-export class ChannelScheduleComponent implements OnInit {
+export class ChannelScheduleComponent implements OnInit, OnDestroy {
   scheduledEpisodes: ScheduledEpisode[];
   totalHits = 0;
   pageSize = 1000;
   channel: Channel;
+  private unsubscribe$ = new Subject();
 
   constructor(
     private readonly service: EpisodesService,
     private readonly broker: MessageBrokerService,
     private readonly activatedRoute: ActivatedRoute,
-    private readonly channelsService: ChannelsService
+    private readonly srApiService: SRApiService
   ) {}
 
   ngOnInit(): void {
-    this.activatedRoute.params.pipe(map((route) => route.id)).subscribe(async (id) => {
-      const channel = await this.channelsService.fetchChannel(id);
-      if (channel) {
-        await this.show(channel);
-      }
-    });
+    this.activatedRoute.params
+      .pipe(
+        takeUntil(this.unsubscribe$),
+        map((route) => route.id)
+      )
+      .subscribe(async (id) => {
+        const channel = await this.srApiService.getChannelFromId(id);
+        if (channel) {
+          await this.show(channel);
+        }
+      });
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
   async show(channel: Channel) {

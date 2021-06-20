@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { map } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { map, takeUntil } from 'rxjs/operators';
 import { NavigateBackMessage } from 'src/app/messages/navigate-back.message';
 import { PlayAudioMessage } from 'src/app/messages/play-audio.message';
 import { Channel } from 'src/app/models/channel';
@@ -8,7 +9,6 @@ import { Playlist } from 'src/app/models/playlist';
 import { RightNowEpisodes } from 'src/app/models/right-now-episodes';
 import { ScheduledEpisode } from 'src/app/models/scheduled-episode';
 import { Song } from 'src/app/models/song';
-import { ChannelsService } from 'src/app/services/channels.service';
 import { EpisodesService } from 'src/app/services/episodes.service';
 import { MessageBrokerService } from 'src/app/services/message-broker.service';
 import { PlaylistsService } from 'src/app/services/playlists.service';
@@ -19,27 +19,37 @@ import { convertFromJSONstring } from 'src/app/utils/date-helper';
   selector: 'app-channel-details',
   templateUrl: './channel-details.component.html'
 })
-export class ChannelDetailsComponent implements OnInit {
+export class ChannelDetailsComponent implements OnInit, OnDestroy {
   playlist: Playlist;
   channel: Channel;
   rightNowEpisodes: RightNowEpisodes;
+  private unsubscribe$ = new Subject();
 
   constructor(
     private readonly playlistsService: PlaylistsService,
     private readonly episodesService: EpisodesService,
     private readonly srApiService: SRApiService,
     private readonly broker: MessageBrokerService,
-    private readonly activatedRoute: ActivatedRoute,
-    private readonly channelsService: ChannelsService
+    private readonly activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    this.activatedRoute.params.pipe(map((route) => route.id)).subscribe(async (id) => {
-      const channel = await this.channelsService.fetchChannel(id);
-      if (channel) {
-        await this.show(channel);
-      }
-    });
+    this.activatedRoute.params
+      .pipe(
+        takeUntil(this.unsubscribe$),
+        map((route) => route.id)
+      )
+      .subscribe(async (id) => {
+        const channel = await this.srApiService.getChannelFromId(id);
+        if (channel) {
+          await this.show(channel);
+        }
+      });
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
   async show(channel: Channel) {

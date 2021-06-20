@@ -1,12 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, takeUntil } from 'rxjs/operators';
 import { NavigateBackMessage } from 'src/app/messages/navigate-back.message';
 import { Program } from 'src/app/models/program';
 import { EpisodesService } from 'src/app/services/episodes.service';
 import { MessageBrokerService } from 'src/app/services/message-broker.service';
-import { ProgramsService } from 'src/app/services/programs.service';
 import { SRApiService } from 'src/app/services/srapi.service';
 import { EpisodeViewModel } from '../episodes/episode-viewmodel';
 import { EpisodesLoadLazyArgs } from '../episodes/episodes-table.component';
@@ -16,7 +15,7 @@ import { EpisodesLoadLazyArgs } from '../episodes/episodes-table.component';
   templateUrl: './program-details.component.html',
   styleUrls: ['./program-details.component.scss']
 })
-export class ProgramDetailsComponent implements OnInit {
+export class ProgramDetailsComponent implements OnInit, OnDestroy {
   program: Program;
   episodes: EpisodeViewModel[];
   totalHits = 0;
@@ -27,17 +26,21 @@ export class ProgramDetailsComponent implements OnInit {
     private readonly service: EpisodesService,
     private readonly srApiService: SRApiService,
     private readonly activatedRoute: ActivatedRoute,
-    private readonly programsService: ProgramsService,
     private readonly broker: MessageBrokerService
   ) {}
 
   async ngOnInit() {
-    this.activatedRoute.params.pipe(map((route) => route.id)).subscribe(async (id) => {
-      const program = await this.programsService.fetchProgram(id);
-      if (program) {
-        await this.show(program);
-      }
-    });
+    this.activatedRoute.params
+      .pipe(
+        takeUntil(this.unsubscribe$),
+        map((route) => route.id)
+      )
+      .subscribe(async (id) => {
+        const program = await this.srApiService.getProgramFromId(id);
+        if (program) {
+          await this.show(program);
+        }
+      });
   }
 
   ngOnDestroy() {
