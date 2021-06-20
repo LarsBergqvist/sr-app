@@ -35,8 +35,8 @@ export class ProgramDetailsComponent implements OnInit, OnDestroy {
         takeUntil(this.unsubscribe$),
         map((route) => route.id)
       )
-      .subscribe(async (id) => {
-        const program = await this.srApiService.getProgramFromId(id);
+      .subscribe(async (id: string) => {
+        const program = await this.srApiService.getProgramFromId(parseInt(id));
         if (program) {
           await this.show(program);
         }

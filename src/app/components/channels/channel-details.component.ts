@@ -39,8 +39,8 @@ export class ChannelDetailsComponent implements OnInit, OnDestroy {
         takeUntil(this.unsubscribe$),
         map((route) => route.id)
       )
-      .subscribe(async (id) => {
-        const channel = await this.srApiService.getChannelFromId(id);
+      .subscribe(async (id: string) => {
+        const channel = await this.srApiService.getChannelFromId(parseInt(id));
         if (channel) {
           await this.show(channel);
         }

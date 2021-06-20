@@ -175,7 +175,7 @@ export class SRApiService extends SRBaseService {
       await this.fetchBaseData();
     }
 
-    const program = this.programs.find((p) => p.id == programId);
+    const program = this.programs.find((p) => p.id === programId);
     return program;
   }
 
@@ -184,7 +184,7 @@ export class SRApiService extends SRBaseService {
       await this.fetchBaseData();
     }
 
-    const channel = this.channels.find((p) => p.id == channelId);
+    const channel = this.channels.find((p) => p.id === channelId);
     return channel;
   }
 
