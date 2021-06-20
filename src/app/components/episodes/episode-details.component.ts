@@ -1,9 +1,10 @@
-import { Location } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { filter, map, takeUntil } from 'rxjs/operators';
+import { NavigateBackMessage } from 'src/app/messages/navigate-back.message';
 import { PlayAudioMessage } from 'src/app/messages/play-audio.message';
+import { ShowEpisodeDetailsMessage } from 'src/app/messages/show-episodedetails.message';
 import { ShowProgramDetailsMessage } from 'src/app/messages/show-programdetails.message';
 import { Song } from 'src/app/models/song';
 import { EpisodesService } from 'src/app/services/episodes.service';
@@ -40,19 +41,26 @@ export class EpisodeDetailsComponent implements OnInit, OnDestroy {
     private readonly srApiService: SRApiService,
     private readonly broker: MessageBrokerService,
     private readonly translate: TranslationService,
-    private readonly activatedRoute: ActivatedRoute,
-    private readonly location: Location
+    private readonly activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    this.activatedRoute.paramMap.subscribe((params: Params) => {
-      const idobs: Observable<number> = this.activatedRoute.params.pipe(map((route) => route.id));
-      idobs.subscribe(async (id) => {
-        const res = await this.episodesService.fetchEpisode(id);
-        const episodeVM = new EpisodeViewModel(res.episode);
-        this.show(episodeVM);
+    this.isVisible = false;
+    const messages = this.broker.getMessage();
+    messages
+      .pipe(
+        takeUntil(this.unsubscribe$),
+        filter((message) => message instanceof ShowEpisodeDetailsMessage)
+      )
+      .subscribe(async (message: ShowEpisodeDetailsMessage) => {
+        if (message.episodeId) {
+          const res = await this.episodesService.fetchEpisode(message.episodeId);
+          if (res?.episode) {
+            const episodeVM = new EpisodeViewModel(res.episode);
+            this.show(episodeVM);
+          }
+        }
       });
-    });
   }
 
   ngOnDestroy() {
@@ -102,7 +110,8 @@ export class EpisodeDetailsComponent implements OnInit, OnDestroy {
   }
 
   close() {
-    this.location.back();
+    this.isVisible = false;
+    //    this.broker.sendMessage(new NavigateBackMessage());
   }
 
   onPlayEpisode(episode: EpisodeViewModel) {
@@ -131,6 +140,7 @@ export class EpisodeDetailsComponent implements OnInit, OnDestroy {
   }
 
   showProgramDetails(programId: number) {
+    this.isVisible = false;
     this.broker.sendMessage(new ShowProgramDetailsMessage(programId));
   }
 }

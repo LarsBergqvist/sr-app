@@ -1,12 +1,12 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Channel } from '../../models/channel';
-import { MessageBrokerService } from '../../services/message-broker.service';
-import { PlayAudioMessage } from '../../messages/play-audio.message';
-import { ChannelDetailsComponent } from './channel-details.component';
-import { ChannelScheduleComponent } from './channel-schedule.component';
-import { SRApiService } from 'src/app/services/srapi.service';
+import { Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { ShowChannelDetailsMessage } from 'src/app/messages/show-channeldetails.message';
+import { ShowChannelScheduleMessage } from 'src/app/messages/show-channelschedule.message';
+import { SRApiService } from 'src/app/services/srapi.service';
+import { PlayAudioMessage } from '../../messages/play-audio.message';
+import { Channel } from '../../models/channel';
+import { MessageBrokerService } from '../../services/message-broker.service';
 
 @Component({
   selector: 'app-channels-list',
@@ -16,9 +16,6 @@ import { takeUntil } from 'rxjs/operators';
 export class ChannelsListComponent implements OnInit {
   channels: Channel[];
   private unsubscribe$ = new Subject();
-
-  @ViewChild(ChannelDetailsComponent) details: ChannelDetailsComponent;
-  @ViewChild(ChannelScheduleComponent) schedule: ChannelScheduleComponent;
 
   constructor(private readonly srApiService: SRApiService, private readonly broker: MessageBrokerService) {}
 
@@ -40,11 +37,11 @@ export class ChannelsListComponent implements OnInit {
   }
 
   onOpenDetails(channel: Channel) {
-    this.details.show(channel);
+    this.broker.sendMessage(new ShowChannelDetailsMessage(channel.id));
   }
 
   onOpenSchedule(channel: Channel) {
-    this.schedule.show(channel);
+    this.broker.sendMessage(new ShowChannelScheduleMessage(channel.id));
   }
 
   isCurrentlyPlaying(url: string): boolean {

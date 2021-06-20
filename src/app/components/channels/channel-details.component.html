@@ -1,6 +1,4 @@
-<p-sidebar *ngIf="channel" [(visible)]="isVisible" position="right" styleClass="sr-sidebar" [blockScroll]="true"
-    [showCloseIcon]="false">
-
+<div *ngIf="channel">
     <div class="details-header-text">
         <i (click)="close()" class="pi pi-chevron-left close-button clickable"></i>
         <img src={{channel.image}} width="50" style="vertical-align:middle" /> {{'ChannelDetails' | translate}}
@@ -41,4 +39,4 @@
             <app-song [song]="playlist.previoussong"></app-song>
         </div>
     </div>
-</p-sidebar>
+</div>

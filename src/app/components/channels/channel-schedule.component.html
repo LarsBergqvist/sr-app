@@ -1,5 +1,4 @@
-<p-sidebar [(visible)]="isVisible" position="right" styleClass="sr-sidebar" [blockScroll]="true"
-    [showCloseIcon]="false">
+<div *ngIf="channel">
     <div *ngIf="channel" class="details-header-text">
         <i (click)="close()" class="pi pi-chevron-left close-button clickable"></i>
         <img src={{channel.image}} width="50" style="vertical-align:middle" /> {{'ProgramScheduleForToday' | translate}}
@@ -32,4 +31,4 @@
             </tr>
         </ng-template>
     </p-table>
-</p-sidebar>
+</div>

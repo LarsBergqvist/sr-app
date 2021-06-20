@@ -1,10 +1,11 @@
-import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { NavigateBackMessage } from 'src/app/messages/navigate-back.message';
 import { Program } from 'src/app/models/program';
 import { EpisodesService } from 'src/app/services/episodes.service';
+import { MessageBrokerService } from 'src/app/services/message-broker.service';
 import { ProgramsService } from 'src/app/services/programs.service';
 import { SRApiService } from 'src/app/services/srapi.service';
 import { EpisodeViewModel } from '../episodes/episode-viewmodel';
@@ -27,18 +28,15 @@ export class ProgramDetailsComponent implements OnInit {
     private readonly srApiService: SRApiService,
     private readonly activatedRoute: ActivatedRoute,
     private readonly programsService: ProgramsService,
-    private readonly location: Location
+    private readonly broker: MessageBrokerService
   ) {}
 
   async ngOnInit() {
-    this.activatedRoute.paramMap.subscribe((params: Params) => {
-      const idobs: Observable<number> = this.activatedRoute.params.pipe(map((route) => route.id));
-      idobs.subscribe(async (id) => {
-        const program = await this.programsService.fetchProgram(id);
-        if (program) {
-          await this.show(program);
-        }
-      });
+    this.activatedRoute.params.pipe(map((route) => route.id)).subscribe(async (id) => {
+      const program = await this.programsService.fetchProgram(id);
+      if (program) {
+        await this.show(program);
+      }
     });
   }
 
@@ -54,7 +52,7 @@ export class ProgramDetailsComponent implements OnInit {
   }
 
   close() {
-    this.location.back();
+    this.broker.sendMessage(new NavigateBackMessage());
   }
 
   async loadLazy(event: EpisodesLoadLazyArgs) {

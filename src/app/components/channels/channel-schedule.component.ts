@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { map } from 'rxjs/operators';
+import { NavigateBackMessage } from 'src/app/messages/navigate-back.message';
 import { ShowEpisodeDetailsMessage } from 'src/app/messages/show-episodedetails.message';
 import { Channel } from 'src/app/models/channel';
 import { ScheduledEpisode } from 'src/app/models/scheduled-episode';
+import { ChannelsService } from 'src/app/services/channels.service';
 import { EpisodesService } from 'src/app/services/episodes.service';
 import { MessageBrokerService } from 'src/app/services/message-broker.service';
 import { convertFromJSONstring } from 'src/app/utils/date-helper';
@@ -14,17 +18,27 @@ export class ChannelScheduleComponent implements OnInit {
   scheduledEpisodes: ScheduledEpisode[];
   totalHits = 0;
   pageSize = 1000;
-  isVisible = false;
   channel: Channel;
 
-  constructor(private readonly service: EpisodesService, private readonly broker: MessageBrokerService) {}
+  constructor(
+    private readonly service: EpisodesService,
+    private readonly broker: MessageBrokerService,
+    private readonly activatedRoute: ActivatedRoute,
+    private readonly channelsService: ChannelsService
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.activatedRoute.params.pipe(map((route) => route.id)).subscribe(async (id) => {
+      const channel = await this.channelsService.fetchChannel(id);
+      if (channel) {
+        await this.show(channel);
+      }
+    });
+  }
 
   async show(channel: Channel) {
     this.channel = channel;
     await this.fetch(this.channel.id, 0);
-    this.isVisible = true;
   }
 
   async fetch(channelId: number, first: number) {
@@ -44,7 +58,7 @@ export class ChannelScheduleComponent implements OnInit {
   }
 
   close() {
-    this.isVisible = false;
+    this.broker.sendMessage(new NavigateBackMessage());
   }
 
   onOpenDetails(episodeId: number) {

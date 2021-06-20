@@ -1,16 +1,20 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Location } from '@angular/common';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
+import { Subject } from 'rxjs';
+import { filter, takeUntil } from 'rxjs/operators';
+import { BookmarkChangedMessage } from './messages/bookmark-changed.message';
+import { ErrorOccurredMessage } from './messages/error-occurred.message';
+import { NavigateBackMessage } from './messages/navigate-back.message';
+import { ShowChannelDetailsMessage } from './messages/show-channeldetails.message';
+import { ShowChannelScheduleMessage } from './messages/show-channelschedule.message';
+import { ShowEpisodeDetailsMessage } from './messages/show-episodedetails.message';
+import { ShowProgramDetailsMessage } from './messages/show-programdetails.message';
+import { SuccessInfoMessage } from './messages/success-info.message';
 import { MessageBrokerService } from './services/message-broker.service';
 import { SRApiService } from './services/srapi.service';
-import { filter, takeUntil } from 'rxjs/operators';
-import { SuccessInfoMessage } from './messages/success-info.message';
-import { Subject } from 'rxjs';
 import { TranslationService } from './services/translation.service';
-import { ErrorOccurredMessage } from './messages/error-occurred.message';
-import { BookmarkChangedMessage } from './messages/bookmark-changed.message';
-import { ShowEpisodeDetailsMessage } from './messages/show-episodedetails.message';
-import { Router } from '@angular/router';
-import { ShowProgramDetailsMessage } from './messages/show-programdetails.message';
 
 @Component({
   selector: 'app-root',
@@ -27,7 +31,8 @@ export class AppComponent implements OnInit, OnDestroy {
     private readonly broker: MessageBrokerService,
     private readonly primeNGmessageService: MessageService,
     private readonly translationService: TranslationService,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly location: Location
   ) {}
 
   async ngOnInit() {
@@ -69,11 +74,22 @@ export class AppComponent implements OnInit, OnDestroy {
     messages
       .pipe(
         takeUntil(this.unsubscribe$),
-        filter((message) => message instanceof ShowEpisodeDetailsMessage)
+        filter((message) => message instanceof ShowChannelDetailsMessage)
       )
-      .subscribe((message: ShowEpisodeDetailsMessage) => {
-        if (message.episodeId) {
-          this.router.navigate(['episodes/' + message.episodeId]);
+      .subscribe((message: ShowChannelDetailsMessage) => {
+        if (message.channelId) {
+          this.router.navigate(['channels/' + message.channelId]);
+        }
+      });
+
+    messages
+      .pipe(
+        takeUntil(this.unsubscribe$),
+        filter((message) => message instanceof ShowChannelScheduleMessage)
+      )
+      .subscribe((message: ShowChannelScheduleMessage) => {
+        if (message.channelId) {
+          this.router.navigate(['channels/schedule/' + message.channelId]);
         }
       });
 
@@ -86,6 +102,14 @@ export class AppComponent implements OnInit, OnDestroy {
         if (message.programId) {
           this.router.navigate(['programs/' + message.programId]);
         }
+      });
+    messages
+      .pipe(
+        takeUntil(this.unsubscribe$),
+        filter((message) => message instanceof NavigateBackMessage)
+      )
+      .subscribe((message: NavigateBackMessage) => {
+        this.location.back();
       });
 
     await this.fetchBaseData();
