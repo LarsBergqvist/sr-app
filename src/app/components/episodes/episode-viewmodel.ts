@@ -1,4 +1,3 @@
-import { getLocaleDateTimeFormat } from '@angular/common';
 import { Episode } from 'src/app/models/episode';
 import { convertFromJSONstring, durationToTime } from 'src/app/utils/date-helper';
 
@@ -16,6 +15,7 @@ export class EpisodeViewModel {
   readonly channelName: string;
   readonly imageurl: string;
   readonly programName: string;
+  readonly programId: number;
   readonly durationTime: Date;
   readonly url: string;
   readonly soundType: SoundType;
@@ -30,6 +30,7 @@ export class EpisodeViewModel {
     this.channelName = episode.channelName;
     this.imageurl = episode.imageurl;
     this.programName = episode.program?.name;
+    this.programId = episode.program?.id;
     this.linkUrl = episode.url;
     if (episode.broadcast?.availablestoputc) {
       this.availableTo = convertFromJSONstring(episode.broadcast.availablestoputc);

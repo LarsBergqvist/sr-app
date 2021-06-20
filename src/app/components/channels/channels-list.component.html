@@ -1,7 +1,3 @@
-<app-channel-details></app-channel-details>
-<app-channel-schedule></app-channel-schedule>
-<app-episode-details></app-episode-details>
-
 <div id="channelslist" class="channels-list">
     <p-table #dt [value]="channels" [lazy]="false" [responsive]="true" [globalFilterFields]="['name','tagline']"
         styleClass="sr-table">
@@ -32,7 +28,7 @@
             <tr>
                 <td>
                     <div class="p-grid">
-                        <div (click)="onPlayChannel(channel)" class="clickable" class="p-col-5">
+                        <div (click)="onOpenDetails(channel)" class="clickable" class="p-col-5">
                             <img src={{channel.image}} width="30" style="vertical-align:middle" />
                             {{channel.name}}
                         </div>

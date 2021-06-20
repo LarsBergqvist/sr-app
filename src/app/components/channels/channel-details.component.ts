@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Subject } from 'rxjs';
+import { map, takeUntil } from 'rxjs/operators';
+import { NavigateBackMessage } from 'src/app/messages/navigate-back.message';
 import { PlayAudioMessage } from 'src/app/messages/play-audio.message';
 import { Channel } from 'src/app/models/channel';
 import { Playlist } from 'src/app/models/playlist';
@@ -15,21 +19,37 @@ import { convertFromJSONstring } from 'src/app/utils/date-helper';
   selector: 'app-channel-details',
   templateUrl: './channel-details.component.html'
 })
-export class ChannelDetailsComponent implements OnInit {
-  isVisible = false;
+export class ChannelDetailsComponent implements OnInit, OnDestroy {
   playlist: Playlist;
   channel: Channel;
   rightNowEpisodes: RightNowEpisodes;
+  private unsubscribe$ = new Subject();
 
   constructor(
     private readonly playlistsService: PlaylistsService,
     private readonly episodesService: EpisodesService,
     private readonly srApiService: SRApiService,
-    private readonly broker: MessageBrokerService
+    private readonly broker: MessageBrokerService,
+    private readonly activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    this.isVisible = false;
+    this.activatedRoute.params
+      .pipe(
+        takeUntil(this.unsubscribe$),
+        map((route) => route.id)
+      )
+      .subscribe(async (id: string) => {
+        const channel = await this.srApiService.getChannelFromId(parseInt(id));
+        if (channel) {
+          await this.show(channel);
+        }
+      });
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
   async show(channel: Channel) {
@@ -43,7 +63,6 @@ export class ChannelDetailsComponent implements OnInit {
     this.convertEpisodeDates(this?.rightNowEpisodes?.channel?.previousscheduledepisode);
     this.convertEpisodeDates(this?.rightNowEpisodes?.channel?.currentscheduledepisode);
     this.convertEpisodeDates(this?.rightNowEpisodes?.channel?.nextscheduledepisode);
-    this.isVisible = true;
   }
 
   private convertEpisodeDates(episode: ScheduledEpisode) {
@@ -65,7 +84,7 @@ export class ChannelDetailsComponent implements OnInit {
   }
 
   close() {
-    this.isVisible = false;
+    this.broker.sendMessage(new NavigateBackMessage());
   }
 
   onPlayChannel(channel: Channel) {

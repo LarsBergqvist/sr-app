@@ -1,6 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Subject } from 'rxjs';
+import { map, takeUntil } from 'rxjs/operators';
+import { NavigateBackMessage } from 'src/app/messages/navigate-back.message';
 import { Program } from 'src/app/models/program';
 import { EpisodesService } from 'src/app/services/episodes.service';
+import { MessageBrokerService } from 'src/app/services/message-broker.service';
 import { SRApiService } from 'src/app/services/srapi.service';
 import { EpisodeViewModel } from '../episodes/episode-viewmodel';
 import { EpisodesLoadLazyArgs } from '../episodes/episodes-table.component';
@@ -10,26 +15,47 @@ import { EpisodesLoadLazyArgs } from '../episodes/episodes-table.component';
   templateUrl: './program-details.component.html',
   styleUrls: ['./program-details.component.scss']
 })
-export class ProgramDetailsComponent implements OnInit {
+export class ProgramDetailsComponent implements OnInit, OnDestroy {
   program: Program;
-  isVisible = false;
   episodes: EpisodeViewModel[];
   totalHits = 0;
   pageSize = 5;
+  private unsubscribe$ = new Subject();
 
-  constructor(private readonly service: EpisodesService, private readonly srApiService: SRApiService) {}
+  constructor(
+    private readonly service: EpisodesService,
+    private readonly srApiService: SRApiService,
+    private readonly activatedRoute: ActivatedRoute,
+    private readonly broker: MessageBrokerService
+  ) {}
 
-  ngOnInit(): void {}
+  async ngOnInit() {
+    this.activatedRoute.params
+      .pipe(
+        takeUntil(this.unsubscribe$),
+        map((route) => route.id)
+      )
+      .subscribe(async (id: string) => {
+        const program = await this.srApiService.getProgramFromId(parseInt(id));
+        if (program) {
+          await this.show(program);
+        }
+      });
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
 
   async show(program: Program) {
     this.episodes = [];
     this.program = program;
     await this.fetch(program.id, 0);
-    this.isVisible = true;
   }
 
   close() {
-    this.isVisible = false;
+    this.broker.sendMessage(new NavigateBackMessage());
   }
 
   async loadLazy(event: EpisodesLoadLazyArgs) {

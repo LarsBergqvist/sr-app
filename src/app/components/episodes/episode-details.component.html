@@ -1,53 +1,60 @@
-<p-sidebar *ngIf="episode" [(visible)]="isVisible" position="right" styleClass="sr-sidebar" [blockScroll]="true"
+<p-sidebar *ngIf="episode" [(visible)]="isVisible" position="bottom" styleClass="sr-sidebar-h" [blockScroll]="true"
     [showCloseIcon]="false">
 
-    <div class="details-header-text">
-        <i (click)="close()" class="pi pi-chevron-left close-button clickable"></i>
-        {{episode.programName}}: {{episode.title}}
-    </div>
-    <hr>
-    <div>
+    <div *ngIf="episode">
+        <div class="details-header-text">
+            <i (click)="close()" class="pi pi-chevron-down close-button clickable"></i>
+            {{episode.programName}}: {{episode.title}}
+        </div>
+        <hr>
         <div>
-            <b>{{episode.title}}</b>
-            <span *ngIf="!isBookmarked" class="clickable" (click)="onAddToBookmarks()"><i class="pi pi-bookmark"></i>
-            </span>
-            <span *ngIf="isBookmarked" class="clickable" (click)="onRemoveFromBookmarks()"><i
-                    class="pi pi-bookmark yellow-fav"></i>
-            </span>
-            <span *ngIf="episode.hasSound()" (click)="onPlayEpisode(episode)" class="clickable">
-                <i [ngClass]="isCurrentlyPlaying ? 'pi pi-pause play-button': 'pi pi-play play-button'"></i>
-            </span>
+            <div>
+                <b>{{episode.title}}</b>
+                <span *ngIf="!isBookmarked" class="clickable" (click)="onAddToBookmarks()"><i
+                        class="pi pi-bookmark"></i>
+                </span>
+                <span *ngIf="isBookmarked" class="clickable" (click)="onRemoveFromBookmarks()"><i
+                        class="pi pi-bookmark yellow-fav"></i>
+                </span>
+                <span *ngIf="episode.hasSound()" (click)="onPlayEpisode(episode)" class="clickable">
+                    <i [ngClass]="isCurrentlyPlaying ? 'pi pi-pause play-button': 'pi pi-play play-button'"></i>
+                </span>
+            </div>
+            <div>
+                <img src={{episode.imageurl}} [ngStyle]="{'width': largeImage ? '100%' : '100px' }" class="episodes-img"
+                    (click)="onToggleImageSize()" />
+                <p>
+                    {{episode.description}}
+                </p>
+            </div>
+            <div *ngIf="episode.publishDate" class="clear">
+                <b>{{'PublishDate' | translate }}</b>: {{episode.publishDate | date:'medium'}}
+            </div>
+            <div *ngIf="episode.availableTo">
+                <b>{{'AvailableTo' | translate }}</b>: {{episode.availableTo | date:'medium'}}
+            </div>
+            <div>
+                <b>{{'Soundtype' | translate }}</b>: {{getSoundType(episode)}}
+            </div>
+            <div *ngIf="episode.durationTime">
+                <b>{{'Duration' | translate}}</b>: {{episode.durationTime | date:'HH:mm:ss'}}
+            </div>
+            <div *ngIf="episode.linkUrl">
+                <a href={{episode.linkUrl}} target="_blank" rel="noopener noreferrer"><i
+                        class="pi pi-external-link link-icon"></i>{{episode.linkUrl}}</a>
+            </div>
+            <div class="clickable" (click)="showProgramDetails(episode.programId)">
+                Visa detaljer och alla avsnitt för <b>{{episode.programName}} </b>
+                <i class="pi pi-ellipsis-h"></i>
+            </div>
         </div>
-        <div>
-            <img src={{episode.imageurl}} [ngStyle]="{'width': largeImage ? '100%' : '100px' }" class="episodes-img"
-                (click)="onToggleImageSize()" />
-            <p>
-                {{episode.description}}
-            </p>
-        </div>
-        <div *ngIf="episode.publishDate" class="clear">
-            <b>{{'PublishDate' | translate }}</b>: {{episode.publishDate | date:'medium'}}
-        </div>
-        <div *ngIf="episode.availableTo">
-            <b>{{'AvailableTo' | translate }}</b>: {{episode.availableTo | date:'medium'}}
-        </div>
-        <div>
-            <b>{{'Soundtype' | translate }}</b>: {{getSoundType(episode)}}
-        </div>
-        <div *ngIf="episode.durationTime">
-            <b>{{'Duration' | translate}}</b>: {{episode.durationTime | date:'HH:mm:ss'}}
-        </div>
-        <div *ngIf="episode.linkUrl">
-            <a href={{episode.linkUrl}} target="_blank" rel="noopener noreferrer"><i
-                    class="pi pi-external-link link-icon"></i>{{episode.linkUrl}}</a>
-        </div>
-    </div>
-    <hr class="clear">
-    <div *ngIf="songs && songs.length > 0">
-        <h2>{{'Songlist' | translate}}:</h2>
-        <div *ngFor="let song of songs">
-            <app-song [song]="song"></app-song>
-            <hr>
+        <hr class="clear">
+        <div *ngIf="songs && songs.length > 0">
+            <h2>{{'Songlist' | translate}}:</h2>
+            <div *ngFor="let song of songs">
+                <app-song [song]="song"></app-song>
+                <hr>
+            </div>
         </div>
     </div>
 </p-sidebar>

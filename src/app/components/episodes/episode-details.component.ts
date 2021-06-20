@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
-import { takeUntil, filter } from 'rxjs/operators';
+import { filter, takeUntil } from 'rxjs/operators';
 import { PlayAudioMessage } from 'src/app/messages/play-audio.message';
 import { ShowEpisodeDetailsMessage } from 'src/app/messages/show-episodedetails.message';
+import { ShowProgramDetailsMessage } from 'src/app/messages/show-programdetails.message';
 import { Song } from 'src/app/models/song';
 import { EpisodesService } from 'src/app/services/episodes.service';
 import { MessageBrokerService } from 'src/app/services/message-broker.service';
@@ -49,9 +50,7 @@ export class EpisodeDetailsComponent implements OnInit, OnDestroy {
         filter((message) => message instanceof ShowEpisodeDetailsMessage)
       )
       .subscribe(async (message: ShowEpisodeDetailsMessage) => {
-        if (message?.episode) {
-          this.show(message.episode);
-        } else if (message.episodeId) {
+        if (message.episodeId) {
           const res = await this.episodesService.fetchEpisode(message.episodeId);
           if (res?.episode) {
             const episodeVM = new EpisodeViewModel(res.episode);
@@ -134,5 +133,10 @@ export class EpisodeDetailsComponent implements OnInit, OnDestroy {
 
   get isBookmarked(): boolean {
     return this.srApiService.isEpisodeBookmarked(this.episode.id);
+  }
+
+  showProgramDetails(programId: number) {
+    this.isVisible = false;
+    this.broker.sendMessage(new ShowProgramDetailsMessage(programId));
   }
 }

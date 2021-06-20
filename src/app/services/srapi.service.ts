@@ -27,6 +27,8 @@ export class SRApiService extends SRBaseService {
   private programFavs = new Set<number>();
   private episodeBookmarks = new Set<number>();
 
+  private baseDataFetched = false;
+
   constructor(
     private readonly http: HttpClient,
     private readonly localStorageService: LocalStorageService,
@@ -42,6 +44,7 @@ export class SRApiService extends SRBaseService {
     await this.fetchChannelsBaseData();
     await this.fetchBaseProgramsData();
     await this.fetchBaseProgramCategoriesData();
+    this.baseDataFetched = true;
   }
 
   setCurrentlyPlaying(url: string) {
@@ -165,6 +168,24 @@ export class SRApiService extends SRBaseService {
 
   isEpisodeBookmarked(episodeId: number): boolean {
     return this.episodeBookmarks.has(episodeId);
+  }
+
+  async getProgramFromId(programId: number): Promise<Program> {
+    if (!this.baseDataFetched) {
+      await this.fetchBaseData();
+    }
+
+    const program = this.programs.find((p) => p.id === programId);
+    return program;
+  }
+
+  async getChannelFromId(channelId: number): Promise<Channel> {
+    if (!this.baseDataFetched) {
+      await this.fetchBaseData();
+    }
+
+    const channel = this.channels.find((p) => p.id === channelId);
+    return channel;
   }
 
   private updateProgramsWithFavs(progs: Program[]) {
