@@ -13,8 +13,8 @@
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-episode>
-            <tr>
-                <td class="clickable" (click)="onOpenDetails(episode.episodeid)">
+            <tr class="clickable" (click)="onOpenDetails(episode.episodeid)">
+                <td>
                     <div *ngIf="episode.episodeid">
                         <i class="pi pi-ellipsis-h details-button details-button-smaller"></i>
                     </div>

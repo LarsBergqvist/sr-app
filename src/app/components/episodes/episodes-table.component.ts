@@ -15,7 +15,7 @@ export interface EpisodesLoadLazyArgs {
 @Component({
   selector: 'app-episodes-table',
   templateUrl: './episodes-table.component.html',
-  styleUrls: ['./episodes-table.component.scss']
+  styleUrls: ['../common/datatable-styling.scss', './episodes-table.component.scss']
 })
 export class EpisodesTableComponent implements OnInit, AfterViewInit {
   @Input('episodes') episodes: EpisodeViewModel[];

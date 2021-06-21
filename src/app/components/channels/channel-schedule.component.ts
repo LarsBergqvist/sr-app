@@ -13,7 +13,8 @@ import { convertFromJSONstring } from 'src/app/utils/date-helper';
 
 @Component({
   selector: 'app-channel-schedule',
-  templateUrl: './channel-schedule.component.html'
+  templateUrl: './channel-schedule.component.html',
+  styleUrls: ['../common/datatable-styling.scss']
 })
 export class ChannelScheduleComponent implements OnInit, OnDestroy {
   scheduledEpisodes: ScheduledEpisode[];
