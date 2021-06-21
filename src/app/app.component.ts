@@ -1,4 +1,3 @@
-import { Location } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { MessageService } from 'primeng/api';
@@ -12,6 +11,7 @@ import { ShowChannelScheduleMessage } from './messages/show-channelschedule.mess
 import { ShowProgramDetailsMessage } from './messages/show-programdetails.message';
 import { SuccessInfoMessage } from './messages/success-info.message';
 import { MessageBrokerService } from './services/message-broker.service';
+import { BackNavigationService } from './services/back-navigation.service';
 import { SRApiService } from './services/srapi.service';
 import { TranslationService } from './services/translation.service';
 import { SlideInAnimation } from './slide-animation';
@@ -33,7 +33,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private readonly primeNGmessageService: MessageService,
     private readonly translationService: TranslationService,
     private readonly router: Router,
-    private readonly location: Location
+    private readonly backNavigationService: BackNavigationService
   ) {}
 
   prepareRoute(outlet: RouterOutlet) {
@@ -114,7 +114,7 @@ export class AppComponent implements OnInit, OnDestroy {
         filter((message) => message instanceof NavigateBackMessage)
       )
       .subscribe((message: NavigateBackMessage) => {
-        this.location.back();
+        this.backNavigationService.back();
       });
 
     await this.fetchBaseData();

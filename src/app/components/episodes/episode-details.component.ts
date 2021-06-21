@@ -135,6 +135,19 @@ export class EpisodeDetailsComponent implements OnInit, OnDestroy {
     return this.srApiService.isEpisodeBookmarked(this.episode.id);
   }
 
+  get canShare(): boolean {
+    return !!navigator.share;
+  }
+
+  share() {
+    if (navigator.share) {
+      navigator.share({
+        title: this.episode.title,
+        url: this.episode.linkUrl
+      });
+    }
+  }
+
   showProgramDetails(programId: number) {
     this.isVisible = false;
     this.broker.sendMessage(new ShowProgramDetailsMessage(programId));

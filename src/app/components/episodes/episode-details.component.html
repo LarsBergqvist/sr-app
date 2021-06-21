@@ -39,10 +39,16 @@
             <div *ngIf="episode.durationTime">
                 <b>{{'Duration' | translate}}</b>: {{episode.durationTime | date:'HH:mm:ss'}}
             </div>
+            <p></p>
             <div *ngIf="episode.linkUrl">
                 <a href={{episode.linkUrl}} target="_blank" rel="noopener noreferrer"><i
                         class="pi pi-external-link link-icon"></i>{{episode.linkUrl}}</a>
             </div>
+            <p></p>
+            <div *ngIf="canShare" (click)="share()" class="clickable">
+                Dela <i class="pi pi-upload"></i>
+            </div>
+            <p></p>
             <div class="clickable" (click)="showProgramDetails(episode.programId)">
                 Visa detaljer och alla avsnitt för <b>{{episode.programName}} </b>
                 <i class="pi pi-ellipsis-h"></i>
