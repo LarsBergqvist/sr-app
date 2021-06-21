@@ -1,4 +1,5 @@
 # sr-app
+![Build, test and deploy](https://github.com/larsbergqvist/sr-app/actions/workflows/buildanddeploy.yml/badge.svg)
 
 # Demo
 
