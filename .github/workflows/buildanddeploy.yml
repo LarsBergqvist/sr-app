@@ -18,7 +18,8 @@ jobs:
         with:
           report_paths: '**/TESTS-*.xml'
       - run: yarn build-gh-pages
-      - run: cp dist/sr-app/index.html dist/sr-app/404.html
+      - run: cp 404header.html dist/sr-app/404.html
+      - run: cat dist/sr-app/index.html >> dist/sr-app/404.html
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@4.1.4
         with:
