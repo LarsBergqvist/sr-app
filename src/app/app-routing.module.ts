@@ -9,13 +9,13 @@ import { ProgramDetailsComponent } from './components/programs/program-details.c
 import { ProgramsListComponent } from './components/programs/programs-list.component';
 
 const routes: Routes = [
-  { path: 'channels', component: ChannelsListComponent },
-  { path: 'channels/:id', component: ChannelDetailsComponent },
-  { path: 'channels/schedule/:id', component: ChannelScheduleComponent },
-  { path: 'programs/:id', component: ProgramDetailsComponent },
-  { path: 'programs', component: ProgramsListComponent },
-  { path: 'episodes/:id', component: EpisodeDetailsComponent },
-  { path: 'episodes', component: EpisodesListComponent },
+  { path: 'channels', component: ChannelsListComponent, data: { animation: 'channels' } },
+  { path: 'channels/:id', component: ChannelDetailsComponent, data: { animation: 'details' } },
+  { path: 'channels/schedule/:id', component: ChannelScheduleComponent, data: { animation: 'details' } },
+  { path: 'programs/:id', component: ProgramDetailsComponent, data: { animation: 'details' } },
+  { path: 'programs', component: ProgramsListComponent, data: { animation: 'programs' } },
+  { path: 'episodes/:id', component: EpisodeDetailsComponent, data: { animation: 'details' } },
+  { path: 'episodes', component: EpisodesListComponent, data: { animation: 'episodes' } },
   { path: '**', redirectTo: '/channels', pathMatch: 'full' }
 ];
 

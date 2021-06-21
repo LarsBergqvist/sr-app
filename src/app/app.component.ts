@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
@@ -9,17 +9,18 @@ import { ErrorOccurredMessage } from './messages/error-occurred.message';
 import { NavigateBackMessage } from './messages/navigate-back.message';
 import { ShowChannelDetailsMessage } from './messages/show-channeldetails.message';
 import { ShowChannelScheduleMessage } from './messages/show-channelschedule.message';
-import { ShowEpisodeDetailsMessage } from './messages/show-episodedetails.message';
 import { ShowProgramDetailsMessage } from './messages/show-programdetails.message';
 import { SuccessInfoMessage } from './messages/success-info.message';
 import { MessageBrokerService } from './services/message-broker.service';
 import { SRApiService } from './services/srapi.service';
 import { TranslationService } from './services/translation.service';
+import { SlideInAnimation } from './slide-animation';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  animations: [SlideInAnimation]
 })
 export class AppComponent implements OnInit, OnDestroy {
   title = 'sr-app';
@@ -34,6 +35,10 @@ export class AppComponent implements OnInit, OnDestroy {
     private readonly router: Router,
     private readonly location: Location
   ) {}
+
+  prepareRoute(outlet: RouterOutlet) {
+    return outlet && outlet.activatedRouteData && outlet.activatedRouteData.animation;
+  }
 
   async ngOnInit() {
     this.translationService.defaultLangCode = 'en';
