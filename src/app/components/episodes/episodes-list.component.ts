@@ -1,5 +1,4 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { EpisodesResult } from 'src/app/models/episodes-result';
 import { EpisodesService } from 'src/app/services/episodes.service';
 import { SRApiService } from 'src/app/services/srapi.service';
 import { EpisodeViewModel } from './episode-viewmodel';
@@ -22,12 +21,6 @@ export class EpisodesListComponent {
 
   async onShowBookmarkedChanged(showBookmarked: boolean) {
     this.showBookmarked = showBookmarked;
-  }
-
-  async fetchBookmarkedEpisodes(): Promise<EpisodesResult> {
-    let list: number[] = [697028, 685238, 681604];
-    const res = await this.service.fetchEpisodes(list);
-    return res;
   }
 
   async loadLazy(event: EpisodesLoadLazyArgs) {

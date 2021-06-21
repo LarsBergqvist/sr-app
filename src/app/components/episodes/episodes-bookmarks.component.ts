@@ -16,7 +16,7 @@ import { EpisodesLoadLazyArgs } from './episodes-table.component';
 export class EpisodesBookmarksComponent implements OnInit {
   episodes: EpisodeViewModel[];
   totalHits = 0;
-  pageSize = 5;
+  pageSize = 100;
   private unsubscribe$ = new Subject();
 
   constructor(
@@ -44,7 +44,6 @@ export class EpisodesBookmarksComponent implements OnInit {
   async fetch(first: number) {
     const bookmarkedEpisodes = this.srApiService.getBookmarkedEpisodes();
 
-    const page = first / this.pageSize + 1;
     const episodesResult = await this.service.fetchEpisodes(bookmarkedEpisodes);
     this.totalHits = episodesResult.pagination.totalhits;
     this.episodes = [];
