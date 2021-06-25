@@ -57,7 +57,7 @@ export class EpisodesTableComponent implements OnInit, AfterViewInit {
   }
 
   onPlayEpisode(episode: EpisodeViewModel) {
-    this.broker.sendMessage(new PlayAudioMessage(episode.title, episode.url));
+    this.broker.sendMessage(new PlayAudioMessage(episode.title, episode.url, episode.id));
   }
 
   onOpenDetails(episode: EpisodeViewModel) {

@@ -15,6 +15,7 @@ import { Component } from '@angular/core';
       a {
         padding: 10px;
         font-weight: bold;
+        text-decoration: none;
       }
       .active {
         background-color: rgb(123, 149, 163);

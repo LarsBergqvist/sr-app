@@ -51,5 +51,8 @@
   "Bookmarks": "Bokmärken",
   "BookmarkAdded": "Ett bokmärke har lagts till",
   "BookmarkRemoved": "Ett bokmärke har tagits bort",
-  "ProgramDetailsAndEpisodes": "Detaljer och avsnitt"
+  "ProgramDetailsAndEpisodes": "Detaljer och avsnitt",
+  "AudioPrefixChannel": "Direkt",
+  "AudioPrefixEpisode": "Avsnitt",
+  "LinkToProgramDetailsText": "Visa detaljer och alla avsnitt för "
 }

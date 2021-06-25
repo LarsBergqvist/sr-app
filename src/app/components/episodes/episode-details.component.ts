@@ -112,7 +112,7 @@ export class EpisodeDetailsComponent implements OnInit, OnDestroy {
 
   onPlayEpisode(episode: EpisodeViewModel) {
     this.setSoundUrl(episode);
-    this.broker.sendMessage(new PlayAudioMessage(episode.title, this.soundUrl));
+    this.broker.sendMessage(new PlayAudioMessage(episode.title, this.soundUrl, episode.id));
   }
 
   private setSoundUrl(episode: EpisodeViewModel) {

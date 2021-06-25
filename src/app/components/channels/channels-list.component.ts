@@ -33,7 +33,7 @@ export class ChannelsListComponent implements OnInit {
   }
 
   onPlayChannel(channel: Channel) {
-    this.broker.sendMessage(new PlayAudioMessage(channel.name, channel.liveaudio.url));
+    this.broker.sendMessage(new PlayAudioMessage(channel.name, channel.liveaudio.url, undefined, channel.id));
   }
 
   onOpenDetails(channel: Channel) {

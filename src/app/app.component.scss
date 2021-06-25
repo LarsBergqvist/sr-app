@@ -6,13 +6,17 @@
   overflow: hidden;
   position: fixed;
   top: -8px;
-  width: calc(100% - 16px);
+  width: 100%;
   z-index: 1000;
-  margin-left: 0px;
+  margin-left: -8px;
   background-color: white;
   opacity: 1;
   max-height: 130px;
   min-height: 130px;
+  border-left-width: 8px;
+  border-right-width: 8px;
+  border-style: solid;
+  border-color: white;
 }
 
 :host ::ng-deep {

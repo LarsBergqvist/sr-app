@@ -51,5 +51,8 @@
   "Bookmarks": "Bookmarks",
   "BookmarkAdded": "Bookmark added",
   "BookmarkRemoved": "Bookmark removed",
-  "ProgramDetailsAndEpisodes": "Details and episodes"
+  "ProgramDetailsAndEpisodes": "Details and episodes",
+  "AudioPrefixChannel": "Live",
+  "AudioPrefixEpisode": "Episode",
+  "LinkToProgramDetailsText": "Show details and all episodes for "
 }

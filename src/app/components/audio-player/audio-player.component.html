@@ -1,6 +1,8 @@
 <div class="audio-wrapper">
     <div *ngIf="currentUrlToPlay; else empty" class="now-playing">
-        {{'NowPlaying' | translate}}: {{currentStation}}
+        <span class="clickable" (click)="onOpenDetails()">
+            {{this.prefixText}}<b>{{currentStation}}</b>
+        </span>
     </div>
     <div class="audio-ctl-wrapper">
         <audio class="audio-ctl" controls id="audio" preload="auto" autoplay="false" (play)="onPlay()"

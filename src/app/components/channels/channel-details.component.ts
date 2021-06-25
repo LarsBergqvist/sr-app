@@ -88,7 +88,7 @@ export class ChannelDetailsComponent implements OnInit, OnDestroy {
   }
 
   onPlayChannel(channel: Channel) {
-    this.broker.sendMessage(new PlayAudioMessage(channel.name, channel.liveaudio.url));
+    this.broker.sendMessage(new PlayAudioMessage(channel.name, channel.liveaudio.url, undefined, channel.id));
   }
 
   isCurrentlyPlaying(url: string): boolean {
