@@ -58,7 +58,6 @@ export class EpisodeDetailsComponent implements OnInit, OnDestroy {
           }
         }
       });
-    window.scrollTo(0, 0);
   }
 
   ngOnDestroy() {

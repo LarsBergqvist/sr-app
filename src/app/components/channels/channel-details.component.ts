@@ -45,7 +45,6 @@ export class ChannelDetailsComponent implements OnInit, OnDestroy {
           await this.show(channel);
         }
       });
-    window.scrollTo(0, 0);
   }
 
   ngOnDestroy() {
