@@ -12,6 +12,7 @@ import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
+import { ScrollTopModule } from 'primeng/scrolltop';
 import { SidebarModule } from 'primeng/sidebar';
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
@@ -71,7 +72,8 @@ registerLocaleData(locale);
     InputTextModule,
     CheckboxModule,
     DropdownModule,
-    AccordionModule
+    AccordionModule,
+    ScrollTopModule
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'sv' },

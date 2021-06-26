@@ -41,7 +41,6 @@ export class ProgramDetailsComponent implements OnInit, OnDestroy {
           await this.show(program);
         }
       });
-    window.scrollTo(0, 0);
   }
 
   ngOnDestroy() {
