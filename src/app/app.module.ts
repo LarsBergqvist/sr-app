@@ -5,6 +5,7 @@ import { LOCALE_ID, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouteReuseStrategy } from '@angular/router';
 import { AccordionModule } from 'primeng/accordion';
 import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
@@ -30,6 +31,7 @@ import { ScheduledEpisodeComponent } from './components/episodes/scheduled-episo
 import { NavigationBarComponent } from './components/navigation/navigation-bar.component';
 import { ProgramDetailsComponent } from './components/programs/program-details.component';
 import { ProgramsListComponent } from './components/programs/programs-list.component';
+import { CustomRouteReuseStrategy } from './custom-route-reuse-strategy';
 import { HttpInterceptorService } from './services/http-interceptor.service';
 import { LoggingService } from './services/logging.service';
 import { MessageBrokerService } from './services/message-broker.service';
@@ -80,6 +82,10 @@ registerLocaleData(locale);
       useClass: HttpInterceptorService,
       multi: true,
       deps: [MessageBrokerService, LoggingService]
+    },
+    {
+      provide: RouteReuseStrategy,
+      useClass: CustomRouteReuseStrategy
     }
   ],
   bootstrap: [AppComponent]
