@@ -3,7 +3,7 @@ on:
   push:
     branches: [master]
 jobs:
-  test-build-and-deploy:
+  test-and-build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -27,6 +27,20 @@ jobs:
           yarn build-gh-pages
           cp 404header.html dist/sr-app/404.html
           cat dist/sr-app/index.html >> dist/sr-app/404.html
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: build-artifacts
+          path: dist/sr-app
+  deploy:
+    needs: test-and-build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
+    steps:
+      - name: Download build artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: build-artifacts
       - name: Deploy to gh-pages branch
         uses: JamesIves/github-pages-deploy-action@4.1.4
         with:
