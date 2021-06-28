@@ -43,8 +43,9 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: build-artifacts
+          path: dist/sr-app
       - name: Deploy to gh-pages branch
         uses: JamesIves/github-pages-deploy-action@4.1.4
         with:
           branch: gh-pages
-          folder: .
+          folder: dist/sr-app
