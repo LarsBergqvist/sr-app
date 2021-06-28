@@ -1,6 +1,6 @@
 name: Test, build and Deploy
 on:
-  [push]:
+  push:
     branches: [master]
 jobs:
   test-build-and-deploy:
