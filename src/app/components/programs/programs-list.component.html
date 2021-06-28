@@ -1,0 +1,78 @@
+<div class="programs-list">
+    <p-table #dt2 [value]="programs" [responsive]="true" [paginator]="true" [rows]="10"
+        [globalFilterFields]="['name','channel.name','description']" styleClass="sr-table">
+        <ng-template pTemplate="caption">
+            <div class="p-d-flex">
+                <div class="fav-chk">
+                    <p-checkbox (onChange)="onFilterFavClicked($event, dt2)" [(ngModel)]="localState.showOnlyFavs"
+                        [binary]="true" label="{{'OnlyFavs' | translate }}" class="fav-checkbox"></p-checkbox>
+                </div>
+                <div class="cat-dd">
+                    <p-dropdown [options]="categoryOptions" (onChange)="onCategoryChanged($event, dt2)"
+                        placeholder="Category" [(ngModel)]="localState.selectedCategory"></p-dropdown>
+                </div>
+                <span class="p-input-icon-left p-ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input pInputText class="p-inputtext-sm kw-input" type="text" [(ngModel)]="localState.searchString"
+                        (input)="dt2.filterGlobal($event.target.value, 'contains')"
+                        placeholder="{{'SearchKeyword' | translate | uppercase}}" />
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="name">{{'ProgramNameTitle' | translate | uppercase }}<p-sortIcon field="name">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="channel.name">{{'ChannelNameTitle' | translate | uppercase }}<p-sortIcon
+                        field="channel.name">
+                    </p-sortIcon>
+                </th>
+
+                <th>{{'Description' | translate | uppercase}}</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-program>
+            <tr>
+                <td>
+                    <div class="p-grid">
+                        <div (click)="onShowEpisodes(program)" class="clickable p-col-8">
+                            <img src={{program.programimage}} height="50" width="50"
+                                style="padding: 4px; vertical-align:middle" />
+                            <span>
+                                <i *ngIf="program.fav" class="pi pi-star yellow-fav"></i>
+                            </span>
+                            <span *ngIf="program?.channel" class="prg-chan">
+                                {{program.channel.name}}
+                            </span>
+                            <div class="prg-title">
+                                {{program.name}}
+                            </div>
+                        </div>
+                        <div class="p-col-4" style="float:right">
+                            <div class="clickable" (click)="onShowEpisodes(program)"><i
+                                    class="pi pi-ellipsis-h details-button"></i>
+                            </div>
+                            <div *ngIf="!program.fav" class="clickable"
+                                (click)="onAddToFavorites(program.id, program.name)"><i
+                                    class="pi pi-star-o fav-but"></i>
+                            </div>
+                            <div *ngIf="program.fav" class="clickable"
+                                (click)="onRemoveFromFavorites(program.id, program.name)"><i
+                                    class="pi pi-star fav-but"></i>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td class="prg-chan-td">
+                    <div *ngIf="program?.channel">
+                        {{program.channel.name}}
+                    </div>
+                </td>
+                <td class="description-td">
+                    {{program.description}}
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

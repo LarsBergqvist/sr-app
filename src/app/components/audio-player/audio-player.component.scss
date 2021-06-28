@@ -1,0 +1,21 @@
+.audio-wrapper {
+  width: 100%;
+}
+
+.audio-ctl {
+  width: 100%;
+}
+
+.now-playing {
+  margin-bottom: 3px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 0.8em;
+}
+
+.audio-ctl-wrapper {
+  margin: 0px;
+  width: 100%;
+  padding: 0px;
+}

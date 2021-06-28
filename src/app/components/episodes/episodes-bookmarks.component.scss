@@ -1,0 +1,11 @@
+.category {
+  margin-top: 10px;
+}
+:host ::ng-deep {
+  .p-datatable .p-datatable-header {
+    display: none;
+  }
+  .ep-desc {
+    display: none !important;
+  }
+}

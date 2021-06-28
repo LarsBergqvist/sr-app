@@ -1,0 +1,11 @@
+<div class="header">
+    <app-navigation-bar></app-navigation-bar>
+    <app-audio-player></app-audio-player>
+</div>
+
+<div class="content" [@routeAnimations]="prepareRoute(outlet)">
+    <router-outlet #outlet="outlet"></router-outlet>
+</div>
+<p-toast position="top-center"></p-toast>
+<app-episode-details></app-episode-details>
+<p-scrollTop [threshold]="200"></p-scrollTop>

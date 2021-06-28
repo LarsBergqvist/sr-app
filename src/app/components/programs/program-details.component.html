@@ -1,0 +1,32 @@
+<div *ngIf="program">
+
+    <div class=" details-header-text">
+        <i (click)="close()" class="pi pi-chevron-left close-button clickable"></i>
+        <img src={{program.programimage}} width="50" style="vertical-align:middle" />
+        <i *ngIf="program.fav" class="pi pi-star yellow-fav"></i>
+        {{program.name}}: {{'ProgramDetailsAndEpisodes' |
+        translate}}
+    </div>
+    <div>
+        {{program.description}}
+    </div>
+    <div class="p-grid">
+        <div class="p-col-8">
+            <div *ngIf="program.programcategory" class="category">
+                <b>{{'Category' | translate}}</b>: {{getCategoryNameFromId(program.programcategory.id)}}
+            </div>
+        </div>
+        <div class="p-col-4" style="float:right">
+            <div *ngIf="!program.fav" class="clickable" (click)="onAddToFavorites(program.id, program.name)"><i
+                    class="pi pi-star-o fav-but"></i>
+            </div>
+            <div *ngIf="program.fav" class="clickable" (click)="onRemoveFromFavorites(program.id, program.name)"><i
+                    class="pi pi-star fav-but"></i>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <app-episodes-table [episodes]="episodes" (onLoadLazy)="loadLazy($event)" [totalHits]="totalHits"
+        [pageSize]="pageSize">
+    </app-episodes-table>
+</div>
