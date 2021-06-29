@@ -20,6 +20,7 @@ export class AudioPlayerComponent implements OnInit {
   episodeId: number = undefined;
   channelId: number = undefined;
   prefixText: string = '';
+  isPlaying = false;
 
   constructor(
     private readonly broker: MessageBrokerService,
@@ -50,8 +51,10 @@ export class AudioPlayerComponent implements OnInit {
             if (audio) {
               if (audio.paused) {
                 audio.play();
+                this.isPlaying = true;
               } else {
                 audio.pause();
+                this.isPlaying = false;
               }
             }
           } else {
@@ -60,6 +63,7 @@ export class AudioPlayerComponent implements OnInit {
             if (audio) {
               audio.load();
               audio.play();
+              this.isPlaying = true;
             }
           }
         }
@@ -73,10 +77,12 @@ export class AudioPlayerComponent implements OnInit {
 
   onPlay() {
     this.srApiService.setCurrentlyPlaying(this.currentUrlToPlay);
+    this.isPlaying = true;
   }
 
   onPause() {
     this.srApiService.setCurrentlyPlaying('');
+    this.isPlaying = false;
   }
 
   onOpenDetails() {

@@ -1,7 +1,8 @@
 <div class="header">
     <app-navigation-bar></app-navigation-bar>
-    <app-audio-player></app-audio-player>
 </div>
+
+<app-audio-player></app-audio-player>
 
 <div class="content" [@routeAnimations]="prepareRoute(outlet)">
     <router-outlet #outlet="outlet"></router-outlet>
