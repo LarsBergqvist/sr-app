@@ -8,9 +8,6 @@
   font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-.p-scrolltop {
-  top: 10px !important;
-}
 .play-button {
   font-size: base.$iconsize;
   float: right;
@@ -166,4 +163,8 @@
 .link-icon {
   margin-right: 10px;
   font-size: 0.8rem;
+}
+
+.bottom-padding {
+  padding-bottom: 100px;
 }

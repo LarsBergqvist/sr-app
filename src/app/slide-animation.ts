@@ -7,7 +7,7 @@ export const SlideInAnimation = trigger('routeAnimations', [
       ':enter, :leave',
       [
         style({
-          paddingTop: '118px',
+          paddingTop: '48px',
           position: 'absolute',
           top: '-4px',
           left: 0,
@@ -30,7 +30,7 @@ export const SlideInAnimation = trigger('routeAnimations', [
       ':enter, :leave',
       [
         style({
-          paddingTop: '118px',
+          paddingTop: '48px',
           position: 'absolute',
           top: '-4px',
           right: 0,

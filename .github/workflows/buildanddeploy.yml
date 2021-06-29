@@ -1,7 +1,7 @@
 name: Test, build and Deploy
 on:
   push:
-    branches: [master]
+    branches: ['**']
 jobs:
   test-and-build:
     runs-on: ubuntu-latest
