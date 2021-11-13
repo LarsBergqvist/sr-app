@@ -16,17 +16,17 @@
         <ng-template pTemplate="body" let-episode>
             <tr class="clickable" (click)="onOpenDetails(episode.episodeid)">
                 <td>
+                    <b>{{episode.title}}</b>
                     <div *ngIf="episode.episodeid">
                         <i class="pi pi-ellipsis-h details-button details-button-smaller"></i>
                     </div>
-
-                    <b>{{episode.title}}</b>
                 </td>
                 <td>
-                    <span class="p-column-title">{{'Starts' | translate}}:</span>
-                    {{episode.starttimeDate | date:'medium'}}
+                    <span class="p-column-title">{{'Starts' | translate}}:
+                        {{episode.starttimeDate | date:'medium'}}
+                    </span>
                 </td>
-                <td>
+                <td class="desc-col">
                     {{episode.description}}
                 </td>
             </tr>

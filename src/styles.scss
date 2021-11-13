@@ -56,6 +56,7 @@
 .cat-dd {
   margin-left: 100px;
   max-width: 150px;
+  margin-right: 5px;
 }
 @media only screen and (max-width: 800px) {
   .kw-input {
@@ -69,7 +70,7 @@
   }
 }
 
-@media only screen and (max-width: 640px) {
+@media only screen and (max-width: 960px) {
   .clickable:hover {
     display: initial;
   }
@@ -99,6 +100,9 @@
     .p-dropdown.p-component {
       max-width: 200px;
     }
+  }
+  .desc-col {
+    border: none !important;
   }
 }
 
@@ -167,4 +171,7 @@
 
 .bottom-padding {
   padding-bottom: 100px;
+}
+.p-dropdown-label.p-inputtext.ng-star-inserted {
+  padding-top: 2px !important;
 }

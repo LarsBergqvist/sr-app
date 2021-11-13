@@ -21,45 +21,45 @@
         <ng-template pTemplate="body" let-episode>
             <tr>
                 <td>
-                    <div class="p-grid">
-                        <div (click)="onOpenDetails(episode)" class="clickable p-col-8">
-                            <div class="ep-title">
+                    <div class="p-grid" style="width:100%">
+                        <span (click)="onOpenDetails(episode)" class="clickable p-col-8">
+                            <span class="ep-title">
                                 <b>
                                     {{episode.title}}
                                 </b>
-                            </div>
-                            <div *ngIf="episode.channelName">
+                            </span>
+                            <span *ngIf="episode.channelName">
                                 {{'Channel' | translate}}: {{episode.channelName}}
-                            </div>
-                            <div *ngIf="showProgramName && episode.programName">
+                            </span>
+                            <span *ngIf="showProgramName && episode.programName">
                                 {{'Program' | translate}}: {{episode.programName}}
-                            </div>
-                        </div>
-                        <div class="p-col-4" style="float:right">
-                            <div class="p-grid p-flex-column">
-                                <div class="p-col clickable" *ngIf="episode.hasSound()"
+                            </span>
+                        </span>
+                        <span class="p-col-4" style="float:right">
+                            <span class="p-grid p-flex-column">
+                                <span class="p-col clickable" *ngIf="episode.hasSound()"
                                     (click)="onPlayEpisode(episode)">
                                     <i
                                         [ngClass]="isCurrentlyPlaying(episode) ? 'pi pi-pause play-button': 'pi pi-play play-button'"></i>
-                                </div>
-                                <div class="p-col clickable" (click)="onOpenDetails(episode)">
+                                </span>
+                                <span class="p-col clickable" (click)="onOpenDetails(episode)">
                                     <i class="pi pi-ellipsis-h details-button"></i>
-                                </div>
-                                <div *ngIf="!isBookmarked(episode.id)" class="clickable"
+                                </span>
+                                <span *ngIf="!isBookmarked(episode.id)" class="clickable"
                                     (click)="onAddToBookmarks(episode.id)"><i class="pi pi-bookmark fav-but"></i>
-                                </div>
-                                <div *ngIf="isBookmarked(episode.id)" class="clickable"
+                                </span>
+                                <span *ngIf="isBookmarked(episode.id)" class="clickable"
                                     (click)="onRemoveFromBookmarks(episode.id)">
                                     <i class="pi pi-bookmark yellow-fav fav-but"></i>
-                                </div>
-                            </div>
-                        </div>
+                                </span>
+                            </span>
+                        </span>
                     </div>
                 </td>
                 <td>
                     {{episode?.publishDate | date:'medium' }}
                 </td>
-                <td>
+                <td class="desc-col">
                     <div class="ep-desc">
                         {{episode.description}}
                     </div>
