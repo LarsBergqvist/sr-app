@@ -28,7 +28,7 @@ export class ChannelsListComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.unsubscribe$.next();
+    this.unsubscribe$.next(undefined);
     this.unsubscribe$.complete();
   }
 

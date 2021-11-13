@@ -79,7 +79,7 @@ export class ProgramsListComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnDestroy() {
     this.storage.set(this.storageId, this.localState);
-    this.unsubscribe$.next();
+    this.unsubscribe$.next(undefined);
     this.unsubscribe$.complete();
   }
 
