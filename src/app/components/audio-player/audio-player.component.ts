@@ -50,21 +50,19 @@ export class AudioPlayerComponent implements OnInit {
           if (message.url === this.currentUrlToPlay) {
             if (audio) {
               if (audio.paused) {
-                audio.load();
-                audio.play();
                 this.isPlaying = true;
+                audio.load();
               } else {
-                audio.pause();
                 this.isPlaying = false;
+                audio.pause();
               }
             }
           } else {
             this.currentStation = message.title;
             this.currentUrlToPlay = message.url;
             if (audio) {
-              audio.load();
-              audio.play();
               this.isPlaying = true;
+              audio.load();
             }
           }
         }
