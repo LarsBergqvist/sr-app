@@ -6,7 +6,7 @@
         </span>
     </div>
     <div class="audio-ctl-wrapper">
-        <audio class="audio-ctl" controls id="audio" preload="auto" autoplay="true" (play)="onPlay()"
+        <audio class="audio-ctl" controls id="audio" preload="auto" autoplay="false" (play)="onPlay()"
             (pause)="onPause()">
             <source src="{{currentUrlToPlay}}" type="audio/mpeg">
             Your browser does not support the audio element.
