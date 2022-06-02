@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, lastValueFrom } from 'rxjs';
 import { BookmarkChangedMessage } from '../messages/bookmark-changed.message';
 import { SuccessInfoMessage } from '../messages/success-info.message';
 import { Channel } from '../models/channel';
@@ -102,18 +102,18 @@ export class SRApiService extends SRBaseService {
   private async getAllChannels(): Promise<any> {
     const params = `?${this.FormatParam}&page=1&size=10000`;
     let url = `${this.BaseUrl}channels/${params}`;
-    return this.http.get<any>(`${url}`).toPromise();
+    return lastValueFrom(this.http.get<any>(`${url}`));
   }
 
   private async getAllPrograms(): Promise<any> {
     const params = `?${this.FormatParam}&page=1&size=10000`;
     let url = `${this.BaseUrl}programs/${params}`;
-    return this.http.get<any>(`${url}`).toPromise();
+    return lastValueFrom(this.http.get<any>(`${url}`));
   }
   private async getAllProgramCategories(): Promise<any> {
     const params = `?${this.FormatParam}&page=1&size=10000`;
     let url = `${this.BaseUrl}programcategories/${params}`;
-    return this.http.get<any>(`${url}`).toPromise();
+    return lastValueFrom(this.http.get<any>(`${url}`));
   }
 
   getChannelNameFromId(id: number): string {

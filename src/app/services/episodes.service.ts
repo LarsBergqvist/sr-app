@@ -6,6 +6,7 @@ import { RightNowEpisodes } from '../models/right-now-episodes';
 import { ScheduleResult } from '../models/schedule-result';
 import { EpisodeResult } from '../models/episode';
 import { SRApiService } from './srapi.service';
+import { lastValueFrom } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ export class EpisodesService extends SRBaseService {
   async fetchEpisodesForProgram(programId: number, page: number, pageSize: number): Promise<EpisodesResult> {
     if (programId == null) return;
     let url = `${this.BaseUrl}episodes/index/?${this.FormatParam}&programid=${programId}&page=${page}&size=${pageSize}`;
-    const res = await this.http.get<EpisodesResult>(`${url}`).toPromise();
+    const res = await lastValueFrom(this.http.get<EpisodesResult>(`${url}`));
     res.episodes.forEach((e) => {
       e.channelName = this.srApiService.getChannelNameFromId(e.channelid);
     });
@@ -28,7 +29,7 @@ export class EpisodesService extends SRBaseService {
   async fetchEpisode(episodeId: number): Promise<EpisodeResult> {
     if (episodeId == null) return;
     let url = `${this.BaseUrl}episodes/get?id=${episodeId}&${this.FormatParam}`;
-    const res = await this.http.get<EpisodeResult>(`${url}`).toPromise();
+    const res = await lastValueFrom(this.http.get<EpisodeResult>(`${url}`));
     res.episode.channelName = this.srApiService.getChannelNameFromId(res.episode.channelid);
     return res;
   }
@@ -48,7 +49,7 @@ export class EpisodesService extends SRBaseService {
     }
     let idList = episodeIds.map((id) => id).join(',');
     let url = `${this.BaseUrl}episodes/getlist?ids=${idList}&${this.FormatParam}`;
-    const res = await this.http.get<EpisodesResult>(`${url}`).toPromise();
+    const res = await lastValueFrom(this.http.get<EpisodesResult>(`${url}`));
     res.episodes.forEach((e) => {
       e.channelName = this.srApiService.getChannelNameFromId(e.channelid);
     });
@@ -58,19 +59,19 @@ export class EpisodesService extends SRBaseService {
   async fetchRightNowEpisodes(channelId: number): Promise<RightNowEpisodes> {
     if (channelId == null) return;
     let url = `${this.BaseUrl}scheduledepisodes/rightnow?${this.FormatParam}&channelid=${channelId}`;
-    return this.http.get<RightNowEpisodes>(`${url}`).toPromise();
+    return lastValueFrom(this.http.get<RightNowEpisodes>(`${url}`));
   }
 
   async fetchChannelSchedule(channelId: number, page: number, pageSize: number): Promise<ScheduleResult> {
     if (channelId == null) return;
     let url = `${this.BaseUrl}scheduledepisodes/?${this.FormatParam}&channelid=${channelId}&page=${page}&size=${pageSize}`;
-    return this.http.get<ScheduleResult>(`${url}`).toPromise();
+    return lastValueFrom(this.http.get<ScheduleResult>(`${url}`));
   }
 
   async searchEpisodes(query: string, page: number, pageSize: number): Promise<EpisodesResult> {
     if (query == null) return;
     let url = `${this.BaseUrl}/episodes/search/?${this.FormatParam}&query=${query}&page=${page}&size=${pageSize}`;
-    const res = await this.http.get<EpisodesResult>(`${url}`).toPromise();
+    const res = await lastValueFrom(this.http.get<EpisodesResult>(`${url}`));
     res.episodes.forEach((e) => {
       e.channelName = this.srApiService.getChannelNameFromId(e.channelid);
     });
