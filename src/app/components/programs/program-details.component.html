@@ -3,7 +3,7 @@
     <div class=" details-header-text">
         <i (click)="close()" class="pi pi-chevron-left close-button clickable"></i>
         <img src={{program.programimage}} width="50" style="vertical-align:middle" />
-        <i *ngIf="program.fav" class="pi pi-star yellow-fav"></i>
+        <i *ngIf="program.fav" class="pi pi-star-fill yellow-fav"></i>
         {{program.name}}: {{'ProgramDetailsAndEpisodes' |
         translate}}
     </div>
@@ -18,10 +18,10 @@
         </span>
         <span class="p-col-4" style="float:right">
             <span *ngIf="!program.fav" class="clickable" (click)="onAddToFavorites(program.id, program.name)"><i
-                    class="pi pi-star-o fav-but"></i>
+                    class="pi pi-star fav-but"></i>
             </span>
             <span *ngIf="program.fav" class="clickable" (click)="onRemoveFromFavorites(program.id, program.name)"><i
-                    class="pi pi-star fav-but"></i>
+                    class="pi pi-star-fill fav-but"></i>
             </span>
         </span>
     </div>

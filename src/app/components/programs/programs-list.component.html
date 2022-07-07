@@ -40,7 +40,7 @@
                             <img src={{program.programimage}} height="50" width="50"
                                 style="padding: 4px; vertical-align:middle" />
                             <span>
-                                <i *ngIf="program.fav" class="pi pi-star yellow-fav"></i>
+                                <i *ngIf="program.fav" class="pi pi-star-fill yellow-fav"></i>
                             </span>
                             <span *ngIf="program?.channel" class="prg-chan">
                                 {{program.channel.name}}
@@ -54,12 +54,11 @@
                                     class="pi pi-ellipsis-h details-button"></i>
                             </span>
                             <span *ngIf="!program.fav" class="clickable"
-                                (click)="onAddToFavorites(program.id, program.name)"><i
-                                    class="pi pi-star-o fav-but"></i>
+                                (click)="onAddToFavorites(program.id, program.name)"><i class="pi pi-star fav-but"></i>
                             </span>
                             <span *ngIf="program.fav" class="clickable"
                                 (click)="onRemoveFromFavorites(program.id, program.name)"><i
-                                    class="pi pi-star fav-but"></i>
+                                    class="pi pi-star-fill fav-but"></i>
                             </span>
                         </span>
                     </div>

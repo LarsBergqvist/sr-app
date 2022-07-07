@@ -5890,10 +5890,10 @@ primeflex@^3.1.0:
   resolved "https://registry.yarnpkg.com/primeflex/-/primeflex-3.1.2.tgz#3d4118d9883fc8d5c35ed56c8c5b2a655ed0fc79"
   integrity sha512-q63sFNk3KPHSoM4EEEgo0MFTJSQhz4PZpJoQnVa8bcju/N7D8koloF9fniXV8UBlKFQzh0DLr5iFZ4c6FFXO4g==
 
-primeicons@^4.1.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/primeicons/-/primeicons-4.1.0.tgz#19eaef8ef5594b0006358ae64e738d03e167c9bb"
-  integrity sha512-uEv2pSPk1zQCfaB2VgnUfnUxxlGryYi+5rbdxmZBBt5v9S/pscIQYS5YDLxsQZ7D9jn5c76+Tx5wX/2J1nK6sA==
+primeicons@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/primeicons/-/primeicons-5.0.0.tgz#73a0b6028a77c58a9eeb331ad13aaf085e8451ee"
+  integrity sha512-heygWF0X5HFI1otlZE62pp6ye7sZ8om78J9au2BRkg8O7Y8AHTZ9qKMRzchZUHLe8zUAvdi6hZzzm9XxgwIExw==
 
 primeng@^14.0.0-rc.1:
   version "14.0.0-rc.1"
