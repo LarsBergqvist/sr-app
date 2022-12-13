@@ -1,6 +1,6 @@
 <div class="episodes-table">
     <p-table [value]="episodes" [paginator]="true" [lazy]="true" [rows]="pageSize" [totalRecords]="totalHits"
-        (onLazyLoad)="loadLazy($event)" [responsive]="true">
+        (onLazyLoad)="loadLazy($event)" responsiveLayout="stack">
         <ng-template pTemplate="caption">
             <div class="p-d-flex">
                 <span class="p-input-icon-left p-ml-auto">
