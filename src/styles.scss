@@ -10,7 +10,7 @@
 
 .play-button {
   font-size: base.$iconsize;
-  float: right;
+  //float: right;
   //  vertical-align: middle;
   padding: 5px;
 }
@@ -132,13 +132,16 @@
 
 .details-button {
   font-size: base.$iconsize;
-  //  float: right;
-  //  vertical-align: middle;
   padding: 5px;
 }
 
 .details-button-smaller {
+  @extend .details-button;
   font-size: base.$iconsize-sm;
+}
+
+.right {
+  float: right;
 }
 
 .close-button {
