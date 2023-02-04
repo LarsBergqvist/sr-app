@@ -17,7 +17,7 @@
             <tr class="clickable" (click)="onOpenDetails(episode.episodeid)">
                 <td>
                     <b>{{episode.title}}</b>
-                    <div *ngIf="episode.episodeid">
+                    <div *ngIf="episode.episodeid" class="right">
                         <i class="pi pi-info-circle details-button"></i>
                     </div>
                 </td>
