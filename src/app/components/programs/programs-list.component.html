@@ -39,9 +39,6 @@
                         <span (click)="onShowEpisodes(program)" class="clickable p-col-8">
                             <img src={{program.programimage}} height="50" width="50"
                                 style="padding: 4px; vertical-align:middle" />
-                            <span>
-                                <i *ngIf="program.fav" class="pi pi-star-fill yellow-fav"></i>
-                            </span>
                             <span *ngIf="program?.channel" class="prg-chan">
                                 {{program.channel.name}}
                             </span>
@@ -58,7 +55,7 @@
                             </span>
                             <span *ngIf="program.fav" class="clickable"
                                 (click)="onRemoveFromFavorites(program.id, program.name)"><i
-                                    class="pi pi-star-fill fav-but"></i>
+                                    class="pi pi-star-fill yellow-fav"></i>
                             </span>
                         </span>
                     </div>

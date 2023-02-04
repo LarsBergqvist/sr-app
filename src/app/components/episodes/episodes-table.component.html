@@ -45,10 +45,10 @@
                                 <span class="p-col clickable" (click)="onOpenDetails(episode)">
                                     <i class="pi pi-ellipsis-h details-button"></i>
                                 </span>
-                                <span *ngIf="!isBookmarked(episode.id)" class="clickable"
+                                <span *ngIf="!isBookmarked(episode.id)" class="p-col clickable"
                                     (click)="onAddToBookmarks(episode.id)"><i class="pi pi-bookmark fav-but"></i>
                                 </span>
-                                <span *ngIf="isBookmarked(episode.id)" class="clickable"
+                                <span *ngIf="isBookmarked(episode.id)" class="p-col clickable"
                                     (click)="onRemoveFromBookmarks(episode.id)">
                                     <i class="pi pi-bookmark-fill yellow-fav fav-but"></i>
                                 </span>

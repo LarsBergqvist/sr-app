@@ -11,7 +11,7 @@
 .play-button {
   font-size: base.$iconsize;
   float: right;
-  vertical-align: middle;
+  //  vertical-align: middle;
   padding: 5px;
 }
 
@@ -27,15 +27,15 @@
   height: 80% !important;
 }
 
-.yellow-fav {
-  color: #cccc00;
-  font-size: base.$iconsize;
-  vertical-align: middle;
-}
-
 .fav-but {
   float: right;
   font-size: base.$iconsize;
+  margin-top: 0.2em;
+}
+
+.yellow-fav {
+  @extend .fav-but;
+  color: #cccc00;
 }
 
 .kw-input {
@@ -132,8 +132,8 @@
 
 .details-button {
   font-size: base.$iconsize;
-  float: right;
-  vertical-align: middle;
+  //  float: right;
+  //  vertical-align: middle;
   padding: 5px;
 }
 
