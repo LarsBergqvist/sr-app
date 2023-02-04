@@ -26,20 +26,20 @@
         </ng-template>
         <ng-template pTemplate="body" let-channel>
             <tr>
-                <td>
+                <td style="min-width:350px">
                     <div class="p-grid" style="width:100%">
                         <span (click)="onOpenDetails(channel)" class="clickable" class="p-col-7 clickable">
                             <img src={{channel.image}} width="30" style="vertical-align:middle" />
                             {{channel.name}}
                         </span>
-                        <span class="p-col-5 clickable" style="float:right;padding-top:0px">
+                        <span class="p-col-5 clickable right" style="float:right;padding-top:0px">
                             <span class="clickable" (click)="onOpenDetails(channel)"><i
                                     class="pi pi-info-circle details-button"></i>
                             </span>
                             <span class="clickable" (click)="onOpenSchedule(channel)"><i
                                     class="pi pi-list details-button"></i>
                             </span>
-                            <span (click)="onPlayChannel(channel)" class="clickable right">
+                            <span (click)="onPlayChannel(channel)" class="clickable">
                                 <i
                                     [ngClass]="isCurrentlyPlaying(channel?.liveaudio?.url) ? 'pi pi-pause play-button' : 'pi pi-play play-button'">
                                 </i>
