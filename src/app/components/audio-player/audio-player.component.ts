@@ -36,37 +36,32 @@ export class AudioPlayerComponent implements OnInit {
         filter((message) => message instanceof PlayAudioMessage)
       )
       .subscribe(async (message: PlayAudioMessage) => {
-        if (message) {
-          this.episodeId = message.episodeId;
-          this.channelId = message.channelId;
-          if (this.episodeId) {
-            this.prefixText = this.translate.translateWithArgs('AudioPrefixEpisode') + ': ';
-          } else if (this.channelId) {
-            this.prefixText = this.translate.translateWithArgs('AudioPrefixChannel') + ': ';
+        if (!message) return;
+        this.episodeId = message.episodeId;
+        this.channelId = message.channelId;
+        if (this.episodeId) {
+          this.prefixText = this.translate.translateWithArgs('AudioPrefixEpisode') + ': ';
+        } else if (this.channelId) {
+          this.prefixText = this.translate.translateWithArgs('AudioPrefixChannel') + ': ';
+        } else {
+          this.prefixText = '';
+        }
+        const audio: any = document.getElementById('audio');
+        if (message.url === this.currentUrlToPlay) {
+          if (audio?.paused) {
+            audio.load();
+            audio.play();
+            this.isPlaying = true;
           } else {
-            this.prefixText = '';
+            audio?.pause();
+            this.isPlaying = false;
           }
-          const audio: any = document.getElementById('audio');
-          if (message.url === this.currentUrlToPlay) {
-            if (audio) {
-              if (audio.paused) {
-                audio.load();
-                audio.play();
-                this.isPlaying = true;
-              } else {
-                audio.pause();
-                this.isPlaying = false;
-              }
-            }
-          } else {
-            this.currentStation = message.title;
-            this.currentUrlToPlay = message.url;
-            if (audio) {
-              audio.load();
-              audio.play();
-              this.isPlaying = true;
-            }
-          }
+        } else {
+          this.currentStation = message.title;
+          this.currentUrlToPlay = message.url;
+          audio?.load();
+          audio?.play();
+          this.isPlaying = true;
         }
       });
   }
