@@ -5,6 +5,7 @@ import { Subject } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
 import { NavigateBackMessage } from 'src/app/messages/navigate-back.message';
 import { ShowEpisodeDetailsMessage } from 'src/app/messages/show-episodedetails.message';
+import { ShowProgramDetailsMessage } from 'src/app/messages/show-programdetails.message';
 import { Channel } from 'src/app/models/channel';
 import { ScheduledEpisode } from 'src/app/models/scheduled-episode';
 import { EpisodesService } from 'src/app/services/episodes.service';
@@ -115,4 +116,9 @@ export class ChannelScheduleComponent implements OnInit, OnDestroy {
   onOpenDetails(episodeId: number) {
     this.broker.sendMessage(new ShowEpisodeDetailsMessage(episodeId));
   }
+
+  onOpenProgramDetails(programId: number) {
+    this.broker.sendMessage(new ShowProgramDetailsMessage(programId));
+  }
+
 }
