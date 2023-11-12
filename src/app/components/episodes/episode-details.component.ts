@@ -88,10 +88,18 @@ export class EpisodeDetailsComponent implements OnInit, OnDestroy {
     this.soundUrl = null;
     this.episode = episode;
     this.setSoundUrl(this.episode);
-    const res = await this.playlistsService.fetchSonglistForEpisode(episode.id);
-    this.songs = res.song;
-    if (this.songs) this.songs.forEach((s) => this.convertDate(s));
-    this.songs.sort((a, b) => a.starttimeutcDate.getTime() - b.starttimeutcDate.getTime());
+    try {
+      const res = await this.playlistsService.fetchSonglistForEpisode(episode.id);
+      this.songs = res.song;  
+    } catch {
+
+    }
+    
+    if (this.songs) {
+      this.songs.forEach((s) => this.convertDate(s));
+      this.songs.sort((a, b) => a.starttimeutcDate.getTime() - b.starttimeutcDate.getTime());  
+    }
+    
     this.isVisible = true;
   }
 
