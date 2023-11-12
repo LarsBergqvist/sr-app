@@ -1,5 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Table } from 'primeng/table';
 import { Subject } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
 import { NavigateBackMessage } from 'src/app/messages/navigate-back.message';
@@ -7,6 +8,7 @@ import { ShowEpisodeDetailsMessage } from 'src/app/messages/show-episodedetails.
 import { Channel } from 'src/app/models/channel';
 import { ScheduledEpisode } from 'src/app/models/scheduled-episode';
 import { EpisodesService } from 'src/app/services/episodes.service';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { MessageBrokerService } from 'src/app/services/message-broker.service';
 import { SRApiService } from 'src/app/services/srapi.service';
 import { convertFromJSONstring } from 'src/app/utils/date-helper';
@@ -23,14 +25,27 @@ export class ChannelScheduleComponent implements OnInit, OnDestroy {
   channel: Channel;
   private unsubscribe$ = new Subject();
 
+  private readonly storageId = 'ChannelScheduleState';
+  localState = {
+    showOnlyCurrentAndFuture: false
+  };
+
+  @ViewChild(Table) tableComponent: Table;
+  
   constructor(
     private readonly service: EpisodesService,
     private readonly broker: MessageBrokerService,
     private readonly activatedRoute: ActivatedRoute,
-    private readonly srApiService: SRApiService
+    private readonly srApiService: SRApiService,
+    private readonly storage: LocalStorageService
   ) {}
 
   ngOnInit(): void {
+    const oldState = this.storage.get(this.storageId);
+    if (oldState) {
+      this.localState = oldState;
+    }
+
     this.activatedRoute.params
       .pipe(
         takeUntil(this.unsubscribe$),
@@ -42,11 +57,35 @@ export class ChannelScheduleComponent implements OnInit, OnDestroy {
           await this.show(channel);
         }
       });
+  
   }
 
   ngOnDestroy() {
+    this.storage.set(this.storageId, this.localState);
     this.unsubscribe$.next(undefined);
     this.unsubscribe$.complete();
+  }
+
+  ngAfterViewInit(): void {
+    if (this.tableComponent) {
+      const midnight = new Date();
+      midnight.setHours(0,0,0,0);
+      if (this.localState.showOnlyCurrentAndFuture) {
+        this.tableComponent.filter(Date.now(), 'endtimeDate', 'gt');
+      } else {
+        this.tableComponent.filter(midnight, 'endtimeDate', 'gt');
+      }
+    }
+  }
+  onFilterShowOnlyCurrentAndFutureClicked(event, dt) {
+    this.localState.showOnlyCurrentAndFuture = event.checked;
+    const midnight = new Date();
+    midnight.setHours(0,0,0,0);
+    if (this.localState.showOnlyCurrentAndFuture) {
+      dt.filter(Date.now(), 'endtimeDate', 'gt');
+    } else {
+      dt.filter(midnight, 'endtimeDate', 'gt');
+    }
   }
 
   async show(channel: Channel) {
@@ -67,7 +106,6 @@ export class ChannelScheduleComponent implements OnInit, OnDestroy {
       endtimeDate: convertFromJSONstring(s?.endtimeutc),
       program: s.program
     }));
-    this.scheduledEpisodes = this.scheduledEpisodes.filter((s) => s.endtimeDate && s.endtimeDate.getTime() >= Date.now());
   }
 
   close() {

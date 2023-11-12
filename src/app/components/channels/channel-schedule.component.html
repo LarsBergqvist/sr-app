@@ -1,11 +1,17 @@
-<div *ngIf="channel">
+<div>
     <div *ngIf="channel" class="details-header-text">
         <i (click)="close()" class="pi pi-chevron-left close-button clickable"></i>
         <img src={{channel.image}} width="50" style="vertical-align:middle" /> {{'ProgramScheduleForToday' |
         translate}}: {{channel.name}}
     </div>
+    <div>
+        <span>
+            <p-checkbox (onChange)="onFilterShowOnlyCurrentAndFutureClicked($event, dt3)" [(ngModel)]="localState.showOnlyCurrentAndFuture"
+                [binary]="true" label="{{'ShowOnlyCurrentAndFuture' | translate }}" class="onlycurrentandfuture-chk"></p-checkbox>
+        </span>    
+    </div>
     <hr>
-    <p-table [value]="scheduledEpisodes" responsiveLayout="stack">
+    <p-table #dt3 [value]="scheduledEpisodes" responsiveLayout="stack">
         <ng-template pTemplate="header">
             <tr>
                 <th>{{'Name' | translate | uppercase}}</th>
