@@ -37,11 +37,6 @@
                         </span>
                         <span class="p-col-4" style="float:right">
                             <span class="p-grid p-flex-column">
-                                <span class="p-col clickable" *ngIf="episode.hasSound()"
-                                    (click)="onPlayEpisode(episode)">
-                                    <i
-                                        [ngClass]="isCurrentlyPlaying(episode) ? 'pi pi-pause play-button': 'pi pi-play play-button'"></i>
-                                </span>
                                 <span class="p-col clickable" (click)="onOpenDetails(episode)">
                                     <i class="pi pi-info-circle details-btn"></i>
                                 </span>
@@ -52,12 +47,17 @@
                                     (click)="onRemoveFromBookmarks(episode.id)">
                                     <i class="pi pi-bookmark-fill yellow-fav fav-but"></i>
                                 </span>
+                                <span class="p-col clickable" *ngIf="episode.hasSound()"
+                                (click)="onPlayEpisode(episode)">
+                                <i
+                                    [ngClass]="isCurrentlyPlaying(episode) ? 'pi pi-pause play-button': 'pi pi-play play-button'"></i>
+                            </span>
                             </span>
                         </span>
                     </div>
                 </td>
                 <td>
-                    {{episode?.publishDate | date:'medium' }}
+                    {{episode?.publishDate | date:'short' }}
                 </td>
                 <td class="desc-col">
                     <div class="ep-desc">

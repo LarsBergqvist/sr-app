@@ -10,7 +10,7 @@
 
 .play-button {
   font-size: base.$iconsize;
-  padding: 5px;
+//  padding: 5px;
 }
 
 .clickable {
@@ -130,7 +130,8 @@
 .details-btn {
   font-size: base.$iconsize;
   margin-top: 20px;
-  padding-left: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 .details-btn-sm {

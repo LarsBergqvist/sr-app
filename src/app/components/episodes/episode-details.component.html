@@ -28,10 +28,10 @@
                 </p>
             </div>
             <div *ngIf="episode.publishDate" class="clear">
-                <b>{{'PublishDate' | translate }}</b>: {{episode.publishDate | date:'medium'}}
+                <b>{{'PublishDate' | translate }}</b>: {{episode.publishDate | date:'short'}}
             </div>
             <div *ngIf="episode.availableTo">
-                <b>{{'AvailableTo' | translate }}</b>: {{episode.availableTo | date:'medium'}}
+                <b>{{'AvailableTo' | translate }}</b>: {{episode.availableTo | date:'short'}}
             </div>
             <div>
                 <b>{{'Soundtype' | translate }}</b>: {{getSoundType(episode)}}
