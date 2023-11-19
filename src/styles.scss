@@ -127,13 +127,14 @@
   }
 }
 
-.details-button {
+.details-btn {
   font-size: base.$iconsize;
-  padding: 5px;
+  margin-top: 20px;
+  padding-left: 10px;
 }
 
-.details-button-smaller {
-  @extend .details-button;
+.details-btn-sm {
+  @extend .details-btn;
   font-size: base.$iconsize-sm;
 }
 
@@ -178,4 +179,14 @@
 
 .onlycurrentandfuture-chk {
   padding: 10px;
+}
+
+.min-title-column {
+  min-width: 320px;
+}
+
+.image-thumb {
+  margin: 10px;
+  width: 50px;
+  vertical-align: middle;
 }

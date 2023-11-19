@@ -1,34 +1,35 @@
 <div>
     <div *ngIf="channel" class="details-header-text">
         <i (click)="close()" class="pi pi-chevron-left close-button clickable"></i>
-        <img src={{channel.image}} width="50" style="vertical-align:middle" /> {{'ProgramScheduleForToday' |
+        <img class="image-thumb" src={{channel.image}} /> {{'ProgramScheduleForToday' |
         translate}}: {{channel.name}}
     </div>
     <div>
         <span>
-            <p-checkbox (onChange)="onFilterShowOnlyCurrentAndFutureClicked($event, dt3)" [(ngModel)]="localState.showOnlyCurrentAndFuture"
-                [binary]="true" label="{{'ShowOnlyCurrentAndFuture' | translate }}" class="onlycurrentandfuture-chk"></p-checkbox>
+            <p-checkbox (onChange)="onFilterShowOnlyCurrentAndFutureClicked($event, dt3)" [(ngModel)]="localState.showPrevious"
+                [binary]="true" label="{{'Visa tidigare' | translate }}" class="onlycurrentandfuture-chk"></p-checkbox>
         </span>    
     </div>
     <hr>
     <p-table #dt3 [value]="scheduledEpisodes" responsiveLayout="stack">
         <ng-template pTemplate="header">
             <tr>
-                <th>{{'Name' | translate | uppercase}}</th>
+                <th class="min-title-column">{{'Name' | translate | uppercase}}</th>
                 <th>{{'Starts' | translate | uppercase}}</th>
                 <th>{{'Description' | translate | uppercase}}</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-episode>
             <tr>
-                <td>
+                <td class="min-title-column">
+                    <img class="image-thumb" src={{episode.imageurl}} />
                     <b class="clickable" (click)="onOpenProgramDetails(episode.program.id)">{{episode.title}}</b>
                     <div *ngIf="episode.episodeid" class="right clickable" (click)="onOpenDetails(episode.episodeid)">
-                        <i class="pi pi-info-circle details-button"></i>
+                        <i class="pi pi-info-circle details-btn"></i>
                     </div>
                 </td>
                 <td>
-                    {{episode.starttimeDate | date:'medium'}}
+                    {{episode.starttimeDate | date:'HH:mm'}}
                 </td>
                 <td class="desc-col">
                     {{episode.description}}

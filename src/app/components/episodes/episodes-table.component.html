@@ -37,13 +37,13 @@
                         </span>
                         <span class="p-col-4" style="float:right">
                             <span class="p-grid p-flex-column">
-                                <span class="p-col clickable right" *ngIf="episode.hasSound()"
+                                <span class="p-col clickable" *ngIf="episode.hasSound()"
                                     (click)="onPlayEpisode(episode)">
                                     <i
                                         [ngClass]="isCurrentlyPlaying(episode) ? 'pi pi-pause play-button': 'pi pi-play play-button'"></i>
                                 </span>
                                 <span class="p-col clickable" (click)="onOpenDetails(episode)">
-                                    <i class="pi pi-info-circle details-button"></i>
+                                    <i class="pi pi-info-circle details-btn"></i>
                                 </span>
                                 <span *ngIf="!isBookmarked(episode.id)" class="p-col clickable"
                                     (click)="onAddToBookmarks(episode.id)"><i class="pi pi-bookmark fav-but"></i>

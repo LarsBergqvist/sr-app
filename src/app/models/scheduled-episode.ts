@@ -6,6 +6,7 @@ export interface ScheduledEpisode {
   endtimeutc?: string;
   starttimeDate?: Date;
   endtimeDate?: Date;
+  imageurl: string;
   program: {
     id: number;
     name: string;

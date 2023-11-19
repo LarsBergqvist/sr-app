@@ -28,7 +28,7 @@ export class ChannelScheduleComponent implements OnInit, OnDestroy {
 
   private readonly storageId = 'ChannelScheduleState';
   localState = {
-    showOnlyCurrentAndFuture: false
+    showPrevious: false
   };
 
   @ViewChild(Table) tableComponent: Table;
@@ -68,24 +68,22 @@ export class ChannelScheduleComponent implements OnInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    if (this.tableComponent) {
-      const midnight = new Date();
-      midnight.setHours(0,0,0,0);
-      if (this.localState.showOnlyCurrentAndFuture) {
-        this.tableComponent.filter(Date.now(), 'endtimeDate', 'gt');
-      } else {
-        this.tableComponent.filter(midnight, 'endtimeDate', 'gt');
-      }
-    }
+    this.filterOnTime(this.tableComponent);
   }
-  onFilterShowOnlyCurrentAndFutureClicked(event, dt) {
-    this.localState.showOnlyCurrentAndFuture = event.checked;
+
+  onFilterShowOnlyCurrentAndFutureClicked(event, dt:Table) {
+    this.localState.showPrevious = event.checked;
+    this.filterOnTime(dt);
+  }
+
+  filterOnTime(table:Table) {
+    if (!table) return;
     const midnight = new Date();
     midnight.setHours(0,0,0,0);
-    if (this.localState.showOnlyCurrentAndFuture) {
-      dt.filter(Date.now(), 'endtimeDate', 'gt');
+    if (!this.localState.showPrevious) {
+      table.filter(Date.now(), 'endtimeDate', 'gt');
     } else {
-      dt.filter(midnight, 'endtimeDate', 'gt');
+      table.filter(midnight, 'endtimeDate', 'gt');
     }
   }
 
@@ -105,7 +103,8 @@ export class ChannelScheduleComponent implements OnInit, OnDestroy {
       description: s.description,
       starttimeDate: convertFromJSONstring(s?.starttimeutc),
       endtimeDate: convertFromJSONstring(s?.endtimeutc),
-      program: s.program
+      program: s.program,
+      imageurl: s.imageurl ?? this.srApiService.getProgramImageUrlFromId(s.program.id)
     }));
   }
 

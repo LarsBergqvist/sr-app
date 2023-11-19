@@ -128,6 +128,12 @@ export class SRApiService extends SRBaseService {
     return category?.name;
   }
 
+  getProgramImageUrlFromId(programId: number): string {
+    if (!this.programs) return;
+    const program = this?.programs.find((c) => c.id === programId);
+    return program?.programimage;
+  }
+
   addProgramToFavorites(programId: number, programName: string) {
     if (!this.programFavs.has(programId)) {
       this.programFavs.add(programId);
