@@ -1,3 +1,5 @@
+import { EpisodeOverview } from "./episode-overview";
+
 export interface BroadcastFile {
   id: number;
   url: string;
@@ -25,6 +27,7 @@ export interface Episode {
     availablestoputc: string;
     broadcastfiles: BroadcastFile[];
   };
+  relatedepisodes: EpisodeOverview[];
 }
 
 export interface EpisodeResult {

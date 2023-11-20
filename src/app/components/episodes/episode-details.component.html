@@ -53,6 +53,15 @@
                 {{'LinkToProgramDetailsText' | translate}}<b>{{episode.programName}} </b>
                 <i class="pi pi-info-circle"></i>
             </div>
+            <div *ngIf="episode.relatedEpisodes.length > 0">
+                <p></p>
+                <b>Relaterade avsnitt:</b>
+                <ul *ngFor="let related of episode.relatedEpisodes">
+                    <li class="clickable" (click)="onShowEpisode(related.id)">
+                        <i>{{related.title}}</i>
+                    </li>
+                </ul>
+            </div>
         </div>
         <hr class="clear">
         <div *ngIf="songs && songs.length > 0">

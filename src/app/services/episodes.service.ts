@@ -7,6 +7,7 @@ import { ScheduleResult } from '../models/schedule-result';
 import { EpisodeResult } from '../models/episode';
 import { SRApiService } from './srapi.service';
 import { lastValueFrom } from 'rxjs';
+import { EpisodesOverviewResult } from '../models/episodes-overview-result';
 
 @Injectable({
   providedIn: 'root'
@@ -31,6 +32,10 @@ export class EpisodesService extends SRBaseService {
     let url = `${this.BaseUrl}episodes/get?id=${episodeId}&${this.FormatParam}`;
     const res = await lastValueFrom(this.http.get<EpisodeResult>(`${url}`));
     res.episode.channelName = this.srApiService.getChannelNameFromId(res.episode.channelid);
+    if (res.episode?.relatedepisodes) {
+      var related = await this.fetchEpisodesOverview(res.episode.relatedepisodes.map(r => r.id));
+      res.episode.relatedepisodes = related.episodes;
+    }
     return res;
   }
 
@@ -53,6 +58,25 @@ export class EpisodesService extends SRBaseService {
     res.episodes.forEach((e) => {
       e.channelName = this.srApiService.getChannelNameFromId(e.channelid);
     });
+    return res;
+  }
+
+  async fetchEpisodesOverview(episodeIds: number[]): Promise<EpisodesOverviewResult> {
+    if (episodeIds == null) return;
+    if (episodeIds.length < 1) {
+      let res: EpisodesOverviewResult = {
+        episodes: [],
+        pagination: {
+          page: 1,
+          size: 10,
+          totalpages: 0
+        }
+      };
+      return res;
+    }
+    let idList = episodeIds.map((id) => id).join(',');
+    let url = `${this.BaseUrl}episodes/getlist?ids=${idList}&${this.FormatParam}`;
+    const res = await lastValueFrom(this.http.get<EpisodesOverviewResult>(`${url}`));
     return res;
   }
 

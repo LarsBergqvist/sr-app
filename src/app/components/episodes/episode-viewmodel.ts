@@ -7,6 +7,12 @@ export enum SoundType {
   Podfile
 }
 
+export interface RelatedEpisode {
+  title: string;
+  id: number;
+  description: string;
+}
+
 export class EpisodeViewModel {
   readonly title: string;
   readonly id: number;
@@ -21,6 +27,7 @@ export class EpisodeViewModel {
   readonly soundType: SoundType;
   readonly linkUrl: string;
   readonly availableTo: Date;
+  readonly relatedEpisodes: RelatedEpisode[];
 
   constructor(episode: Episode) {
     this.title = episode.title;
@@ -46,6 +53,8 @@ export class EpisodeViewModel {
       this.soundType = SoundType.Broadcast;
       this.durationTime = durationToTime(episode.broadcast.broadcastfiles[0].duration);
     }
+
+    this.relatedEpisodes = episode.relatedepisodes;
   }
 
   hasSound(): boolean {

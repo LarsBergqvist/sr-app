@@ -160,4 +160,8 @@ export class EpisodeDetailsComponent implements OnInit, OnDestroy {
     this.isVisible = false;
     this.broker.sendMessage(new ShowProgramDetailsMessage(programId));
   }
+
+  onShowEpisode(id: number) {
+    this.broker.sendMessage(new ShowEpisodeDetailsMessage(id));
+  }
 }
