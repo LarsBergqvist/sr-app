@@ -8,6 +8,8 @@ import { EpisodeResult } from '../models/episode';
 import { SRApiService } from './srapi.service';
 import { lastValueFrom } from 'rxjs';
 import { EpisodesOverviewResult } from '../models/episodes-overview-result';
+import { EpisodeGroupResult } from '../models/episode-group-result';
+import { EpisodeOverview } from '../models/episode-overview';
 
 @Injectable({
   providedIn: 'root'
@@ -33,8 +35,14 @@ export class EpisodesService extends SRBaseService {
     const res = await lastValueFrom(this.http.get<EpisodeResult>(`${url}`));
     res.episode.channelName = this.srApiService.getChannelNameFromId(res.episode.channelid);
     if (res.episode?.relatedepisodes) {
-      var related = await this.fetchEpisodesOverview(res.episode.relatedepisodes.map(r => r.id));
+      let related = await this.fetchEpisodesOverview(res.episode.relatedepisodes.map(r => r.id));
       res.episode.relatedepisodes = related.episodes;
+    }
+    if (res.episode?.episodegroups) {
+      res.episode.episodegroups.forEach(async eg => {
+        let eps  = await this.fetchEpisodesByGroup(eg.id,1,10);
+        eg.episodes = eps;
+      })
     }
     return res;
   }
@@ -101,4 +109,12 @@ export class EpisodesService extends SRBaseService {
     });
     return res;
   }
+
+  async fetchEpisodesByGroup(groupId: number, page: number, pageSize: number): Promise<EpisodeOverview[]> {
+    if (groupId == null) return;
+    let url = `${this.BaseUrl}/episodes/group/?${this.FormatParam}&id=${groupId}&page=${page}&size=${pageSize}`;
+    const res = await lastValueFrom(this.http.get<EpisodeGroupResult>(`${url}`));
+    return res.episodegroup.episodes;
+  }
+
 }

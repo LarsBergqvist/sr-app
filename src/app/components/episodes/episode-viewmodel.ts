@@ -14,6 +14,13 @@ export interface RelatedEpisode {
   description: string;
 }
 
+export interface EpisodeGroup {
+  title: string;
+  id: number;
+  description: string;
+  episodes: RelatedEpisode[];
+}
+
 export class EpisodeViewModel {
   readonly title: string;
   readonly id: number;
@@ -30,6 +37,7 @@ export class EpisodeViewModel {
   readonly linkUrl: string;
   readonly availableTo: Date;
   readonly relatedEpisodes: RelatedEpisode[];
+  readonly episodeGroups: EpisodeGroup[];
 
   constructor(episode: Episode) {
     this.title = episode.title;
@@ -58,6 +66,8 @@ export class EpisodeViewModel {
     }
 
     this.relatedEpisodes = episode.relatedepisodes;
+
+    this.episodeGroups = episode.episodegroups;
   }
 
   hasSound(): boolean {

@@ -64,6 +64,19 @@
                     </li>
                 </ul>
             </div>
+            <div *ngIf="episode.episodeGroups.length > 0">
+                <p></p>
+                <ul *ngFor="let group of episode.episodeGroups">
+                    <li>
+                        <i>{{group.name}}</i>
+                        <ul *ngFor="let related of group.episodes">
+                            <li class="clickable" (click)="onShowEpisode(related.id)">
+                                <i>{{related.title}}</i>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
         </div>
         <hr class="clear">
         <div *ngIf="songs && songs.length > 0">

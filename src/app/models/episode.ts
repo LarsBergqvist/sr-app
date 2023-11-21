@@ -1,3 +1,4 @@
+import { EpisodeGroup } from "./episode-group";
 import { EpisodeOverview } from "./episode-overview";
 
 export interface BroadcastFile {
@@ -29,6 +30,7 @@ export interface Episode {
     broadcastfiles: BroadcastFile[];
   };
   relatedepisodes: EpisodeOverview[];
+  episodegroups: EpisodeGroup[];
 }
 
 export interface EpisodeResult {
