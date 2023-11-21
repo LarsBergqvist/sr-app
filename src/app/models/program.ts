@@ -5,6 +5,7 @@ export interface Program {
   id: number;
   description: string;
   programimage: string;
+  programimagetemplate: string;
   channel: Channel;
   fav: boolean;
   programcategory: {

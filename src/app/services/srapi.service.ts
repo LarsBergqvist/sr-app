@@ -64,7 +64,7 @@ export class SRApiService extends SRBaseService {
         id: c.liveaudio.id,
         url: c.liveaudio.url
       },
-      image: c.image,
+      image: c.imagetemplate + SRApiService.DefaultImagePreset,
       channeltype: c.channeltype,
       tagline: c.tagline
     }));
@@ -82,7 +82,7 @@ export class SRApiService extends SRBaseService {
         id: p?.channel.id,
         name: p?.channel.name
       },
-      programimage: p.programimage,
+      programimage: p.programimagetemplate + SRApiService.DefaultImagePreset,
       description: p.description,
       programcategory: p.programcategory
     }));

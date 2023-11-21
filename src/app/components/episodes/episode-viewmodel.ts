@@ -1,4 +1,5 @@
 import { Episode } from 'src/app/models/episode';
+import { SRApiService } from 'src/app/services/srapi.service';
 import { convertFromJSONstring, durationToTime } from 'src/app/utils/date-helper';
 
 export enum SoundType {
@@ -20,6 +21,7 @@ export class EpisodeViewModel {
   readonly publishDate: Date;
   readonly channelName: string;
   readonly imageurl: string;
+  readonly imageurlLarge: string;
   readonly programName: string;
   readonly programId: number;
   readonly durationTime: Date;
@@ -35,7 +37,8 @@ export class EpisodeViewModel {
     this.description = episode.description;
     this.publishDate = convertFromJSONstring(episode.publishdateutc);
     this.channelName = episode.channelName;
-    this.imageurl = episode.imageurl;
+    this.imageurl = episode.imageurltemplate + SRApiService.DefaultImagePreset;
+    this.imageurlLarge = episode.imageurl;
     this.programName = episode.program?.name;
     this.programId = episode.program?.id;
     this.linkUrl = episode.url;

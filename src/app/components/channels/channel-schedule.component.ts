@@ -104,7 +104,8 @@ export class ChannelScheduleComponent implements OnInit, OnDestroy {
       starttimeDate: convertFromJSONstring(s?.starttimeutc),
       endtimeDate: convertFromJSONstring(s?.endtimeutc),
       program: s.program,
-      imageurl: s.imageurl ?? this.srApiService.getProgramImageUrlFromId(s.program.id)
+      imageurltemplate: s.imageurltemplate,
+      imageurl: s.imageurltemplate ? s.imageurltemplate + SRApiService.DefaultImagePreset : this.srApiService.getProgramImageUrlFromId(s.program.id)
     }));
   }
 

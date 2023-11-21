@@ -11,4 +11,8 @@ export class SRBaseService {
   protected get FormatParam(): string {
     return 'format=json';
   }
+
+  public static get DefaultImagePreset(): string {
+    return '?preset=100x100';
+  }
 }

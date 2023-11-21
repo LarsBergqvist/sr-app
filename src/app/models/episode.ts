@@ -14,6 +14,7 @@ export interface Episode {
   channelid: number;
   channelName: string;
   imageurl: string;
+  imageurltemplate: string;
   url: string;
   program: {
     id: number;
