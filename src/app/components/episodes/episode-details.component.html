@@ -28,6 +28,9 @@
                 <p>
                     {{episode.description}}
                 </p>
+                <p>
+                    {{episode.details}}
+                </p>
             </div>
             <div *ngIf="episode.publishDate" class="clear">
                 <b>{{'PublishDate' | translate }}</b>: {{episode.publishDate | date:'short'}}
@@ -70,7 +73,7 @@
                     <li>
                         <i>{{group.name}}</i>
                         <ul *ngFor="let related of group.episodes">
-                            <li class="clickable" (click)="onShowEpisode(related.id)">
+                            <li class="clickable link-item" (click)="onShowEpisode(related.id)">
                                 <i>{{related.title}}</i>
                             </li>
                         </ul>

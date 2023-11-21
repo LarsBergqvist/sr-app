@@ -27,6 +27,9 @@
                     <div *ngIf="episode.episodeid" class="right clickable" (click)="onOpenDetails(episode.episodeid)">
                         <i class="pi pi-info-circle details-btn"></i>
                     </div>
+                    <div *ngIf="!episode.episodeid" class="right clickable">
+                        
+                    </div>
                 </td>
                 <td>
                     {{episode.starttimeDate | date:'HH:mm'}}

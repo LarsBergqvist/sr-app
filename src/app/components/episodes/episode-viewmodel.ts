@@ -38,6 +38,7 @@ export class EpisodeViewModel {
   readonly availableTo: Date;
   readonly relatedEpisodes: RelatedEpisode[];
   readonly episodeGroups: EpisodeGroup[];
+  readonly details: string;
 
   constructor(episode: Episode) {
     this.title = episode.title;
@@ -66,8 +67,8 @@ export class EpisodeViewModel {
     }
 
     this.relatedEpisodes = episode.relatedepisodes;
-
     this.episodeGroups = episode.episodegroups;
+    this.details = episode.text;
   }
 
   hasSound(): boolean {

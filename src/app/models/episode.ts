@@ -31,6 +31,7 @@ export interface Episode {
   };
   relatedepisodes: EpisodeOverview[];
   episodegroups: EpisodeGroup[];
+  text: string;
 }
 
 export interface EpisodeResult {
