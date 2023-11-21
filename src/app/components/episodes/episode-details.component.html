@@ -55,7 +55,7 @@
                 {{'LinkToProgramDetailsText' | translate}}<b>{{episode.programName}} </b>
                 <i class="pi pi-info-circle"></i>
             </div>
-            <div *ngIf="episode.relatedEpisodes.length > 0">
+            <div *ngIf="episode.relatedEpisodes && episode.relatedEpisodes.length > 0">
                 <p></p>
                 <b>Relaterade avsnitt:</b>
                 <ul *ngFor="let related of episode.relatedEpisodes">
@@ -64,7 +64,7 @@
                     </li>
                 </ul>
             </div>
-            <div *ngIf="episode.episodeGroups.length > 0">
+            <div *ngIf="episode.episodeGroups && episode.episodeGroups.length > 0">
                 <p></p>
                 <ul *ngFor="let group of episode.episodeGroups">
                     <li>
