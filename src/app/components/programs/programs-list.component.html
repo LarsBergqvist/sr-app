@@ -8,7 +8,7 @@
                         <p-checkbox (onChange)="onFilterFavClicked($event, dt2)" [(ngModel)]="localState.showOnlyFavs"
                             [binary]="true" label="{{'OnlyFavs' | translate }}" class="fav-checkbox"></p-checkbox>
                     </span>
-                    <span class="p-input-icon-left p-ml-auto" [ngStyle]="{'margin-left': '10px' }">
+                    <span class="p-input-icon-left p-ml-auto">
                         <i class="pi pi-search"></i>
                         <input pInputText class="p-inputtext-sm kw-input" type="text" [(ngModel)]="localState.searchString"
                             (input)="dt2.filterGlobal($event.target.value, 'contains')"

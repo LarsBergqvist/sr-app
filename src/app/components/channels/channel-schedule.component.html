@@ -22,16 +22,18 @@
         <ng-template pTemplate="body" let-episode>
             <tr>
                 <td class="min-title-column">
-                    <img class="image-thumb" src={{episode.imageurl}} />
-                    <b class="clickable" (click)="onOpenProgramDetails(episode.program.id)">{{episode.title}}</b>
-                    <div *ngIf="episode.episodeid" class="right clickable" (click)="onOpenDetails(episode.episodeid)">
-                        <i class="pi pi-info-circle details-btn"></i>
-                    </div>
-                    <div *ngIf="!episode.episodeid" class="right clickable">
-                        
+                    <div class="p-grid" style="width:100%">
+                        <img class="image-thumb" src={{episode.imageurl}} />
+                        <b class="clickable" (click)="onOpenProgramDetails(episode.program.id)">{{episode.title}}</b>
+                        <div *ngIf="episode.episodeid" class="right clickable" (click)="onOpenDetails(episode.episodeid)">
+                            <i class="pi pi-info-circle details-btn"></i>
+                        </div>
+                        <div *ngIf="!episode.episodeid" class="right clickable">
+                            
+                        </div>
                     </div>
                 </td>
-                <td>
+                <td class="schedule-time">
                     {{episode.starttimeDate | date:'HH:mm'}}
                 </td>
                 <td class="desc-col">
