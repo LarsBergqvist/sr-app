@@ -10,7 +10,6 @@
 
 .play-button {
   font-size: base.$iconsize;
-//  padding: 5px;
 }
 
 .clickable {
@@ -47,20 +46,9 @@
   max-width: 300px;
 }
 
-.cat-dd {
-  margin-left: 100px;
-  max-width: 150px;
-  margin-right: 5px;
-}
 @media only screen and (max-width: 800px) {
   .kw-input {
     max-width: 180px;
-  }
-  .cat-dd {
-    margin-left: 30px;
-    .p-dropdown.p-component {
-      max-width: 200px;
-    }
   }
 }
 
@@ -89,12 +77,6 @@
   .kw-input {
     max-width: 150px;
   }
-  .cat-dd {
-    margin-left: 10px;
-    .p-dropdown.p-component {
-      max-width: 200px;
-    }
-  }
   .desc-col {
     border: none !important;
   }
@@ -104,23 +86,10 @@
   .kw-input {
     max-width: 100px;
   }
-  .cat-dd {
-    margin-left: 10px;
-    .p-dropdown.p-component {
-      max-width: 100px;
-    }
-  }
 }
 @media only screen and (max-width: 320px) {
   .kw-input {
     max-width: 80px;
-  }
-
-  .cat-dd {
-    margin-left: 2px;
-    .p-dropdown.p-component {
-      max-width: 80px;
-    }
   }
 }
 
@@ -171,9 +140,6 @@
 .bottom-padding {
   padding-bottom: 100px;
 }
-.p-dropdown-label.p-inputtext.ng-star-inserted {
-  padding-top: 2px !important;
-}
 
 .onlycurrentandfuture-chk {
   padding: 10px;
@@ -192,4 +158,9 @@
 .link-item {
   padding-top: 5px;
   padding-bottom: 5px;
+}
+
+.p-selectbutton > * {
+  border-radius: 10px;
+  margin: 5px;
 }

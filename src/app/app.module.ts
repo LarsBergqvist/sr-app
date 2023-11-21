@@ -10,7 +10,6 @@ import { AccordionModule } from 'primeng/accordion';
 import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
-import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { SidebarModule } from 'primeng/sidebar';
 import { TableModule } from 'primeng/table';
@@ -36,6 +35,7 @@ import { HttpInterceptorService } from './services/http-interceptor.service';
 import { LoggingService } from './services/logging.service';
 import { MessageBrokerService } from './services/message-broker.service';
 import { TranslatePipe } from './translations/translate.pipe';
+import { SelectButtonModule } from 'primeng/selectbutton';
 
 registerLocaleData(locale);
 
@@ -70,8 +70,8 @@ registerLocaleData(locale);
     ButtonModule,
     InputTextModule,
     CheckboxModule,
-    DropdownModule,
-    AccordionModule
+    AccordionModule,
+    SelectButtonModule
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'sv' },

@@ -55,5 +55,6 @@
   "AudioPrefixChannel": "Live",
   "AudioPrefixEpisode": "Episode",
   "LinkToProgramDetailsText": "Show details and all episodes for ",
-  "ShowOnlyCurrentAndFuture": "Show only current and upcoming"
+  "ShowOnlyCurrentAndFuture": "Show only current and upcoming",
+  "Categories": "Categories"
 }

@@ -55,5 +55,6 @@
   "AudioPrefixChannel": "Direkt",
   "AudioPrefixEpisode": "Avsnitt",
   "LinkToProgramDetailsText": "Visa detaljer och alla avsnitt för ",
-  "ShowOnlyCurrentAndFuture": "Visa bara pågående och kommande"
+  "ShowOnlyCurrentAndFuture": "Visa bara pågående och kommande",
+  "Categories": "Kategorier"
 }
