@@ -28,8 +28,8 @@
                 <p>
                     {{episode.description}}
                 </p>
-                <p>
-                    {{episode.details}}
+                <p *ngFor="let row of episode.detailRows">
+                    {{row}}
                 </p>
             </div>
             <div *ngIf="episode.publishDate" class="clear">

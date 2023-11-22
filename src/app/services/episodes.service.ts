@@ -102,7 +102,7 @@ export class EpisodesService extends SRBaseService {
 
   async searchEpisodes(query: string, page: number, pageSize: number): Promise<EpisodesResult> {
     if (query == null) return;
-    let url = `${this.BaseUrl}/episodes/search/?${this.FormatParam}&query=${query}&page=${page}&size=${pageSize}`;
+    let url = `${this.BaseUrl}episodes/search/?${this.FormatParam}&query=${query}&page=${page}&size=${pageSize}`;
     const res = await lastValueFrom(this.http.get<EpisodesResult>(`${url}`));
     res.episodes.forEach((e) => {
       e.channelName = this.srApiService.getChannelNameFromId(e.channelid);
@@ -112,7 +112,7 @@ export class EpisodesService extends SRBaseService {
 
   async fetchEpisodesByGroup(groupId: number, page: number, pageSize: number): Promise<EpisodeOverview[]> {
     if (groupId == null) return;
-    let url = `${this.BaseUrl}/episodes/group/?${this.FormatParam}&id=${groupId}&page=${page}&size=${pageSize}`;
+    let url = `${this.BaseUrl}episodes/group/?${this.FormatParam}&id=${groupId}&page=${page}&size=${pageSize}`;
     const res = await lastValueFrom(this.http.get<EpisodeGroupResult>(`${url}`));
     return res.episodegroup.episodes;
   }
