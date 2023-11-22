@@ -125,6 +125,11 @@
   margin-right: 20px !important;
 }
 
+.episode-details-header-text {
+  @extend .details-header-text;
+  padding-top: 20px;
+}
+
 .clear {
   clear: both;
 }
@@ -156,4 +161,21 @@
 .p-selectbutton > * {
   border-radius: 10px;
   margin: 5px;
+}
+
+.header {
+  overflow: hidden;
+  position: fixed;
+  top: -8px;
+  width: 100%;
+  z-index: 1000;
+  margin-left: -8px;
+  background-color: var(--surface-50);
+  opacity: 1;
+  max-height: 60px;
+  min-height: 60px;
+  border-left-width: 8px;
+  border-right-width: 8px;
+  border-style: solid;
+  border-color: var(--surface-50);
 }

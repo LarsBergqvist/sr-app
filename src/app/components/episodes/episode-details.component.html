@@ -2,13 +2,16 @@
     [showCloseIcon]="false" [transitionOptions]="'300ms ease-out'">
 
     <div *ngIf="episode">
-        <div class="details-header-text">
-            <i (click)="close()" class="pi pi-chevron-down close-button clickable"></i>
-            {{episode.programName}}: {{episode.title}}
+        <div class="header">
+            <div class="episode-details-header-text">
+                <i (click)="close()" class="pi pi-chevron-down close-button clickable"></i>
+                {{episode.programName}}: {{episode.title}}    
+            </div>
         </div>
         <hr>
         <div>
             <div>
+                <p></p>
                 <b>{{episode.title}}&nbsp;</b>
                 <span *ngIf="!isBookmarked" class="clickable" (click)="onAddToBookmarks()"><i
                         class="pi pi-bookmark"></i>
