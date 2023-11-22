@@ -1,4 +1,4 @@
 $iconsize: 1.5em;
 $iconsize-sm: 1em;
-$mainaccentcolor: rgb(123, 149, 163);
-$alternaterowcolor: #f2f2f2;
+$mainaccentcolor: var(--primary-color);
+$alternaterowcolor: var(--surface-50);

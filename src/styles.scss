@@ -1,8 +1,10 @@
 @use './base.scss';
-@import '../node_modules/primeicons/primeicons.css';
-@import '../node_modules/primeng/resources/themes/rhea/theme.css';
-@import '../node_modules/primeng/resources/primeng.min.css';
-@import '../node_modules/primeflex/primeflex.css';
+@import 'primeicons/primeicons.css';
+//@import 'primeng/resources/themes/rhea/theme.css';
+//@import 'primeng/resources/themes/nova/theme.css';
+@import 'primeng/resources/themes/mira/theme.css';
+@import 'primeng/resources/primeng.min.css';
+@import 'primeflex/primeflex.css';
 
 * {
   font-family: 'Open Sans', 'Helvetica Neue', sans-serif;

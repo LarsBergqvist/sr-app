@@ -13,6 +13,6 @@ a {
 }
 .active {
   background-color: base.$mainaccentcolor;
-  color: white;
+  color: var(--surface-50);
   border-radius: 5px;
 }

@@ -2,7 +2,7 @@
     <app-navigation-bar></app-navigation-bar>
 </div>
 
-<div class="content" [@routeAnimations]="prepareRoute(outlet)">
+<div class="app content" [@routeAnimations]="prepareRoute(outlet)">
     <router-outlet #outlet="outlet"></router-outlet>
 </div>
 <app-episode-details></app-episode-details>
