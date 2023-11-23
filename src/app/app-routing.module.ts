@@ -11,11 +11,11 @@ import { ProgramsListComponent } from './components/programs/programs-list.compo
 
 const routes: Routes = [
   { path: AppRoutes.Channels, component: ChannelsListComponent, data: { animation: 'channels' } },
-  { path: AppRoutes.ChannelDetails, component: ChannelDetailsComponent, data: { animation: 'details' } },
-  { path: AppRoutes.ChannelSchedule, component: ChannelScheduleComponent, data: { animation: 'details' } },
-  { path: AppRoutes.ProgramDetails, component: ProgramDetailsComponent, data: { animation: 'details' } },
+  { path: AppRoutes.ChannelDetails, component: ChannelDetailsComponent, data: { animation: 'details1' } },
+  { path: AppRoutes.ChannelSchedule, component: ChannelScheduleComponent, data: { animation: 'details2' } },
+  { path: AppRoutes.ProgramDetails, component: ProgramDetailsComponent, data: { animation: 'details3' } },
   { path: AppRoutes.Programs, component: ProgramsListComponent, data: { animation: 'programs' } },
-  { path: AppRoutes.EpisodeDetails, component: EpisodeDetailsComponent, data: { animation: 'details' } },
+  { path: AppRoutes.EpisodeDetails, component: EpisodeDetailsComponent, data: { animation: 'details:id' } },
   { path: AppRoutes.Episodes, component: EpisodesListComponent, data: { animation: 'episodes' } },
   { path: '**', redirectTo: AppRoutes.Channels, pathMatch: 'full' }
 ];

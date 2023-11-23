@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
-import { filter, takeUntil } from 'rxjs/operators';
+import { map, takeUntil } from 'rxjs/operators';
 import { PlayAudioMessage } from 'src/app/messages/play-audio.message';
 import { ShowEpisodeDetailsMessage } from 'src/app/messages/show-episodedetails.message';
 import { ShowProgramDetailsMessage } from 'src/app/messages/show-programdetails.message';
@@ -12,6 +12,8 @@ import { SRApiService } from 'src/app/services/srapi.service';
 import { TranslationService } from 'src/app/services/translation.service';
 import { convertFromJSONstring } from 'src/app/utils/date-helper';
 import { EpisodeViewModel, SoundType } from './episode-viewmodel';
+import { ActivatedRoute } from '@angular/router';
+import { NavigateBackMessage } from 'src/app/messages/navigate-back.message';
 
 @Component({
   selector: 'app-episode-details',
@@ -26,7 +28,6 @@ import { EpisodeViewModel, SoundType } from './episode-viewmodel';
   ]
 })
 export class EpisodeDetailsComponent implements OnInit, OnDestroy {
-  isVisible = false;
   songs: Song[];
   episode: EpisodeViewModel;
   private unsubscribe$ = new Subject();
@@ -38,26 +39,27 @@ export class EpisodeDetailsComponent implements OnInit, OnDestroy {
     private readonly playlistsService: PlaylistsService,
     private readonly srApiService: SRApiService,
     private readonly broker: MessageBrokerService,
-    private readonly translate: TranslationService
+    private readonly translate: TranslationService,
+    private readonly activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    this.isVisible = false;
-    const messages = this.broker.getMessage();
-    messages
-      .pipe(
-        takeUntil(this.unsubscribe$),
-        filter((message) => message instanceof ShowEpisodeDetailsMessage)
-      )
-      .subscribe(async (message: ShowEpisodeDetailsMessage) => {
-        if (message.episodeId) {
-          const res = await this.episodesService.fetchEpisode(message.episodeId);
+    this.activatedRoute.params
+    .pipe(
+      takeUntil(this.unsubscribe$),
+      map((route) => route.id)
+    )
+    .subscribe(async (id: string) => {
+        let idInt = parseInt(id);
+        if (!isNaN(idInt)) {
+          const res = await this.episodesService.fetchEpisode(parseInt(id));
           if (res?.episode) {
             const episodeVM = new EpisodeViewModel(res.episode);
             this.show(episodeVM);
-          }
+          }  
         }
-      });
+      }
+    );
   }
 
   ngOnDestroy() {
@@ -98,9 +100,7 @@ export class EpisodeDetailsComponent implements OnInit, OnDestroy {
     if (this.songs) {
       this.songs.forEach((s) => this.convertDate(s));
       this.songs.sort((a, b) => a.starttimeutcDate.getTime() - b.starttimeutcDate.getTime());  
-    }
-    
-    this.isVisible = true;
+    }   
   }
 
   private convertDate(song: Song) {
@@ -115,7 +115,7 @@ export class EpisodeDetailsComponent implements OnInit, OnDestroy {
   }
 
   close() {
-    this.isVisible = false;
+    this.broker.sendMessage(new NavigateBackMessage());
   }
 
   onPlayEpisode(episode: EpisodeViewModel) {
@@ -157,7 +157,6 @@ export class EpisodeDetailsComponent implements OnInit, OnDestroy {
   }
 
   showProgramDetails(programId: number) {
-    this.isVisible = false;
     this.broker.sendMessage(new ShowProgramDetailsMessage(programId));
   }
 

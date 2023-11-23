@@ -1,97 +1,93 @@
-<p-sidebar *ngIf="episode" [(visible)]="isVisible" position="bottom" styleClass="sr-sidebar-h" [blockScroll]="true"
-    [showCloseIcon]="false" [transitionOptions]="'300ms ease-out'">
-
-    <div *ngIf="episode">
-        <div class="header">
-            <div class="episode-details-header-text">
-                <i (click)="close()" class="pi pi-chevron-down close-button clickable"></i>
-                {{episode.programName}}: {{episode.title}}    
-            </div>
-        </div>
-        <hr>
-        <div>
-            <div>
-                <p></p>
-                <b>{{episode.title}}&nbsp;</b>
-                <span *ngIf="!isBookmarked" class="clickable" (click)="onAddToBookmarks()"><i
-                        class="pi pi-bookmark"></i>
-                </span>
-                <span *ngIf="isBookmarked" class="clickable" (click)="onRemoveFromBookmarks()"><i
-                        class="pi pi-bookmark-fill yellow-fav"></i>
-                </span>
-                <span *ngIf="episode.hasSound()" (click)="onPlayEpisode(episode)" class="clickable right">
-                    <i [ngClass]="isCurrentlyPlaying ? 'pi pi-pause play-button': 'pi pi-play play-button'"></i>
-                </span>
-            </div>
-            <div>
-                <img *ngIf="largeImage" src={{episode.imageurlLarge}} [ngStyle]="{'width': largeImage ? '100%' : '100px' }" class="episodes-img"
-                    (click)="onToggleImageSize()" />
-                <img *ngIf="!largeImage" src={{episode.imageurl}} [ngStyle]="{'width': largeImage ? '100%' : '100px' }" class="episodes-img"
-                    (click)="onToggleImageSize()" />
-                <p>
-                    {{episode.description}}
-                </p>
-                <p *ngFor="let row of episode.detailRows">
-                    {{row}}
-                </p>
-            </div>
-            <div *ngIf="episode.publishDate" class="clear">
-                <b>{{'PublishDate' | translate }}</b>: {{episode.publishDate | date:'short'}}
-            </div>
-            <div *ngIf="episode.availableTo">
-                <b>{{'AvailableTo' | translate }}</b>: {{episode.availableTo | date:'short'}}
-            </div>
-            <div>
-                <b>{{'Soundtype' | translate }}</b>: {{getSoundType(episode)}}
-            </div>
-            <div *ngIf="episode.durationTime">
-                <b>{{'Duration' | translate}}</b>: {{episode.durationTime | date:'HH:mm:ss'}}
-            </div>
-            <p></p>
-            <div *ngIf="episode.linkUrl">
-                <a href={{episode.linkUrl}} target="_blank" rel="noopener noreferrer"><i
-                        class="pi pi-external-link link-icon"></i>{{episode.linkUrl}}</a>
-            </div>
-            <p></p>
-            <div *ngIf="canShare" (click)="share()" class="clickable">
-                Dela <i class="pi pi-upload"></i>
-            </div>
-            <p></p>
-            <div class="clickable" (click)="showProgramDetails(episode.programId)">
-                {{'LinkToProgramDetailsText' | translate}}<b>{{episode.programName}} </b>
-                <i class="pi pi-info-circle"></i>
-            </div>
-            <div *ngIf="episode.relatedEpisodes && episode.relatedEpisodes.length > 0">
-                <p></p>
-                <b>Relaterade avsnitt:</b>
-                <ul *ngFor="let related of episode.relatedEpisodes">
-                    <li class="clickable" (click)="onShowEpisode(related.id)">
-                        <i>{{related.title}}</i>
-                    </li>
-                </ul>
-            </div>
-            <div *ngIf="episode.episodeGroups && episode.episodeGroups.length > 0">
-                <p></p>
-                <ul *ngFor="let group of episode.episodeGroups">
-                    <li>
-                        <i>{{group.name}}</i>
-                        <ul *ngFor="let related of group.episodes">
-                            <li class="clickable link-item" (click)="onShowEpisode(related.id)">
-                                <i>{{related.title}}</i>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <hr class="clear">
-        <div *ngIf="songs && songs.length > 0">
-            <h2>{{'Songlist' | translate}}:</h2>
-            <div *ngFor="let song of songs">
-                <app-song [song]="song"></app-song>
-                <hr>
-            </div>
+<div *ngIf="episode">
+    <div *ngIf="episode" class="details-header-text">
+        <div class="episode-details-header-text">
+            <i (click)="close()" class="pi pi-chevron-left close-button clickable"></i>
+            {{episode.programName}}: {{episode.title}}    
         </div>
     </div>
-    <div class="bottom-padding"></div>
-</p-sidebar>
+    <hr>
+    <div>
+        <div>
+            <p></p>
+            <b>{{episode.title}}&nbsp;</b>
+            <span *ngIf="!isBookmarked" class="clickable" (click)="onAddToBookmarks()"><i
+                    class="pi pi-bookmark"></i>
+            </span>
+            <span *ngIf="isBookmarked" class="clickable" (click)="onRemoveFromBookmarks()"><i
+                    class="pi pi-bookmark-fill yellow-fav"></i>
+            </span>
+            <span *ngIf="episode.hasSound()" (click)="onPlayEpisode(episode)" class="clickable right">
+                <i [ngClass]="isCurrentlyPlaying ? 'pi pi-pause play-button': 'pi pi-play play-button'"></i>
+            </span>
+        </div>
+        <div>
+            <img *ngIf="largeImage" src={{episode.imageurlLarge}} [ngStyle]="{'width': largeImage ? '100%' : '100px' }" class="episodes-img"
+                (click)="onToggleImageSize()" />
+            <img *ngIf="!largeImage" src={{episode.imageurl}} [ngStyle]="{'width': largeImage ? '100%' : '100px' }" class="episodes-img"
+                (click)="onToggleImageSize()" />
+            <p>
+                {{episode.description}}
+            </p>
+            <p *ngFor="let row of episode.detailRows">
+                {{row}}
+            </p>
+        </div>
+        <div *ngIf="episode.publishDate" class="clear">
+            <b>{{'PublishDate' | translate }}</b>: {{episode.publishDate | date:'short'}}
+        </div>
+        <div *ngIf="episode.availableTo">
+            <b>{{'AvailableTo' | translate }}</b>: {{episode.availableTo | date:'short'}}
+        </div>
+        <div>
+            <b>{{'Soundtype' | translate }}</b>: {{getSoundType(episode)}}
+        </div>
+        <div *ngIf="episode.durationTime">
+            <b>{{'Duration' | translate}}</b>: {{episode.durationTime | date:'HH:mm:ss'}}
+        </div>
+        <p></p>
+        <div *ngIf="episode.linkUrl">
+            <a href={{episode.linkUrl}} target="_blank" rel="noopener noreferrer"><i
+                    class="pi pi-external-link link-icon"></i>{{episode.linkUrl}}</a>
+        </div>
+        <p></p>
+        <div *ngIf="canShare" (click)="share()" class="clickable">
+            Dela <i class="pi pi-upload"></i>
+        </div>
+        <p></p>
+        <div class="clickable" (click)="showProgramDetails(episode.programId)">
+            {{'LinkToProgramDetailsText' | translate}}<b>{{episode.programName}} </b>
+            <i class="pi pi-info-circle"></i>
+        </div>
+        <div *ngIf="episode.relatedEpisodes && episode.relatedEpisodes.length > 0">
+            <p></p>
+            <b>Relaterade avsnitt:</b>
+            <ul *ngFor="let related of episode.relatedEpisodes">
+                <li class="clickable" (click)="onShowEpisode(related.id)">
+                    <i>{{related.title}}</i>
+                </li>
+            </ul>
+        </div>
+        <div *ngIf="episode.episodeGroups && episode.episodeGroups.length > 0">
+            <p></p>
+            <ul *ngFor="let group of episode.episodeGroups">
+                <li>
+                    <i>{{group.name}}</i>
+                    <ul *ngFor="let related of group.episodes">
+                        <li class="clickable link-item" (click)="onShowEpisode(related.id)">
+                            <i>{{related.title}}</i>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <hr class="clear">
+    <div *ngIf="songs && songs.length > 0">
+        <h2>{{'Songlist' | translate}}:</h2>
+        <div *ngFor="let song of songs">
+            <app-song [song]="song"></app-song>
+            <hr>
+        </div>
+    </div>
+</div>
+<div class="bottom-padding"></div>

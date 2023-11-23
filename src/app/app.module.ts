@@ -11,7 +11,6 @@ import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
 import { InputTextModule } from 'primeng/inputtext';
-import { SidebarModule } from 'primeng/sidebar';
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
@@ -65,7 +64,6 @@ registerLocaleData(locale);
     ToolbarModule,
     FormsModule,
     BrowserAnimationsModule,
-    SidebarModule,
     ToastModule,
     ButtonModule,
     InputTextModule,

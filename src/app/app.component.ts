@@ -15,6 +15,7 @@ import { BackNavigationService } from './services/back-navigation.service';
 import { SRApiService } from './services/srapi.service';
 import { TranslationService } from './services/translation.service';
 import { SlideInAnimation } from './slide-animation';
+import { ShowEpisodeDetailsMessage } from './messages/show-episodedetails.message';
 
 @Component({
   selector: 'app-root',
@@ -115,6 +116,16 @@ export class AppComponent implements OnInit, OnDestroy {
       )
       .subscribe((message: NavigateBackMessage) => {
         this.backNavigationService.back();
+      });
+    messages
+      .pipe(
+        takeUntil(this.unsubscribe$),
+        filter((message) => message instanceof ShowEpisodeDetailsMessage)
+      )
+      .subscribe((message: ShowEpisodeDetailsMessage) => {
+        if (message.episodeId) {
+          this.router.navigate(['episodes/' + message.episodeId]);
+        }
       });
 
     await this.fetchBaseData();
