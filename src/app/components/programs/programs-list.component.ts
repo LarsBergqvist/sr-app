@@ -10,6 +10,7 @@ import { MessageBrokerService } from 'src/app/services/message-broker.service';
 import { SRApiService } from 'src/app/services/srapi.service';
 import { TranslationService } from 'src/app/services/translation.service';
 import { Program } from '../../models/program';
+import { ProgramsService } from 'src/app/services/programs.service';
 
 @Component({
   selector: 'app-programs-list',
@@ -17,6 +18,8 @@ import { Program } from '../../models/program';
   styleUrls: ['../common/datatable-styling.scss', './programs-list.component.scss']
 })
 export class ProgramsListComponent implements OnInit, OnDestroy, AfterViewInit {
+  totalHits = 0;
+  pageSize = 10;
   programs: Program[];
   categoryOptions: SelectItem[];
   private unsubscribe$ = new Subject();
@@ -32,6 +35,7 @@ export class ProgramsListComponent implements OnInit, OnDestroy, AfterViewInit {
 
   constructor(
     private readonly srApiService: SRApiService,
+    private readonly programsService: ProgramsService,
     private readonly translationService: TranslationService,
     private readonly broker: MessageBrokerService,
     private readonly storage: LocalStorageService
@@ -43,12 +47,17 @@ export class ProgramsListComponent implements OnInit, OnDestroy, AfterViewInit {
       this.localState = oldState;
     }
 
+//    let result = await this.programsService.fetchPrograms(1,10);
+//    this.programs = result.programs;
+//    console.log(this.programs.length)
+    await this.fetch(0);
+    /*
     this.srApiService.programs$.pipe(takeUntil(this.unsubscribe$)).subscribe((values: Program[]) => {
       if (values) {
         this.programs = [];
         this.programs.push(...values);
       }
-    });
+    });*/
     this.srApiService.programCategories$.pipe(takeUntil(this.unsubscribe$)).subscribe((values: ProgramCategory[]) => {
       if (values) {
         this.categoryOptions = [];
@@ -58,6 +67,19 @@ export class ProgramsListComponent implements OnInit, OnDestroy, AfterViewInit {
       }
     });
   }
+  
+  async loadLazy(event: any) {
+    await this.fetch(event.first);
+  }
+
+  async fetch(first: number) {
+    console.log(this.localState.selectedCategory)
+    const page = first / this.pageSize + 1;
+    let result = await this.programsService.fetchPrograms(page,this.pageSize, this.localState.selectedCategory);
+    this.totalHits = result.pagination.totalhits;
+    this.programs = result.programs;
+  }
+
 
   ngAfterViewInit(): void {
     if (this.tableComponent) {
@@ -84,6 +106,7 @@ export class ProgramsListComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onShowEpisodes(program: Program) {
+    console.log(program)
     this.broker.sendMessage(new ShowProgramDetailsMessage(program.id));
   }
 

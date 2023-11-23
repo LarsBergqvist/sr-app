@@ -42,7 +42,7 @@ export class SRApiService extends SRBaseService {
 
   async fetchBaseData() {
     await this.fetchChannelsBaseData();
-    await this.fetchBaseProgramsData();
+//    await this.fetchBaseProgramsData();
     await this.fetchBaseProgramCategoriesData();
     this.baseDataFetched = true;
   }

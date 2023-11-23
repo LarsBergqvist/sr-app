@@ -1,5 +1,5 @@
 <div class="programs-list">
-    <p-table #dt2 [value]="programs" responsiveLayout="stack" [paginator]="true" [rows]="10"
+    <p-table #dt2 [value]="programs" responsiveLayout="stack" [paginator]="true" [rows]="pageSize" [totalRecords]="totalHits" (onLazyLoad)="loadLazy($event)" [lazy]="true"
         [globalFilterFields]="['name','channel.name','description']" styleClass="sr-table">
         <ng-template pTemplate="caption">
             <span class="p-d-flex">
