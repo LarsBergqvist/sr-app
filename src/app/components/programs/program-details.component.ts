@@ -9,6 +9,7 @@ import { MessageBrokerService } from 'src/app/services/message-broker.service';
 import { SRApiService } from 'src/app/services/srapi.service';
 import { EpisodeViewModel } from '../episodes/episode-viewmodel';
 import { EpisodesLoadLazyArgs } from '../episodes/episodes-table.component';
+import { ProgramsService } from 'src/app/services/programs.service';
 
 @Component({
   selector: 'app-program-details',
@@ -26,7 +27,8 @@ export class ProgramDetailsComponent implements OnInit, OnDestroy {
     private readonly service: EpisodesService,
     private readonly srApiService: SRApiService,
     private readonly activatedRoute: ActivatedRoute,
-    private readonly broker: MessageBrokerService
+    private readonly broker: MessageBrokerService,
+    private readonly programsService: ProgramsService,
   ) {}
 
   async ngOnInit() {
@@ -36,10 +38,15 @@ export class ProgramDetailsComponent implements OnInit, OnDestroy {
         map((route) => route.id)
       )
       .subscribe(async (id: string) => {
-        const program = await this.srApiService.getProgramFromId(parseInt(id));
+        const program = await this.programsService.fetchProgramWithId(parseInt(id));
         if (program) {
           await this.show(program);
         }
+        console.log('todo')
+//        const program = await this.srApiService.getProgramFromId(parseInt(id));
+//        if (program) {
+//          await this.show(program);
+//        }
       });
   }
 
@@ -76,13 +83,5 @@ export class ProgramDetailsComponent implements OnInit, OnDestroy {
 
   getCategoryNameFromId(id: number) {
     return this.srApiService.getCategoryNameFromId(id);
-  }
-
-  onAddToFavorites(programId: number, programName: string) {
-    this.srApiService.addProgramToFavorites(programId, programName);
-  }
-
-  onRemoveFromFavorites(programId: number, programName: string) {
-    this.srApiService.removeProgramFromFavorites(programId, programName);
   }
 }

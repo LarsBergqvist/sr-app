@@ -3,19 +3,6 @@
         [globalFilterFields]="['name','channel.name','description']" styleClass="sr-table">
         <ng-template pTemplate="caption">
             <span class="p-d-flex">
-                <div [ngStyle]="{'margin-bottom': '10px' }">
-                    <span class="fav-chk">
-                        <p-checkbox (onChange)="onFilterFavClicked($event, dt2)" [(ngModel)]="localState.showOnlyFavs"
-                            [binary]="true" label="{{'OnlyFavs' | translate }}" class="fav-checkbox"></p-checkbox>
-                    </span>
-                    <span class="p-input-icon-left p-ml-auto">
-                        <i class="pi pi-search"></i>
-                        <input pInputText class="p-inputtext-sm kw-input" type="text" [(ngModel)]="localState.searchString"
-                            (input)="dt2.filterGlobal($event.target.value, 'contains')"
-                            placeholder="{{'SearchKeyword' | translate | uppercase}}" />
-                    </span>    
-                </div>
-
                 <p-accordion [activeIndex]="0">
                     <p-accordionTab header="{{'Categories' | translate}}">
                         <p-selectButton [options]="categoryOptions" [(ngModel)]="localState.selectedCategory" optionLabel="label" optionValue="value"
@@ -56,13 +43,6 @@
                         <span class="p-col-4" style="float:right;padding-top:0px">
                             <span class="clickable" (click)="onShowEpisodes(program)"><i
                                     class="pi pi-info-circle details-btn"></i>
-                            </span>
-                            <span *ngIf="!program.fav" class="clickable"
-                                (click)="onAddToFavorites(program.id, program.name)"><i class="pi pi-star fav-but details-btn"></i>
-                            </span>
-                            <span *ngIf="program.fav" class="clickable"
-                                (click)="onRemoveFromFavorites(program.id, program.name)"><i
-                                    class="pi pi-star-fill yellow-fav details-btn"></i>
                             </span>
                         </span>
                     </div>

@@ -1,15 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { EpisodesResult } from '../models/episodes-result';
 import { SRBaseService } from './sr-base.service';
-import { RightNowEpisodes } from '../models/right-now-episodes';
-import { ScheduleResult } from '../models/schedule-result';
-import { EpisodeResult } from '../models/episode';
 import { SRApiService } from './srapi.service';
 import { lastValueFrom } from 'rxjs';
-import { EpisodesOverviewResult } from '../models/episodes-overview-result';
-import { EpisodeGroupResult } from '../models/episode-group-result';
-import { EpisodeOverview } from '../models/episode-overview';
 import { ProgramsResult } from '../models/programs-result';
 import { Program } from '../models/program';
 
@@ -46,8 +39,12 @@ export class ProgramsService extends SRBaseService {
     return res;
   }
 
-  /*
-    const progs: Program[] = programsRawResult.programs.map((p: Program) => ({
+  async fetchProgramWithId(programId: number): Promise<Program> {
+    let url = `${this.BaseUrl}programs/${programId}?${this.FormatParam}`;
+    const res = await lastValueFrom(this.http.get<any>(`${url}`));
+    const p = res.program;
+
+    const prog: any = {
       name: p.name,
       id: p.id,
       fav: false,
@@ -58,16 +55,9 @@ export class ProgramsService extends SRBaseService {
       programimage: p.programimagetemplate + SRApiService.DefaultImagePreset,
       description: p.description,
       programcategory: p.programcategory
-    }));
+    };
 
-    this.updateProgramsWithFavs(progs);
-
-
-    private async getAllPrograms(): Promise<any> {
-    const params = `?${this.FormatParam}&page=1&size=10000`;
-    let url = `${this.BaseUrl}programs/${params}`;
-    return lastValueFrom(this.http.get<any>(`${url}`));
+    return prog;
   }
-  */
 
 }
