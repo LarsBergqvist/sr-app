@@ -32,7 +32,7 @@
             <tr>
                 <td>
                     <div class="p-grid" style="width:100%">
-                        <span (click)="onShowEpisodes(program)" class="clickable p-col-8">
+                        <span (click)="onProgramDetails(program)" class="clickable p-col-8">
                             <img src={{program.programimage}} height="50" width="50"
                                 style="padding: 4px; vertical-align:middle" />
                             <span *ngIf="program?.channel" class="prg-chan">
@@ -43,7 +43,7 @@
                             </span>
                         </span>
                         <span class="p-col-4" style="float:right;padding-top:0px">
-                            <span class="clickable" (click)="onShowEpisodes(program)"><i
+                            <span class="clickable" (click)="onProgramDetails(program)"><i
                                     class="pi pi-info-circle details-btn"></i>
                             </span>
                         </span>

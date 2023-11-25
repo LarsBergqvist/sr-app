@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
-import { BookmarkChangedMessage } from 'src/app/messages/bookmark-changed.message';
 import { FavoriteChangedMessage } from 'src/app/messages/favorite-changed.message';
+import { ShowProgramDetailsMessage } from 'src/app/messages/show-programdetails.message';
 import { Program } from 'src/app/models/program';
 import { MessageBrokerService } from 'src/app/services/message-broker.service';
 import { ProgramsService } from 'src/app/services/programs.service';
-import { SRApiService } from 'src/app/services/srapi.service';
 
 @Component({
   selector: 'app-program-favorites',
@@ -21,7 +20,6 @@ export class ProgramFavoritesComponent implements OnInit {
 
   constructor(
     private readonly service: ProgramsService,
-    private readonly srApiService: SRApiService,
     private readonly broker: MessageBrokerService
   ) {}
 
@@ -33,27 +31,17 @@ export class ProgramFavoritesComponent implements OnInit {
         filter((message) => message instanceof FavoriteChangedMessage)
       )
       .subscribe((message: FavoriteChangedMessage) => {
-        this.fetch(0);
+        this.fetch();
       });
+
+      this.fetch();
   }
 
-  async loadLazy(event: any) { // TODO EpisodesLoadLazyArgs) {
-    await this.fetch(event.first);
+  async fetch() {
+    this.programs = await this.service.fetchAllFavoritePrograms();
   }
 
-  async fetch(first: number) {
-    console.log('Fetch!')
-    /*
-    const bookmarkedEpisodes = this.srApiService.getBookmarkedEpisodes();
-
-    const episodesResult = await this.service.fetchEpisodes(bookmarkedEpisodes);
-    this.totalHits = episodesResult.pagination.totalhits;
-    this.episodes = [];
-    episodesResult.episodes.forEach((e) => {
-      const viewModel = new EpisodeViewModel(e);
-      this.episodes.push(viewModel);
-      
-    });
-    */
+  onProgramDetails(program: Program) {
+    this.broker.sendMessage(new ShowProgramDetailsMessage(program.id));
   }
 }

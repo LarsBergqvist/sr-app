@@ -60,4 +60,17 @@ export class ProgramsService extends SRBaseService {
     return prog;
   }
 
+  async fetchAllFavoritePrograms(): Promise<Program[]> {
+    let programFavIds = this.srApiService.getProgramFavorites();
+    let programs: Program[] = [];
+    programFavIds.forEach( async id => {
+      let program = await this.fetchProgramWithId(id);
+      if (program) {
+        programs.push(program)
+      }
+    });
+
+    return programs;
+  }
+
 }

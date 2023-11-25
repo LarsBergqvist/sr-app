@@ -123,6 +123,10 @@ export class SRApiService extends SRBaseService {
     return Array.from(this.episodeBookmarks);
   }
 
+  getProgramFavorites(): number[] {
+    return Array.from(this.programFavs);
+  }
+
   isEpisodeBookmarked(episodeId: number): boolean {
     return this.episodeBookmarks.has(episodeId);
   }

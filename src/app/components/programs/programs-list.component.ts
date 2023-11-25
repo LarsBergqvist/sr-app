@@ -79,7 +79,7 @@ export class ProgramsListComponent implements OnInit, OnDestroy, AfterViewInit {
     this.unsubscribe$.complete();
   }
 
-  onShowEpisodes(program: Program) {
+  onProgramDetails(program: Program) {
     this.broker.sendMessage(new ShowProgramDetailsMessage(program.id));
   }
 
