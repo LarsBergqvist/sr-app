@@ -8,6 +8,8 @@ import { ProgramCategory } from '../models/program-category';
 import { LocalStorageService } from './local-storage.service';
 import { MessageBrokerService } from './message-broker.service';
 import { SRBaseService } from './sr-base.service';
+import { TranslationService } from './translation.service';
+import { SuccessInfoMessage } from '../messages/success-info.message';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +22,7 @@ export class SRApiService extends SRBaseService {
 
   private currentlyPlaying: string;
 
+  private programFavs = new Set<number>();
   private episodeBookmarks = new Set<number>();
 
   private baseDataFetched = false;
@@ -27,9 +30,11 @@ export class SRApiService extends SRBaseService {
   constructor(
     private readonly http: HttpClient,
     private readonly localStorageService: LocalStorageService,
+    private readonly translationService: TranslationService,
     private readonly broker: MessageBrokerService
   ) {
     super();
+    this.initFavoritesFromLocalStorage();
     this.initBookmarksFromLocalStorage();
   }
 
@@ -153,5 +158,44 @@ export class SRApiService extends SRBaseService {
   private storeBookmarksInLocalStorage() {
     let serializedSet = JSON.stringify(Array.from(this.episodeBookmarks));
     this.localStorageService.set('episodeBookmarks', serializedSet);
+  }
+
+  addProgramToFavorites(programId: number, programName: string) {
+    if (!this.programFavs.has(programId)) {
+      this.programFavs.add(programId);
+      this.storeFavsInLocalStorage();
+      this.broker.sendMessage(new SuccessInfoMessage(this.translationService.translateWithArgs('AddedToFavorites', programName)));
+    }
+  }
+
+  removeProgramFromFavorites(programId: number, programName: string) {
+    if (this.programFavs.has(programId)) {
+      this.programFavs.delete(programId);
+      this.storeFavsInLocalStorage();
+      this.broker.sendMessage(new SuccessInfoMessage(this.translationService.translateWithArgs('RemovedFromFavorites', programName)));
+    }
+  }
+
+  hasFavMarker(programId: number): boolean {
+    return this.programFavs.has(programId);
+  }
+
+  private initFavoritesFromLocalStorage() {
+    const favsarrayStr = this.localStorageService.get('programfavs');
+    if (favsarrayStr) {
+      try {
+        const favsArray: [] = JSON.parse(favsarrayStr);
+        if (favsArray) {
+          favsArray.forEach((f) => {
+            this.programFavs.add(f);
+          });
+        }
+      } catch {}
+    }
+  }
+
+  private storeFavsInLocalStorage() {
+    let serializedSet = JSON.stringify(Array.from(this.programFavs));
+    this.localStorageService.set('programfavs', serializedSet);
   }
 }

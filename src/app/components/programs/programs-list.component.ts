@@ -80,7 +80,6 @@ export class ProgramsListComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onShowEpisodes(program: Program) {
-    console.log(program)
     this.broker.sendMessage(new ShowProgramDetailsMessage(program.id));
   }
 

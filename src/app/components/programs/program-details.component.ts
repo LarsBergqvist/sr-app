@@ -42,11 +42,6 @@ export class ProgramDetailsComponent implements OnInit, OnDestroy {
         if (program) {
           await this.show(program);
         }
-        console.log('todo')
-//        const program = await this.srApiService.getProgramFromId(parseInt(id));
-//        if (program) {
-//          await this.show(program);
-//        }
       });
   }
 
@@ -83,5 +78,14 @@ export class ProgramDetailsComponent implements OnInit, OnDestroy {
 
   getCategoryNameFromId(id: number) {
     return this.srApiService.getCategoryNameFromId(id);
+  }
+
+  onAddToFavorites(programId: number, programName: string) {
+    this.srApiService.addProgramToFavorites(programId, programName);
+    this.program.fav = true;
+  }
+  onRemoveFromFavorites(programId: number, programName: string) {
+    this.srApiService.removeProgramFromFavorites(programId, programName);
+    this.program.fav = false;
   }
 }

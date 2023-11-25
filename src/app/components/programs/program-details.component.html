@@ -14,6 +14,14 @@
                 <b>{{'Category' | translate}}</b>: {{getCategoryNameFromId(program.programcategory.id)}}
             </span>
         </span>
+        <span class="p-col-4">
+            <span *ngIf="!program.fav" class="clickable" (click)="onAddToFavorites(program.id, program.name)"><i
+                    class="pi pi-star fav-but"></i>
+            </span>
+            <span *ngIf="program.fav" class="clickable" (click)="onRemoveFromFavorites(program.id, program.name)"><i
+                    class="pi pi-star-fill yellow-fav"></i>
+            </span>
+        </span>
     </div>
     <hr>
     <app-episodes-table [episodes]="episodes" (onLoadLazy)="loadLazy($event)" [totalHits]="totalHits"

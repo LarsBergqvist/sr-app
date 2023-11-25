@@ -47,7 +47,7 @@ export class ProgramsService extends SRBaseService {
     const prog: any = {
       name: p.name,
       id: p.id,
-      fav: false,
+      fav: this.srApiService.hasFavMarker(p.id),
       channel: {
         id: p?.channel.id,
         name: p?.channel.name
