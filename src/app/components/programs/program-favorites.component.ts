@@ -31,14 +31,25 @@ export class ProgramFavoritesComponent implements OnInit {
         filter((message) => message instanceof FavoriteChangedMessage)
       )
       .subscribe((message: FavoriteChangedMessage) => {
-        this.fetch();
+        if (!message.isFavorite) {
+          this.programs.filter(p => p.id == message.programId);
+        } else {
+          this.addNewFavoriteProgram(message.programId);
+        }
       });
 
-      this.fetch();
+      this.fetchAll();
   }
 
-  async fetch() {
+  async fetchAll() {
     this.programs = await this.service.fetchAllFavoritePrograms();
+  }
+
+  async addNewFavoriteProgram(programId: number) {
+    let newfavorite = await this.service.fetchProgramWithId(programId);
+    if (newfavorite) {
+      this.programs.push(newfavorite);
+    }  
   }
 
   onProgramDetails(program: Program) {
