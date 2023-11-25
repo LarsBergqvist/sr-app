@@ -1,8 +1,7 @@
 <div class="audio-wrapper">
-    <div *ngIf="currentUrlToPlay" class="now-playing"
+    <div *ngIf="currentUrlToPlay; else empty" class="now-playing"
         (click)="onOpenDetails()">
         <span class="clickable">
-            {{currentUrlToPlay}}
             {{this.prefixText}}<b>{{currentStation}}</b>
         </span>
     </div>
