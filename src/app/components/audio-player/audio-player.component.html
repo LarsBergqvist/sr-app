@@ -1,7 +1,8 @@
 <div class="audio-wrapper">
-    <div *ngIf="currentUrlToPlay; else empty" [ngClass]="{'scroll-left': isPlaying === true }" class="now-playing"
+    <div *ngIf="currentUrlToPlay" [ngClass]="{'scroll-left': isPlaying === true }" class="now-playing"
         (click)="onOpenDetails()">
         <span class="clickable">
+            {{currentUrlToPlay}}
             {{this.prefixText}}<b>{{currentStation}}</b>
         </span>
     </div>
