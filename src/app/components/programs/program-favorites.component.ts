@@ -32,7 +32,7 @@ export class ProgramFavoritesComponent implements OnInit {
       )
       .subscribe((message: FavoriteChangedMessage) => {
         if (!message.isFavorite) {
-          this.programs.filter(p => p.id == message.programId);
+          this.programs = this.programs.filter(p => p.id != message.programId);
         } else {
           this.addNewFavoriteProgram(message.programId);
         }
