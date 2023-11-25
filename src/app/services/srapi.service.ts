@@ -10,6 +10,7 @@ import { MessageBrokerService } from './message-broker.service';
 import { SRBaseService } from './sr-base.service';
 import { TranslationService } from './translation.service';
 import { SuccessInfoMessage } from '../messages/success-info.message';
+import { FavoriteChangedMessage } from '../messages/favorite-changed.message';
 
 @Injectable({
   providedIn: 'root'
@@ -151,7 +152,7 @@ export class SRApiService extends SRBaseService {
             this.episodeBookmarks.add(f);
           });
         }
-      } catch {}
+      } catch { }
     }
   }
 
@@ -164,6 +165,7 @@ export class SRApiService extends SRBaseService {
     if (!this.programFavs.has(programId)) {
       this.programFavs.add(programId);
       this.storeFavsInLocalStorage();
+      this.broker.sendMessage(new FavoriteChangedMessage(programId, true));
       this.broker.sendMessage(new SuccessInfoMessage(this.translationService.translateWithArgs('AddedToFavorites', programName)));
     }
   }
@@ -172,6 +174,7 @@ export class SRApiService extends SRBaseService {
     if (this.programFavs.has(programId)) {
       this.programFavs.delete(programId);
       this.storeFavsInLocalStorage();
+      this.broker.sendMessage(new FavoriteChangedMessage(programId, false));
       this.broker.sendMessage(new SuccessInfoMessage(this.translationService.translateWithArgs('RemovedFromFavorites', programName)));
     }
   }
@@ -190,7 +193,7 @@ export class SRApiService extends SRBaseService {
             this.programFavs.add(f);
           });
         }
-      } catch {}
+      } catch { }
     }
   }
 
