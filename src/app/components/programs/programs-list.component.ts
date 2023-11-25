@@ -10,6 +10,7 @@ import { MessageBrokerService } from 'src/app/services/message-broker.service';
 import { SRApiService } from 'src/app/services/srapi.service';
 import { TranslationService } from 'src/app/services/translation.service';
 import { Program } from '../../models/program';
+import { ProgramsService } from 'src/app/services/programs.service';
 
 @Component({
   selector: 'app-programs-list',
@@ -17,21 +18,22 @@ import { Program } from '../../models/program';
   styleUrls: ['../common/datatable-styling.scss', './programs-list.component.scss']
 })
 export class ProgramsListComponent implements OnInit, OnDestroy, AfterViewInit {
+  totalHits = 0;
+  pageSize = 10;
   programs: Program[];
   categoryOptions: SelectItem[];
   private unsubscribe$ = new Subject();
 
   private readonly storageId = 'ProgramsListState';
   localState = {
-    showOnlyFavs: false,
     selectedCategory: null,
-    searchString: ''
   };
 
   @ViewChild(Table) tableComponent: Table;
 
   constructor(
     private readonly srApiService: SRApiService,
+    private readonly programsService: ProgramsService,
     private readonly translationService: TranslationService,
     private readonly broker: MessageBrokerService,
     private readonly storage: LocalStorageService
@@ -43,12 +45,6 @@ export class ProgramsListComponent implements OnInit, OnDestroy, AfterViewInit {
       this.localState = oldState;
     }
 
-    this.srApiService.programs$.pipe(takeUntil(this.unsubscribe$)).subscribe((values: Program[]) => {
-      if (values) {
-        this.programs = [];
-        this.programs.push(...values);
-      }
-    });
     this.srApiService.programCategories$.pipe(takeUntil(this.unsubscribe$)).subscribe((values: ProgramCategory[]) => {
       if (values) {
         this.categoryOptions = [];
@@ -57,24 +53,24 @@ export class ProgramsListComponent implements OnInit, OnDestroy, AfterViewInit {
         this.categoryOptions.push(...categories);
       }
     });
+
+    await this.fetch(0);
+  }
+  
+  async loadLazy(event: any) {
+    await this.fetch(event.first);
   }
 
+  async fetch(first: number) {
+    const page = first / this.pageSize + 1;
+    let result = await this.programsService.fetchPrograms(page,this.pageSize, this.localState.selectedCategory);
+    this.totalHits = result.pagination.totalhits;
+    this.programs = result.programs;
+  }
+
+
   ngAfterViewInit(): void {
-    if (this.tableComponent) {
-      if (this.localState.showOnlyFavs) {
-        this.tableComponent.filter(true, 'fav', 'equals');
-      } else {
-        this.tableComponent.filter([true, false], 'fav', 'in');
-      }
 
-      if (this.localState.selectedCategory) {
-        this.tableComponent.filter(this.localState.selectedCategory, 'programcategory.id', 'equals');
-      }
-
-      if (this.localState.searchString) {
-        this.tableComponent.filterGlobal(this.localState.searchString, 'contains');
-      }
-    }
   }
 
   ngOnDestroy() {
@@ -83,30 +79,14 @@ export class ProgramsListComponent implements OnInit, OnDestroy, AfterViewInit {
     this.unsubscribe$.complete();
   }
 
-  onShowEpisodes(program: Program) {
+  onProgramDetails(program: Program) {
     this.broker.sendMessage(new ShowProgramDetailsMessage(program.id));
   }
 
-  onFilterFavClicked(event, dt) {
-    this.localState.showOnlyFavs = event.checked;
-    if (this.localState.showOnlyFavs) {
-      dt.filter(true, 'fav', 'equals');
-    } else {
-      dt.filter([true, false], 'fav', 'in');
-    }
-  }
-
-  onAddToFavorites(programId: number, programName: string) {
-    this.srApiService.addProgramToFavorites(programId, programName);
-  }
-
-  onRemoveFromFavorites(programId: number, programName: string) {
-    this.srApiService.removeProgramFromFavorites(programId, programName);
-  }
 
   onCategoryChanged(event, dt) {
     if (event.value !== '') {
-      dt.filter(event.value, 'programcategory.id', 'equals');
+      dt.filter(event.value);
     }
   }
 }

@@ -37,6 +37,7 @@ export class AudioPlayerComponent implements OnInit {
       )
       .subscribe(async (message: PlayAudioMessage) => {
         if (!message) return;
+        if (!message.url) return;
         this.episodeId = message.episodeId;
         this.channelId = message.channelId;
         if (this.episodeId) {

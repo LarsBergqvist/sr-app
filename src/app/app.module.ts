@@ -35,6 +35,7 @@ import { LoggingService } from './services/logging.service';
 import { MessageBrokerService } from './services/message-broker.service';
 import { TranslatePipe } from './translations/translate.pipe';
 import { SelectButtonModule } from 'primeng/selectbutton';
+import { ProgramFavoritesComponent } from './components/programs/program-favorites.component';
 
 registerLocaleData(locale);
 
@@ -54,7 +55,8 @@ registerLocaleData(locale);
     ProgramDetailsComponent,
     EpisodesListComponent,
     EpisodesTableComponent,
-    EpisodesBookmarksComponent
+    EpisodesBookmarksComponent,
+    ProgramFavoritesComponent
   ],
   imports: [
     BrowserModule,

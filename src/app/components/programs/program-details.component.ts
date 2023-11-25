@@ -9,6 +9,7 @@ import { MessageBrokerService } from 'src/app/services/message-broker.service';
 import { SRApiService } from 'src/app/services/srapi.service';
 import { EpisodeViewModel } from '../episodes/episode-viewmodel';
 import { EpisodesLoadLazyArgs } from '../episodes/episodes-table.component';
+import { ProgramsService } from 'src/app/services/programs.service';
 
 @Component({
   selector: 'app-program-details',
@@ -26,7 +27,8 @@ export class ProgramDetailsComponent implements OnInit, OnDestroy {
     private readonly service: EpisodesService,
     private readonly srApiService: SRApiService,
     private readonly activatedRoute: ActivatedRoute,
-    private readonly broker: MessageBrokerService
+    private readonly broker: MessageBrokerService,
+    private readonly programsService: ProgramsService,
   ) {}
 
   async ngOnInit() {
@@ -36,7 +38,7 @@ export class ProgramDetailsComponent implements OnInit, OnDestroy {
         map((route) => route.id)
       )
       .subscribe(async (id: string) => {
-        const program = await this.srApiService.getProgramFromId(parseInt(id));
+        const program = await this.programsService.fetchProgramWithId(parseInt(id));
         if (program) {
           await this.show(program);
         }
@@ -80,9 +82,10 @@ export class ProgramDetailsComponent implements OnInit, OnDestroy {
 
   onAddToFavorites(programId: number, programName: string) {
     this.srApiService.addProgramToFavorites(programId, programName);
+    this.program.fav = true;
   }
-
   onRemoveFromFavorites(programId: number, programName: string) {
     this.srApiService.removeProgramFromFavorites(programId, programName);
+    this.program.fav = false;
   }
 }

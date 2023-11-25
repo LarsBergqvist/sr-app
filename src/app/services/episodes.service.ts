@@ -40,7 +40,7 @@ export class EpisodesService extends SRBaseService {
     }
     if (res.episode?.episodegroups) {
       res.episode.episodegroups.forEach(async eg => {
-        let eps  = await this.fetchEpisodesByGroup(eg.id,1,10);
+        let eps = await this.fetchEpisodesByGroup(eg.id, 1, 10);
         eg.episodes = eps;
       })
     }

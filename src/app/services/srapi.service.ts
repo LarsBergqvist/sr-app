@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, lastValueFrom } from 'rxjs';
 import { BookmarkChangedMessage } from '../messages/bookmark-changed.message';
-import { SuccessInfoMessage } from '../messages/success-info.message';
 import { Channel } from '../models/channel';
 import { Program } from '../models/program';
 import { ProgramCategory } from '../models/program-category';
@@ -10,6 +9,8 @@ import { LocalStorageService } from './local-storage.service';
 import { MessageBrokerService } from './message-broker.service';
 import { SRBaseService } from './sr-base.service';
 import { TranslationService } from './translation.service';
+import { SuccessInfoMessage } from '../messages/success-info.message';
+import { FavoriteChangedMessage } from '../messages/favorite-changed.message';
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +18,6 @@ import { TranslationService } from './translation.service';
 export class SRApiService extends SRBaseService {
   private channels: Channel[];
   channels$ = new BehaviorSubject<Channel[]>(null);
-  private programs: Program[];
-  programs$ = new BehaviorSubject<Program[]>(null);
   private programCategories: ProgramCategory[];
   programCategories$ = new BehaviorSubject<ProgramCategory[]>(null);
 
@@ -32,8 +31,8 @@ export class SRApiService extends SRBaseService {
   constructor(
     private readonly http: HttpClient,
     private readonly localStorageService: LocalStorageService,
-    private readonly broker: MessageBrokerService,
-    private readonly translationService: TranslationService
+    private readonly translationService: TranslationService,
+    private readonly broker: MessageBrokerService
   ) {
     super();
     this.initFavoritesFromLocalStorage();
@@ -42,7 +41,6 @@ export class SRApiService extends SRBaseService {
 
   async fetchBaseData() {
     await this.fetchChannelsBaseData();
-    await this.fetchBaseProgramsData();
     await this.fetchBaseProgramCategoriesData();
     this.baseDataFetched = true;
   }
@@ -72,24 +70,6 @@ export class SRApiService extends SRBaseService {
     this.channels$.next(this.channels);
   }
 
-  private async fetchBaseProgramsData() {
-    const programsRawResult = await this.getAllPrograms();
-    const progs: Program[] = programsRawResult.programs.map((p: Program) => ({
-      name: p.name,
-      id: p.id,
-      fav: false,
-      channel: {
-        id: p?.channel.id,
-        name: p?.channel.name
-      },
-      programimage: p.programimagetemplate + SRApiService.DefaultImagePreset,
-      description: p.description,
-      programcategory: p.programcategory
-    }));
-
-    this.updateProgramsWithFavs(progs);
-  }
-
   private async fetchBaseProgramCategoriesData() {
     const categoriesRawResult = await this.getAllProgramCategories();
     this.programCategories = categoriesRawResult.programcategories.map((r) => ({
@@ -105,11 +85,6 @@ export class SRApiService extends SRBaseService {
     return lastValueFrom(this.http.get<any>(`${url}`));
   }
 
-  private async getAllPrograms(): Promise<any> {
-    const params = `?${this.FormatParam}&page=1&size=10000`;
-    let url = `${this.BaseUrl}programs/${params}`;
-    return lastValueFrom(this.http.get<any>(`${url}`));
-  }
   private async getAllProgramCategories(): Promise<any> {
     const params = `?${this.FormatParam}&page=1&size=10000`;
     let url = `${this.BaseUrl}programcategories/${params}`;
@@ -126,30 +101,6 @@ export class SRApiService extends SRBaseService {
     if (!this.programCategories) return;
     const category = this?.programCategories.find((c) => c.id === id);
     return category?.name;
-  }
-
-  getProgramImageUrlFromId(programId: number): string {
-    if (!this.programs) return;
-    const program = this?.programs.find((c) => c.id === programId);
-    return program?.programimage;
-  }
-
-  addProgramToFavorites(programId: number, programName: string) {
-    if (!this.programFavs.has(programId)) {
-      this.programFavs.add(programId);
-      this.storeFavsInLocalStorage();
-      this.updateProgramsWithFavs(this.programs);
-      this.broker.sendMessage(new SuccessInfoMessage(this.translationService.translateWithArgs('AddedToFavorites', programName)));
-    }
-  }
-
-  removeProgramFromFavorites(programId: number, programName: string) {
-    if (this.programFavs.has(programId)) {
-      this.programFavs.delete(programId);
-      this.storeFavsInLocalStorage();
-      this.updateProgramsWithFavs(this.programs);
-      this.broker.sendMessage(new SuccessInfoMessage(this.translationService.translateWithArgs('RemovedFromFavorites', programName)));
-    }
   }
 
   addBookmarkForEpisode(episodeId: number) {
@@ -172,17 +123,18 @@ export class SRApiService extends SRBaseService {
     return Array.from(this.episodeBookmarks);
   }
 
+  getProgramFavorites(): number[] {
+    return Array.from(this.programFavs);
+  }
+
   isEpisodeBookmarked(episodeId: number): boolean {
     return this.episodeBookmarks.has(episodeId);
   }
 
-  async getProgramFromId(programId: number): Promise<Program> {
-    if (!this.baseDataFetched) {
-      await this.fetchBaseData();
-    }
-
-    const program = this.programs.find((p) => p.id === programId);
-    return program;
+  getChannelImageUrlFromId(channelId: number): string {
+    if (!this.channels) return;
+    const channel = this?.channels.find((c) => c.id === channelId);
+    return channel?.image;
   }
 
   async getChannelFromId(channelId: number): Promise<Channel> {
@@ -192,34 +144,6 @@ export class SRApiService extends SRBaseService {
 
     const channel = this.channels.find((p) => p.id === channelId);
     return channel;
-  }
-
-  private updateProgramsWithFavs(progs: Program[]) {
-    progs.forEach((p) => (p.fav = this.programFavs.has(p.id)));
-    progs.sort((a: { name: string }, b: { name: any }) => {
-      return a.name.localeCompare(b.name);
-    });
-    this.programs = progs;
-    this.programs$.next(this.programs);
-  }
-
-  private initFavoritesFromLocalStorage() {
-    const favsarrayStr = this.localStorageService.get('programfavs');
-    if (favsarrayStr) {
-      try {
-        const favsArray: [] = JSON.parse(favsarrayStr);
-        if (favsArray) {
-          favsArray.forEach((f) => {
-            this.programFavs.add(f);
-          });
-        }
-      } catch {}
-    }
-  }
-
-  private storeFavsInLocalStorage() {
-    let serializedSet = JSON.stringify(Array.from(this.programFavs));
-    this.localStorageService.set('programfavs', serializedSet);
   }
 
   private initBookmarksFromLocalStorage() {
@@ -232,12 +156,53 @@ export class SRApiService extends SRBaseService {
             this.episodeBookmarks.add(f);
           });
         }
-      } catch {}
+      } catch { }
     }
   }
 
   private storeBookmarksInLocalStorage() {
     let serializedSet = JSON.stringify(Array.from(this.episodeBookmarks));
     this.localStorageService.set('episodeBookmarks', serializedSet);
+  }
+
+  addProgramToFavorites(programId: number, programName: string) {
+    if (!this.programFavs.has(programId)) {
+      this.programFavs.add(programId);
+      this.storeFavsInLocalStorage();
+      this.broker.sendMessage(new FavoriteChangedMessage(programId, true));
+      this.broker.sendMessage(new SuccessInfoMessage(this.translationService.translateWithArgs('AddedToFavorites', programName)));
+    }
+  }
+
+  removeProgramFromFavorites(programId: number, programName: string) {
+    if (this.programFavs.has(programId)) {
+      this.programFavs.delete(programId);
+      this.storeFavsInLocalStorage();
+      this.broker.sendMessage(new FavoriteChangedMessage(programId, false));
+      this.broker.sendMessage(new SuccessInfoMessage(this.translationService.translateWithArgs('RemovedFromFavorites', programName)));
+    }
+  }
+
+  hasFavMarker(programId: number): boolean {
+    return this.programFavs.has(programId);
+  }
+
+  private initFavoritesFromLocalStorage() {
+    const favsarrayStr = this.localStorageService.get('programfavs');
+    if (favsarrayStr) {
+      try {
+        const favsArray: [] = JSON.parse(favsarrayStr);
+        if (favsArray) {
+          favsArray.forEach((f) => {
+            this.programFavs.add(f);
+          });
+        }
+      } catch { }
+    }
+  }
+
+  private storeFavsInLocalStorage() {
+    let serializedSet = JSON.stringify(Array.from(this.programFavs));
+    this.localStorageService.set('programfavs', serializedSet);
   }
 }
