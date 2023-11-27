@@ -26,10 +26,10 @@
         </ng-template>
         <ng-template pTemplate="body" let-channel>
             <tr>
-                <td style="min-width:320px">
+                <td class="min-title-column">
                     <div class="p-grid" style="width:100%">
                         <span (click)="onOpenDetails(channel)" class="clickable" class="p-col-7 clickable">
-                            <img class="image-thumb" src={{channel.image}} width="30" style="vertical-align:middle" />
+                            <img class="image-thumb" src={{channel.image}} />
                             {{channel.name}}
                         </span>
                         <span class="p-col-5 clickable right" style="float:right;padding-top:0px">

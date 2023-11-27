@@ -4,20 +4,19 @@
     <p-table #dt2 [value]="programs" responsiveLayout="stack" [paginator]="true" [rows]="pageSize" [totalRecords]="totalHits" (onLazyLoad)="loadLazy($event)" [lazy]="true"
         [globalFilterFields]="['name','channel.name','description']" styleClass="sr-table">
         <ng-template pTemplate="caption">
-            <span class="p-d-flex">
-                <p-accordion [activeIndex]="0">
+            <span>
+                <p-accordion>
                     <p-accordionTab header="{{'Categories' | translate}}">
                         <p-selectButton [options]="categoryOptions" [(ngModel)]="localState.selectedCategory" optionLabel="label" optionValue="value"
                         (onChange)="onCategoryChanged($event, dt2)"
                         ></p-selectButton>
-                            </p-accordionTab>
+                    </p-accordionTab>
                 </p-accordion>
-
             </span>
         </ng-template>
         <ng-template pTemplate="header">
             <tr>
-                <th pSortableColumn="name">{{'ProgramNameTitle' | translate | uppercase }}<p-sortIcon field="name">
+                <th class="min-title-column" pSortableColumn="name">{{'ProgramNameTitle' | translate | uppercase }}<p-sortIcon field="name">
                     </p-sortIcon>
                 </th>
                 <th pSortableColumn="channel.name">{{'ChannelNameTitle' | translate | uppercase }}<p-sortIcon
@@ -30,11 +29,10 @@
         </ng-template>
         <ng-template pTemplate="body" let-program>
             <tr>
-                <td>
+                <td class="min-title-column">
                     <div class="p-grid" style="width:100%">
                         <span (click)="onProgramDetails(program)" class="clickable p-col-8">
-                            <img src={{program.programimage}} height="50" width="50"
-                                style="padding: 4px; vertical-align:middle" />
+                            <img src={{program.programimage}} class="image-thumb" />
                             <span *ngIf="program?.channel" class="prg-chan">
                                 {{program.channel.name}}
                             </span>
