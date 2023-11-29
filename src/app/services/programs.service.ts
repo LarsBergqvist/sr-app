@@ -27,7 +27,7 @@ export class ProgramsService extends SRBaseService {
       fav: false,
       channel: {
         id: p?.channel.id,
-        name: p?.channel.name
+        name: p?.channel.name === '[No channel]' ? '' : p?.channel.name
       },
       programimage: p.programimagetemplate + SRApiService.DefaultImagePreset,
       description: p.description,
