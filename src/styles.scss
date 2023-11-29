@@ -32,9 +32,6 @@
   max-width: 300px;
 }
 
-.prg-chan {
-  display: none;
-}
 .fav-chk {
   max-width: 100px;
   margin-right: 10px;
@@ -65,12 +62,6 @@
     display: none !important;
   }
   .channel-type {
-    display: none !important;
-  }
-  .prg-chan {
-    display: initial;
-  }
-  .prg-chan-td {
     display: none !important;
   }
   .desc-col {
@@ -170,4 +161,17 @@
   border-right-width: 8px;
   border-style: solid;
   border-color: var(--surface-50);
+}
+
+.description-td {
+  overflow: hidden;
+  white-space: wrap;
+  text-overflow: ellipsis;
+}
+
+.prg-title {
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

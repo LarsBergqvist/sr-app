@@ -25,10 +25,6 @@ export class ProgramsService extends SRBaseService {
       name: p.name,
       id: p.id,
       fav: false,
-      channel: {
-        id: p?.channel.id,
-        name: p?.channel.name === '[No channel]' ? '' : p?.channel.name
-      },
       programimage: p.programimagetemplate + SRApiService.DefaultImagePreset,
       description: p.description,
       programcategory: p.programcategory
@@ -48,10 +44,6 @@ export class ProgramsService extends SRBaseService {
       name: p.name,
       id: p.id,
       fav: this.srApiService.hasFavMarker(p.id),
-      channel: {
-        id: p?.channel.id,
-        name: p?.channel.name
-      },
       programimage: p.programimagetemplate + SRApiService.DefaultImagePreset,
       description: p.description,
       programcategory: p.programcategory

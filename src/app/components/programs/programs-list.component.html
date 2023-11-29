@@ -11,14 +11,7 @@
     [globalFilterFields]="['name','channel.name','description']" styleClass="sr-table">
     <ng-template pTemplate="header">
         <tr>
-            <th class="min-title-column" pSortableColumn="name">{{'ProgramNameTitle' | translate | uppercase }}<p-sortIcon field="name">
-                </p-sortIcon>
-            </th>
-            <th pSortableColumn="channel.name">{{'ChannelNameTitle' | translate | uppercase }}<p-sortIcon
-                    field="channel.name">
-                </p-sortIcon>
-            </th>
-
+            <th class="min-title-column">{{'ProgramNameTitle' | translate | uppercase }}</th>
             <th>{{'Description' | translate | uppercase}}</th>
         </tr>
     </ng-template>
@@ -28,9 +21,6 @@
                 <div class="p-grid" style="width:100%">
                     <span (click)="onProgramDetails(program)" class="clickable p-col-8">
                         <img src={{program.programimage}} class="image-thumb" />
-                        <span *ngIf="program?.channel" class="prg-chan">
-                            {{program.channel.name}}
-                        </span>
                         <span class="prg-title">
                             {{program.name}}
                         </span>
@@ -40,11 +30,6 @@
                                 class="pi pi-info-circle details-btn"></i>
                         </span>
                     </span>
-                </div>
-            </td>
-            <td class="prg-chan-td">
-                <div *ngIf="program?.channel">
-                    {{program.channel.name}}
                 </div>
             </td>
             <td class="description-td" style="border:none">
