@@ -62,7 +62,7 @@
             <p></p>
             <b>Relaterade avsnitt:</b>
             <ul *ngFor="let related of episode.relatedEpisodes">
-                <li class="clickable" (click)="onShowEpisode(related.id)">
+                <li class="clickable link-item" (click)="onShowEpisode(related.id)">
                     <i>{{related.title}}</i>
                 </li>
             </ul>
