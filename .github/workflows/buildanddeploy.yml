@@ -1,7 +1,7 @@
 name: Test, build and Deploy
-on:
-  push:
-    branches: ['**']
+on: [push]
+permissions:
+  contents: write
 jobs:
   test-and-build:
     runs-on: ubuntu-latest
@@ -44,7 +44,7 @@ jobs:
           name: build-artifacts
           path: dist/sr-app
       - name: Deploy to gh-pages branch
-        uses: JamesIves/github-pages-deploy-action@v4.4.1
+        uses: JamesIves/github-pages-deploy-action@v4.6.8
         with:
           branch: gh-pages
           folder: dist/sr-app

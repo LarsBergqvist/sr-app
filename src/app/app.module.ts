@@ -1,5 +1,5 @@
 import { registerLocaleData } from '@angular/common';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import locale from '@angular/common/locales/sv';
 import { LOCALE_ID, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -39,55 +39,49 @@ import { ProgramFavoritesComponent } from './components/programs/program-favorit
 
 registerLocaleData(locale);
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    NavigationBarComponent,
-    ChannelsListComponent,
-    ChannelDetailsComponent,
-    ChannelScheduleComponent,
-    SongComponent,
-    AudioPlayerComponent,
-    EpisodeDetailsComponent,
-    ScheduledEpisodeComponent,
-    TranslatePipe,
-    ProgramsListComponent,
-    ProgramDetailsComponent,
-    EpisodesListComponent,
-    EpisodesTableComponent,
-    EpisodesBookmarksComponent,
-    ProgramFavoritesComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    TableModule,
-    ToolbarModule,
-    FormsModule,
-    BrowserAnimationsModule,
-    ToastModule,
-    ButtonModule,
-    InputTextModule,
-    CheckboxModule,
-    AccordionModule,
-    SelectButtonModule
-  ],
-  providers: [
-    { provide: LOCALE_ID, useValue: 'sv' },
-    MessageService,
-    LoggingService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: HttpInterceptorService,
-      multi: true,
-      deps: [MessageBrokerService, LoggingService]
-    },
-    {
-      provide: RouteReuseStrategy,
-      useClass: CustomRouteReuseStrategy
-    }
-  ],
-  bootstrap: [AppComponent]
-})
+@NgModule({ declarations: [
+        AppComponent,
+        NavigationBarComponent,
+        ChannelsListComponent,
+        ChannelDetailsComponent,
+        ChannelScheduleComponent,
+        SongComponent,
+        AudioPlayerComponent,
+        EpisodeDetailsComponent,
+        ScheduledEpisodeComponent,
+        TranslatePipe,
+        ProgramsListComponent,
+        ProgramDetailsComponent,
+        EpisodesListComponent,
+        EpisodesTableComponent,
+        EpisodesBookmarksComponent,
+        ProgramFavoritesComponent
+    ],
+    bootstrap: [AppComponent], imports: [BrowserModule,
+        AppRoutingModule,
+        TableModule,
+        ToolbarModule,
+        FormsModule,
+        BrowserAnimationsModule,
+        ToastModule,
+        ButtonModule,
+        InputTextModule,
+        CheckboxModule,
+        AccordionModule,
+        SelectButtonModule], providers: [
+        { provide: LOCALE_ID, useValue: 'sv' },
+        MessageService,
+        LoggingService,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: HttpInterceptorService,
+            multi: true,
+            deps: [MessageBrokerService, LoggingService]
+        },
+        {
+            provide: RouteReuseStrategy,
+            useClass: CustomRouteReuseStrategy
+        },
+        provideHttpClient(withInterceptorsFromDi())
+    ] })
 export class AppModule {}
