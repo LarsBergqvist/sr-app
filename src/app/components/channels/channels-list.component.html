@@ -13,15 +13,15 @@
         </ng-template>
         <ng-template pTemplate="header">
             <tr>
-                <th pSortableColumn="name">{{'ChannelNameTitle' | translate | uppercase}}<p-sortIcon field="name">
+                <th class="min-title-column" pSortableColumn="name">{{'ChannelNameTitle' | translate | uppercase}}<p-sortIcon field="name">
                     </p-sortIcon>
                 </th>
-                <th pSortableColumn="channeltype">{{'ChannelTypeTitle' | translate | uppercase}}<p-sortIcon
+                <th class="min-title-column" pSortableColumn="channeltype">{{'ChannelTypeTitle' | translate | uppercase}}<p-sortIcon
                         field="channeltype">
                     </p-sortIcon>
                 </th>
 
-                <th>{{'ChannelTaglineTitle' | translate | uppercase}}</th>
+                <th class="min-title-column">{{'ChannelTaglineTitle' | translate | uppercase}}</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-channel>
