@@ -1,14 +1,17 @@
 <app-program-favorites></app-program-favorites>
+
+<div class="comp-border">
 <p-accordion value="0">
     <p-accordion-panel value="0">
         <p-accordion-header>{{'Categories' | translate}}</p-accordion-header>
         <p-accordion-content>
-            <p-selectButton [options]="categoryOptions" [(ngModel)]="localState.selectedCategory" optionLabel="label" optionValue="value"
+            <p-select-button [options]="categoryOptions" [(ngModel)]="localState.selectedCategory" optionLabel="label" optionValue="value"
                 (onChange)="onCategoryChanged($event, dt2)">
-            </p-selectButton>
+            </p-select-button>
         </p-accordion-content>
     </p-accordion-panel>
 </p-accordion>
+</div>
 
 <p-table #dt2 [value]="programs" responsiveLayout="stack" [paginator]="true" [rows]="pageSize" [totalRecords]="totalHits" (onLazyLoad)="loadLazy($event)" [lazy]="true"
     [globalFilterFields]="['name','channel.name','description']" styleClass="sr-table">

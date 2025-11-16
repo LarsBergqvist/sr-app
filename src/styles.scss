@@ -246,3 +246,16 @@ body .p-accordion .card {
   box-shadow: none !important;
   outline: none !important;
 }
+
+body p-togglebutton {
+  background-color: gray !important;
+  padding: 10px !important;
+  font-size: small !important;
+}
+
+.comp-border {
+  border: 1px solid base.$mainaccentcolor;
+  border-radius: 5px;
+  padding: 5px;
+}
+
