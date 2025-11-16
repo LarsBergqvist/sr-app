@@ -2,6 +2,17 @@
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
+    "paths": {
+      "@primeuix/utils/*": [
+        "node_modules/@primeuix/utils/dist/*"
+      ],
+      "@primeuix/styled/*": [
+        "node_modules/@primeuix/styled/dist/*"
+      ],
+      "@primeuix/styled": [
+        "node_modules/@primeuix/styled/dist/index.mjs"
+      ]
+    },
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,

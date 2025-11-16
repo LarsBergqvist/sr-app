@@ -1,9 +1,10 @@
 @use './base.scss';
 @import 'primeicons/primeicons.css';
-//@import 'primeng/resources/themes/rhea/theme.css';
-//@import 'primeng/resources/themes/nova/theme.css';
-@import 'primeng/resources/themes/mira/theme.css';
-@import 'primeng/resources/primeng.min.css';
+// PrimeNG v20 moves styling into separate packages; keep theme and core imports commented until styles are migrated
+// @import 'primeng/resources/themes/rhea/theme.css';
+// @import 'primeng/resources/themes/nova/theme.css';
+// @import 'primeng/resources/themes/mira/theme.css';
+// @import 'primeng/resources/primeng.min.css';
 @import 'primeflex/primeflex.css';
 
 * {
