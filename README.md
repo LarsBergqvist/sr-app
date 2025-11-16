@@ -11,8 +11,8 @@ An Angular application that uses the Open API of Swedish Public Radio
 
 ```
 cd sr-app
-yarn install
-yarn start
+npm install
+npm start
 
 ```
 # Main functionality

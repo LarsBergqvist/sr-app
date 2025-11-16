@@ -13,7 +13,7 @@ import { EpisodesLoadLazyArgs } from './episodes-table.component';
 @Component({
   standalone: true,
   selector: 'app-episodes-list',
-  imports: [CommonModule, TableModule, InputTextModule, EpisodesTableComponent, EpisodesBookmarksComponent, TranslatePipe],
+  imports: [CommonModule, TableModule, InputTextModule, EpisodesTableComponent, EpisodesBookmarksComponent],
   templateUrl: './episodes-list.component.html',
   styleUrls: ['../common/datatable-styling.scss']
 })
