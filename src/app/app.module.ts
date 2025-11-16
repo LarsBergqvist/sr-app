@@ -39,20 +39,7 @@ import { ProgramFavoritesComponent } from './components/programs/program-favorit
 
 registerLocaleData(locale);
 
-@NgModule({
-    bootstrap: [AppComponent], imports: [
-        BrowserModule,
-        AppRoutingModule,
-        TableModule,
-        ToolbarModule,
-        FormsModule,
-        BrowserAnimationsModule,
-        ToastModule,
-        ButtonModule,
-        InputTextModule,
-        CheckboxModule,
-        AccordionModule,
-        SelectButtonModule,
+@NgModule({ declarations: [
         AppComponent,
         NavigationBarComponent,
         ChannelsListComponent,
@@ -69,7 +56,19 @@ registerLocaleData(locale);
         EpisodesTableComponent,
         EpisodesBookmarksComponent,
         ProgramFavoritesComponent
-    ], providers: [
+    ],
+    bootstrap: [AppComponent], imports: [BrowserModule,
+        AppRoutingModule,
+        TableModule,
+        ToolbarModule,
+        FormsModule,
+        BrowserAnimationsModule,
+        ToastModule,
+        ButtonModule,
+        InputTextModule,
+        CheckboxModule,
+        AccordionModule,
+        SelectButtonModule], providers: [
         { provide: LOCALE_ID, useValue: 'sv' },
         MessageService,
         LoggingService,
