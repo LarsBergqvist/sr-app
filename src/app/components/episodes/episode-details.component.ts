@@ -1,4 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { TranslatePipe } from 'src/app/translations/translate.pipe';
+import { SongComponent } from '../common/song.component';
+import { ButtonModule } from 'primeng/button';
+import { ToastModule } from 'primeng/toast';
 import { Subject } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
 import { PlayAudioMessage } from 'src/app/messages/play-audio.message';
@@ -16,7 +22,9 @@ import { ActivatedRoute } from '@angular/router';
 import { NavigateBackMessage } from 'src/app/messages/navigate-back.message';
 
 @Component({
+  standalone: true,
   selector: 'app-episode-details',
+  imports: [CommonModule, RouterModule, ButtonModule, ToastModule, TranslatePipe, SongComponent],
   templateUrl: './episode-details.component.html',
   styles: [
     `

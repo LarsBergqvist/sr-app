@@ -1,4 +1,9 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { TableModule } from 'primeng/table';
+import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'primeng/button';
+import { TranslatePipe } from 'src/app/translations/translate.pipe';
 import { LazyLoadEvent } from 'primeng/api';
 import { fromEvent } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, tap } from 'rxjs/operators';
@@ -13,7 +18,9 @@ export interface EpisodesLoadLazyArgs {
   first: number;
 }
 @Component({
+  standalone: true,
   selector: 'app-episodes-table',
+  imports: [CommonModule, TableModule, InputTextModule, ButtonModule, TranslatePipe],
   templateUrl: './episodes-table.component.html',
   styleUrls: ['../common/datatable-styling.scss', './episodes-table.component.scss']
 })

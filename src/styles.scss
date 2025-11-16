@@ -1,10 +1,28 @@
 @use './base.scss';
 @import 'primeicons/primeicons.css';
-// PrimeNG v20 moves styling into separate packages; keep theme and core imports commented until styles are migrated
-// @import 'primeng/resources/themes/rhea/theme.css';
-// @import 'primeng/resources/themes/nova/theme.css';
-// @import 'primeng/resources/themes/mira/theme.css';
-// @import 'primeng/resources/primeng.min.css';
+// PrimeNG v20 moves styling into separate packages (PrimeUIX).
+// Theme and component styles are now provided by @primeuix packages and need to be added
+// from the installed @primeuix packages. There are two common ways to include them:
+//
+// A) Add theme & core CSS to the "styles" array in angular.json
+//    "styles": [
+//      "src/styles.scss",
+//      "node_modules/@primeuix/styled/dist/index.mjs",          // (example)
+//      "node_modules/@primeuix/styles/dist/base/index.mjs"     // (example)
+//    ]
+//
+// B) Import required style entrypoints from @primeuix in your main.ts (preferred
+//    when using module-based style exports). Example (src/main.ts):
+//
+//    // Import PrimeUIX base styles and any theme/preset you choose
+//    import '@primeuix/styles/base';
+//    // Optionally import component presets or styled helpers
+//    import '@primeuix/styled';
+//
+// NOTE: The exact import paths depend on the PrimeUIX package version and the
+// chosen theme/preset. Inspect node_modules/@primeuix to pick a preset or theme
+// (packages expose subpaths under dist/). If you want, I can add a specific
+// theme import (e.g. a free/default theme) and verify the app styles in a build.
 @import 'primeflex/primeflex.css';
 
 * {

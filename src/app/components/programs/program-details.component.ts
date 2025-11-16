@@ -1,4 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { EpisodesTableComponent } from '../episodes/episodes-table.component';
+import { TranslatePipe } from 'src/app/translations/translate.pipe';
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
@@ -12,7 +15,9 @@ import { EpisodesLoadLazyArgs } from '../episodes/episodes-table.component';
 import { ProgramsService } from 'src/app/services/programs.service';
 
 @Component({
+  standalone: true,
   selector: 'app-program-details',
+  imports: [CommonModule, EpisodesTableComponent, TranslatePipe],
   templateUrl: './program-details.component.html',
   styleUrls: ['./program-details.component.scss']
 })

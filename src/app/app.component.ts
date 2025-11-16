@@ -1,4 +1,15 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { TableModule } from 'primeng/table';
+import { ToolbarModule } from 'primeng/toolbar';
+import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+import { CheckboxModule } from 'primeng/checkbox';
+import { AccordionModule } from 'primeng/accordion';
+import { SelectButtonModule } from 'primeng/selectbutton';
 import { Router, RouterOutlet } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { Subject } from 'rxjs';
@@ -15,10 +26,14 @@ import { BackNavigationService } from './services/back-navigation.service';
 import { SRApiService } from './services/srapi.service';
 import { TranslationService } from './services/translation.service';
 import { SlideInAnimation } from './slide-animation';
+import { NavigationBarComponent } from './components/navigation/navigation-bar.component';
+import { AudioPlayerComponent } from './components/audio-player/audio-player.component';
 import { ShowEpisodeDetailsMessage } from './messages/show-episodedetails.message';
 
 @Component({
+  standalone: true,
   selector: 'app-root',
+  imports: [CommonModule, FormsModule, RouterModule, TableModule, ToolbarModule, ToastModule, ButtonModule, InputTextModule, CheckboxModule, AccordionModule, SelectButtonModule, NavigationBarComponent, AudioPlayerComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   animations: [SlideInAnimation]

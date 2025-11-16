@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ButtonModule } from 'primeng/button';
+import { ToastModule } from 'primeng/toast';
 import { PlayAudioMessage } from '../../messages/play-audio.message';
 import { MessageBrokerService } from '../../services/message-broker.service';
 import { filter, takeUntil } from 'rxjs/operators';
@@ -9,7 +12,9 @@ import { ShowEpisodeDetailsMessage } from 'src/app/messages/show-episodedetails.
 import { TranslationService } from 'src/app/services/translation.service';
 
 @Component({
+  standalone: true,
   selector: 'app-audio-player',
+  imports: [CommonModule, ButtonModule, ToastModule],
   templateUrl: './audio-player.component.html',
   styleUrls: ['./audio-player.component.scss']
 })

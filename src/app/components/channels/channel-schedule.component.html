@@ -6,9 +6,12 @@
     </div>
     <div>
         <span>
-            <p-checkbox (onChange)="onFilterShowOnlyCurrentAndFutureClicked($event, dt3)" [(ngModel)]="localState.showPrevious"
-                [binary]="true" label="{{'Visa tidigare' | translate }}" class="onlycurrentandfuture-chk"></p-checkbox>
-        </span>    
+            <label class="onlycurrentandfuture-chk">
+                <p-checkbox (onChange)="onFilterShowOnlyCurrentAndFutureClicked($event, dt3)" [(ngModel)]="localState.showPrevious"
+                    [binary]="true"></p-checkbox>
+                <span class="p-checkbox-label">{{'Visa tidigare' | translate }}</span>
+            </label>
+        </span>
     </div>
     <hr>
     <p-table #dt3 [value]="scheduledEpisodes" responsiveLayout="stack">

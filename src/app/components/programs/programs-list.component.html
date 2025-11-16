@@ -1,10 +1,13 @@
 <app-program-favorites></app-program-favorites>
 <p-accordion>
-    <p-accordionTab header="{{'Categories' | translate}}">
-        <p-selectButton [options]="categoryOptions" [(ngModel)]="localState.selectedCategory" optionLabel="label" optionValue="value"
-        (onChange)="onCategoryChanged($event, dt2)"
-        ></p-selectButton>
-    </p-accordionTab>
+    <p-accordionpanel>
+        <p-accordionheader>{{'Categories' | translate}}</p-accordionheader>
+        <p-accordioncontent>
+            <p-selectButton [options]="categoryOptions" [(ngModel)]="localState.selectedCategory" optionLabel="label" optionValue="value"
+                (onChange)="onCategoryChanged($event, dt2)">
+            </p-selectButton>
+        </p-accordioncontent>
+    </p-accordionpanel>
 </p-accordion>
 
 <p-table #dt2 [value]="programs" responsiveLayout="stack" [paginator]="true" [rows]="pageSize" [totalRecords]="totalHits" (onLazyLoad)="loadLazy($event)" [lazy]="true"

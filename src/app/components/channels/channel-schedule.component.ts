@@ -1,4 +1,11 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild, NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { TableModule } from 'primeng/table';
+import { CheckboxModule } from 'primeng/checkbox';
+import { TranslatePipe } from 'src/app/translations/translate.pipe';
+import { InputTextModule } from 'primeng/inputtext';
 import { ActivatedRoute } from '@angular/router';
 import { Table } from 'primeng/table';
 import { Subject } from 'rxjs';
@@ -15,7 +22,9 @@ import { SRApiService } from 'src/app/services/srapi.service';
 import { convertFromJSONstring } from 'src/app/utils/date-helper';
 
 @Component({
+  standalone: true,
   selector: 'app-channel-schedule',
+  imports: [CommonModule, FormsModule, RouterModule, TableModule, InputTextModule, CheckboxModule, TranslatePipe],
   templateUrl: './channel-schedule.component.html',
   styleUrls: ['../common/datatable-styling.scss']
 })

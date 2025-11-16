@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ButtonModule } from 'primeng/button';
+import { AccordionModule } from 'primeng/accordion';
+import { TableModule } from 'primeng/table';
+import { TranslatePipe } from 'src/app/translations/translate.pipe';
 import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 import { FavoriteChangedMessage } from 'src/app/messages/favorite-changed.message';
@@ -8,7 +13,10 @@ import { MessageBrokerService } from 'src/app/services/message-broker.service';
 import { ProgramsService } from 'src/app/services/programs.service';
 
 @Component({
+  standalone: true,
   selector: 'app-program-favorites',
+  imports: [CommonModule, ButtonModule, AccordionModule, TableModule, TranslatePipe],
+  // no schemas — use explicit imports for PrimeNG components
   templateUrl: './program-favorites.component.html',
   styleUrls: ['./program-favorites.component.scss']
 })

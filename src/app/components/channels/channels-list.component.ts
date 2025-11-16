@@ -1,5 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { TableModule } from 'primeng/table';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
 import { Subject } from 'rxjs';
+import { TranslatePipe } from 'src/app/translations/translate.pipe';
 import { takeUntil } from 'rxjs/operators';
 import { ShowChannelDetailsMessage } from 'src/app/messages/show-channeldetails.message';
 import { ShowChannelScheduleMessage } from 'src/app/messages/show-channelschedule.message';
@@ -10,7 +17,9 @@ import { MessageBrokerService } from '../../services/message-broker.service';
 import { Ga4Service } from 'src/app/services/ga4.services';
 
 @Component({
+  standalone: true,
   selector: 'app-channels-list',
+  imports: [CommonModule, FormsModule, RouterModule, TableModule, ButtonModule, InputTextModule, TranslatePipe],
   templateUrl: './channels-list.component.html',
   styleUrls: ['../common/datatable-styling.scss']
 })

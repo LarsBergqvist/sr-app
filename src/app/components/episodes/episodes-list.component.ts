@@ -1,11 +1,19 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { TableModule } from 'primeng/table';
+import { InputTextModule } from 'primeng/inputtext';
+import { EpisodesTableComponent } from './episodes-table.component';
+import { EpisodesBookmarksComponent } from './episodes-bookmarks.component';
+import { TranslatePipe } from 'src/app/translations/translate.pipe';
 import { EpisodesService } from 'src/app/services/episodes.service';
 import { SRApiService } from 'src/app/services/srapi.service';
 import { EpisodeViewModel } from './episode-viewmodel';
 import { EpisodesLoadLazyArgs } from './episodes-table.component';
 
 @Component({
+  standalone: true,
   selector: 'app-episodes-list',
+  imports: [CommonModule, TableModule, InputTextModule, EpisodesTableComponent, EpisodesBookmarksComponent, TranslatePipe],
   templateUrl: './episodes-list.component.html',
   styleUrls: ['../common/datatable-styling.scss']
 })

@@ -1,4 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { ButtonModule } from 'primeng/button';
+import { ToastModule } from 'primeng/toast';
+import { AccordionModule } from 'primeng/accordion';
+import { TranslatePipe } from 'src/app/translations/translate.pipe';
+import { SongComponent } from '../common/song.component';
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
@@ -9,6 +16,7 @@ import { Playlist } from 'src/app/models/playlist';
 import { RightNowEpisodes } from 'src/app/models/right-now-episodes';
 import { ScheduledEpisode } from 'src/app/models/scheduled-episode';
 import { Song } from 'src/app/models/song';
+import { ScheduledEpisodeComponent } from '../episodes/scheduled-episode.component';
 import { EpisodesService } from 'src/app/services/episodes.service';
 import { MessageBrokerService } from 'src/app/services/message-broker.service';
 import { PlaylistsService } from 'src/app/services/playlists.service';
@@ -16,7 +24,9 @@ import { SRApiService } from 'src/app/services/srapi.service';
 import { convertFromJSONstring } from 'src/app/utils/date-helper';
 
 @Component({
+  standalone: true,
   selector: 'app-channel-details',
+  imports: [CommonModule, RouterModule, ButtonModule, ToastModule, AccordionModule, TranslatePipe, SongComponent, ScheduledEpisodeComponent],
   templateUrl: './channel-details.component.html'
 })
 export class ChannelDetailsComponent implements OnInit, OnDestroy {

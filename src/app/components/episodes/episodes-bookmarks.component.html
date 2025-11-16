@@ -1,6 +1,9 @@
 <p-accordion>
-    <p-accordionTab header="{{ 'Bookmarks' | translate }}">
-        <app-episodes-table [episodes]="episodes" (onLoadLazy)="loadLazy($event)" [totalHits]="totalHits"
-            [pageSize]="pageSize" [showProgramName]="true"></app-episodes-table>
-    </p-accordionTab>
+    <p-accordionpanel>
+        <p-accordionheader>{{ 'Bookmarks' | translate }}</p-accordionheader>
+        <p-accordioncontent>
+            <app-episodes-table [episodes]="episodes" (onLoadLazy)="loadLazy($event)" [totalHits]="totalHits"
+                [pageSize]="pageSize" [showProgramName]="true"></app-episodes-table>
+        </p-accordioncontent>
+    </p-accordionpanel>
 </p-accordion>

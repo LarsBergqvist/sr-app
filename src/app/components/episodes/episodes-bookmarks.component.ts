@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { TableModule } from 'primeng/table';
+import { ButtonModule } from 'primeng/button';
+import { AccordionModule } from 'primeng/accordion';
+import { EpisodesTableComponent } from './episodes-table.component';
+import { TranslatePipe } from 'src/app/translations/translate.pipe';
 import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 import { BookmarkChangedMessage } from 'src/app/messages/bookmark-changed.message';
@@ -9,7 +15,9 @@ import { EpisodeViewModel } from './episode-viewmodel';
 import { EpisodesLoadLazyArgs } from './episodes-table.component';
 
 @Component({
+  standalone: true,
   selector: 'app-episodes-bookmarks',
+  imports: [CommonModule, TableModule, ButtonModule, AccordionModule, EpisodesTableComponent, TranslatePipe],
   templateUrl: './episodes-bookmarks.component.html',
   styleUrls: ['./episodes-bookmarks.component.scss']
 })

@@ -1,37 +1,40 @@
 <p-accordion>
-    <p-accordionTab header="{{ 'Favorites' | translate }}">
-        <p-table #dt2 [value]="programs" responsiveLayout="stack" [lazy]="false"
-        [globalFilterFields]="['name','channel.name','description']">
-        <ng-template pTemplate="header">
-            <tr>
-                <th class="min-title-column" pSortableColumn="name">{{'ProgramNameTitle' | translate | uppercase }}<p-sortIcon field="name">
-                    </p-sortIcon>
-                </th>
-                <th>{{'Description' | translate | uppercase}}</th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-program>
-            <tr>
-                <td class="min-title-column">
-                    <div class="p-grid" style="width:100%">
-                        <span (click)="onProgramDetails(program)" class="clickable p-col-8">
-                            <img class="image-thumb" src={{program.programimage}} />
-                            <span class="prg-title">
-                                {{program.name}}
-                            </span>
-                        </span>
-                        <span class="p-col-4" style="float:right;padding-top:0px">
-                            <span class="clickable" (click)="onProgramDetails(program)"><i
-                                    class="pi pi-info-circle details-btn"></i>
-                            </span>
-                        </span>
-                    </div>
-                </td>
-                <td class="description-td" style="border:none">
-                    {{program.description}}
-                </td>
-            </tr>
-        </ng-template>
-    </p-table>
-    </p-accordionTab>
+    <p-accordionpanel>
+        <p-accordionheader>{{ 'Favorites' | translate }}</p-accordionheader>
+        <p-accordioncontent>
+            <p-table #dt2 [value]="programs" responsiveLayout="stack" [lazy]="false"
+                [globalFilterFields]="['name','channel.name','description']">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th class="min-title-column" pSortableColumn="name">{{'ProgramNameTitle' | translate | uppercase }}<p-sortIcon field="name">
+                            </p-sortIcon>
+                        </th>
+                        <th>{{'Description' | translate | uppercase}}</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-program>
+                    <tr>
+                        <td class="min-title-column">
+                            <div class="p-grid" style="width:100%">
+                                <span (click)="onProgramDetails(program)" class="clickable p-col-8">
+                                    <img class="image-thumb" src={{program.programimage}} />
+                                    <span class="prg-title">
+                                        {{program.name}}
+                                    </span>
+                                </span>
+                                <span class="p-col-4" style="float:right;padding-top:0px">
+                                    <span class="clickable" (click)="onProgramDetails(program)"><i
+                                            class="pi pi-info-circle details-btn"></i>
+                                    </span>
+                                </span>
+                            </div>
+                        </td>
+                        <td class="description-td" style="border:none">
+                            {{program.description}}
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </p-accordioncontent>
+    </p-accordionpanel>
 </p-accordion>

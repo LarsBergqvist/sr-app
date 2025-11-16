@@ -1,4 +1,10 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { TableModule } from 'primeng/table';
+import { AccordionModule } from 'primeng/accordion';
+import { SelectButtonModule } from 'primeng/selectbutton';
 import { SelectItem } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { Subject } from 'rxjs';
@@ -11,9 +17,13 @@ import { SRApiService } from 'src/app/services/srapi.service';
 import { TranslationService } from 'src/app/services/translation.service';
 import { Program } from '../../models/program';
 import { ProgramsService } from 'src/app/services/programs.service';
+import { ProgramFavoritesComponent } from './program-favorites.component';
+import { TranslatePipe } from 'src/app/translations/translate.pipe';
 
 @Component({
+  standalone: true,
   selector: 'app-programs-list',
+  imports: [CommonModule, FormsModule, TableModule, AccordionModule, SelectButtonModule, ProgramFavoritesComponent, TranslatePipe],
   templateUrl: './programs-list.component.html',
   styleUrls: ['../common/datatable-styling.scss', './programs-list.component.scss']
 })
