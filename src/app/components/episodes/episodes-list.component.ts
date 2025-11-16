@@ -4,7 +4,6 @@ import { TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
 import { EpisodesTableComponent } from './episodes-table.component';
 import { EpisodesBookmarksComponent } from './episodes-bookmarks.component';
-import { TranslatePipe } from 'src/app/translations/translate.pipe';
 import { EpisodesService } from 'src/app/services/episodes.service';
 import { SRApiService } from 'src/app/services/srapi.service';
 import { EpisodeViewModel } from './episode-viewmodel';
