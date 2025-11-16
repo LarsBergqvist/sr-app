@@ -15,7 +15,7 @@ describe('ChannelsListComponent', () => {
         getChannels: jasmine.createSpy('getChannels')
       };
       TestBed.configureTestingModule({
-        declarations: [ChannelsListComponent],
+        imports: [ChannelsListComponent],
         schemas: [CUSTOM_ELEMENTS_SCHEMA],
         providers: [{ provide: SRApiService, useValue: service }]
       }).compileComponents();

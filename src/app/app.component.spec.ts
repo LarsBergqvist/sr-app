@@ -16,8 +16,7 @@ describe('AppComponent', () => {
         fetchBaseData: jasmine.createSpy('fetchBaseData')
       };
       TestBed.configureTestingModule({
-        imports: [RouterTestingModule],
-        declarations: [AppComponent, TranslatePipe],
+        imports: [RouterTestingModule, AppComponent, TranslatePipe],
         schemas: [CUSTOM_ELEMENTS_SCHEMA],
         providers: [
           { provide: SRApiService, useValue: service },
